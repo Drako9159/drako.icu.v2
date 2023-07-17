@@ -64,7 +64,6 @@ class Users {
         new: true,
       }
     )) as IUser;
-    //return user;
     return {
       firstName: user.firstName,
       lastName: user.lastName,

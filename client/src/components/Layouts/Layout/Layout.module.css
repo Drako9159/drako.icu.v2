@@ -1,0 +1,37 @@
+@font-face {
+    font-family: "Montserrat";
+    font-weight: 400;
+    /*src: url("../../assets/fonts/Montserrat-Regular.woff2") format("woff2");*/
+    src: url("/fonts/Montserrat-Regular.woff2") format("woff2");
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: "Tumble";
+    font-weight: 600;
+    /*src: url("../../assets/fonts/TumblyA2.otf");*/
+    src: url("/fonts/TumblyA2.otf");
+    font-display: swap;
+  }
+  
+  .container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    transition: background-color 0.5s ease;
+    min-width: 320px;
+  }
+  
+  
+  *::-webkit-scrollbar {
+    width: 12px;
+  }
+  
+  *::-webkit-scrollbar-track {
+    background: #8c8d94;
+  }
+  
+  *::-webkit-scrollbar-thumb {
+    background-color: #424247;
+  }
+  

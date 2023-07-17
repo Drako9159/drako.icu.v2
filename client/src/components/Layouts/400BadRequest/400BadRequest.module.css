@@ -1,0 +1,29 @@
+.container {
+    margin-top: 50px;
+    font-family: "Montserrat";
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  .container h4 {
+    margin: 0;
+  }
+  .button {
+    text-decoration: none;
+    font-size: 15px;
+    padding: 20px;
+    border-radius: 50px;
+    border: none;
+    margin-top: 20px;
+    cursor: pointer;
+  }
+  .buttonDay {
+    background-color: #121213;
+    color: #ececec;
+  }
+  .buttonNight {
+    background-color: #ececec;
+    color: #121213;
+  }
+  

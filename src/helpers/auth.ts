@@ -20,17 +20,33 @@ class Auth {
   }
 
   async register() {
-    const user = await new User({
+    const userDB = await new User({
       firstName: this.firstName,
       lastName: this.lastName,
       email: this.email,
       password: await User.encryptPassword(this.password),
     });
-    const saveUser = await user.save();
-    const jwt = sign({ id: user.id, type: user.type }, config.jwtSecret as string, {
-      expiresIn: "4h",
-    });
-    return jwt;
+    const saveUser = await userDB.save();
+    const jwt = sign(
+      { id: userDB.id, type: userDB.type },
+      config.jwtSecret as string,
+      {
+        expiresIn: "4h",
+      }
+    );
+    return {
+      user: {
+        id: userDB._id,
+        firstName: userDB.firstName,
+        lastName: userDB.lastName,
+        email: userDB.email,
+        createdAt: userDB.createdAt,
+        updatedAt: userDB.updatedAt,
+        type: userDB.type,
+      },
+      jwt,
+    };
+    // return jwt;
   }
 
   async findOneUser() {
@@ -39,16 +55,33 @@ class Auth {
 
   async login() {
     const userDB = await User.findOne({ email: this.email });
+
     if (!userDB) return "Wrong email!!";
     const validPassword = await User.comparePassword(
       this.password,
       userDB.password
     );
     if (!validPassword) return "Wrong password!!";
-    const jwt = sign({ id: userDB.id, type: userDB.type }, config.jwtSecret as string, {
-      expiresIn: "4h",
-    });
-    return jwt;
+    const jwt = sign(
+      { id: userDB.id, type: userDB.type },
+      config.jwtSecret as string,
+      {
+        expiresIn: "4h",
+      }
+    );
+    return {
+      user: {
+        id: userDB._id,
+        firstName: userDB.firstName,
+        lastName: userDB.lastName,
+        email: userDB.email,
+        createdAt: userDB.createdAt,
+        updatedAt: userDB.updatedAt,
+        type: userDB.type,
+      },
+      jwt
+    };
+    // return jwt;
   }
 }
 

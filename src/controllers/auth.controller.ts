@@ -11,16 +11,14 @@ export async function register(req: Request, res: Response) {
         400,
         "Error 400 - Please Fill Elements!!"
       );
-    const user = new Auth(email, password, firstName, lastName);
-    if (await user.findOneUser())
+    const auth = new Auth(email, password, firstName, lastName);
+    if (await auth.findOneUser())
       return handleErrorResponse(res, 400, "Error 400 - User Is Registered!!");
 
-    const register = await user.register();
+    const user = await auth.register();
     return res.status(201).json({
-      firstName,
-      lastName,
-      email,
-      jwt: register,
+      message: "Successfully register!",
+      ...user,
     });
   } catch (error) {
     console.log(error);
@@ -31,16 +29,15 @@ export async function register(req: Request, res: Response) {
 export async function login(req: Request, res: Response) {
   try {
     const { email, password } = req.body;
-    const user = new Auth(email, password);
-    const login = await user.login();
-
-    if (login === "Wrong email!!")
+    const auth = new Auth(email, password);
+    const user = await auth.login();
+    if (user === "Wrong email!!")
       return handleErrorResponse(
         res,
         400,
         "The email address entered is not registered!"
       );
-    if (login == "Wrong password!!")
+    if (user == "Wrong password!!")
       return handleErrorResponse(
         res,
         400,
@@ -48,7 +45,7 @@ export async function login(req: Request, res: Response) {
       );
     return res
       .status(201)
-      .json({ message: "Successfully authentication", jwt: login });
+      .json({ message: "Successfully authentication", ...user });
   } catch (error) {
     return handleErrorResponse(res);
   }

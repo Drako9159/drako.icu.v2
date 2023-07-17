@@ -81,9 +81,7 @@ export async function getOnePost(req: Request, res: Response) {
     const id = req.params.id;
     const posts = new Posts(id);
     const post = await posts.getOnePost();
-    if(!post){
-      return handleErrorResponse(res, 404, "Post doesn't exist!")
-    }
+    if (!post) return handleErrorResponse(res, 404, "Post doesn't exist!");
     return res.status(201).json({
       post,
     });
