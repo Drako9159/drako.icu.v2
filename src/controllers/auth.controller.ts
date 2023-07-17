@@ -44,7 +44,7 @@ export async function login(req: Request, res: Response) {
         "The password entered is not valid!"
       );
     return res
-      .status(201)
+      .status(200)
       .json({ message: "Successfully authentication", ...user });
   } catch (error) {
     return handleErrorResponse(res);

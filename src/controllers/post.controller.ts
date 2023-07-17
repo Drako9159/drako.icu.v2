@@ -67,7 +67,7 @@ export async function saveOnePost(req: Request, res: Response) {
 export async function getAllPosts(req: Request, res: Response) {
   try {
     const posts = await Posts.getAllPosts();
-    return res.status(201).json({
+    return res.status(200).json({
       posts,
     });
   } catch (error) {
@@ -82,7 +82,7 @@ export async function getOnePost(req: Request, res: Response) {
     const posts = new Posts(id);
     const post = await posts.getOnePost();
     if (!post) return handleErrorResponse(res, 404, "Post doesn't exist!");
-    return res.status(201).json({
+    return res.status(200).json({
       post,
     });
   } catch (error) {
@@ -96,7 +96,7 @@ export async function deleteOnePost(req: Request, res: Response) {
     const id = req.params.id;
     const posts = new Posts(id);
     const post = await posts.getAndDelete();
-    return res.status(201).json({
+    return res.status(204).json({
       message: "User Deleted",
       posts,
     });
@@ -139,7 +139,7 @@ export async function updateOnePost(req: Request, res: Response) {
       content
     );
     const post = await posts.getAndUpdate();
-    return res.status(201).json({
+    return res.status(200).json({
       message: "Post Updated",
       post,
     });

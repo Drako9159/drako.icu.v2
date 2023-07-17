@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "./components/Layouts/Layout/Layout";
 import Wrapper from "./components/Layouts/Wrapper/Wrapper";
 import ScrollTopTop from "./hooks/useScroll";
-import Dashboard from "./pages/Dashboard/Dashboard";
+import Dashboard from "./pages/Dashboard";
 import NotFound from "./components/Layouts/404NotFound/404NotFound";
 
 export default function App() {

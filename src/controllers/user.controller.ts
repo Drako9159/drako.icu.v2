@@ -5,7 +5,7 @@ import Users from "../helpers/user";
 export async function getAllUsers(req: Request, res: Response) {
   try {
     const users = await Users.getAllUsers();
-    return res.status(201).json({
+    return res.status(200).json({
       users,
     });
   } catch (error) {
@@ -19,7 +19,7 @@ export async function getOneUser(req: Request, res: Response) {
     const users = await new Users(id);
     const user = await users.getOneUser();
     if (!user) return handleErrorResponse(res, 400, "User doesn't exist!");
-    return res.status(201).json({
+    return res.status(200).json({
       user,
     });
   } catch (error) {
@@ -33,7 +33,7 @@ export async function deleteOneUser(req: Request, res: Response) {
     const id = req.params.id;
     const users = await new Users(id);
     const user = await users.getAndDelete();
-    return res.status(201).json({
+    return res.status(204).json({
       message: "User Deleted",
       users,
     });
@@ -54,7 +54,7 @@ export async function updateOneUser(req: Request, res: Response) {
     const users = await new Users(id, firstName, lastName, type);
     const user = await users.getAndUpdate();
 
-    return res.status(201).json({
+    return res.status(200).json({
       message: "User Updated",
       user,
     });

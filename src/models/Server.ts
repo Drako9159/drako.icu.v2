@@ -16,6 +16,11 @@ class Server {
     user: "/api/users",
     post: "/api/posts"
   };
+  private corsOptions = {
+    origin: ["http://localhost:5173"],
+    exposedHeaders: ["authorization"],
+    credentials: true
+  }
 
   constructor() {
     this.app = express();
@@ -32,7 +37,7 @@ class Server {
 
   middlewares(){
     this.app.use(express.json())
-    this.app.use(cors())
+    this.app.use(cors(this.corsOptions))
   }
 
   routes(){
