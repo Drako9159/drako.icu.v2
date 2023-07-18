@@ -6,7 +6,7 @@ const router: Router = Router();
 
 router.post("/create-one-post", saveOnePost);
 
-router.get("/get-all-posts", validateToken, getAllPosts);
+router.get("/get-all-posts", getAllPosts);
 
 router.get("/get-one-post/:id", getOnePost)
 

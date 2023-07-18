@@ -1,11 +1,12 @@
 import DashboardMain from "../components/Dashboard/DashboardMain";
 import DashboardNav from "../components/Dashboard/DashboardNav";
-
+import { useState } from "react"
 export default function Dashboard() {
+    const [element, setElement] = useState("Posts");
   return (
     <>
-      <DashboardNav />
-      <DashboardMain />
+      <DashboardNav setElement={setElement} element={element}/>
+      <DashboardMain element={element}/>
     </>
   );
 }
