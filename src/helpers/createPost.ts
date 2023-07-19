@@ -11,6 +11,7 @@ class CreatePost {
   private author: string;
   private date: string;
   private content: string;
+  private image: string
 
   constructor(
     title: string,
@@ -22,18 +23,21 @@ class CreatePost {
     read_time: string,
     author: string,
     date: string,
-    content: string
+    content: string,
+    image: string
   ) {
     this.title = title;
     this.category = category;
     this.tag = tag;
     this.language = language;
     this.color = color;
+    this.image = image;
     this.description = description;
     this.read_time = read_time;
     this.author = author;
     this.date = date;
     this.content = content;
+    
   }
 
   async savePost() {
@@ -43,11 +47,13 @@ class CreatePost {
       tag: this.tag,
       language: this.language,
       color: this.color,
+      image: this.image,
       description: this.description,
       read_time: this.read_time,
       author: this.author,
       date: this.date,
       content: this.content,
+      
     });
     const savedPost = await post.save();
     return savedPost;

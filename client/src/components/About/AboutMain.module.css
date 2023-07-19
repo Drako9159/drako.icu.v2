@@ -1,0 +1,126 @@
+.container {
+    font-family: "Montserrat";
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+   
+  }
+  
+  .containerNight {
+    color: #ececec;
+  }
+  .containerDay {
+    color: #121213;
+  }
+  .left {
+    width: 39%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .left h1 {
+    font-size: 2.3rem;
+    margin: 0;
+    line-height: 50px;
+  }
+  .left h1:nth-child(2) {
+    color: #7f7f85;
+  }
+  .right {
+    width: 50%;
+  
+    width: 50%;
+    height: 100%;
+    font-family: "Tumble";
+  }
+  .logotype {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .logoHead {
+    border-radius: 10px;
+    padding: 20px;
+    font-size: 4rem;
+    margin: 0;
+  }
+  .logosSub {
+    display: flex;
+  }
+  .logosSub h2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    font-size: 2rem;
+    width: 70px;
+    height: 70px;
+    margin: 5px;
+  }
+  .logosSub h2:nth-child(1) {
+    background-color: #f11818;
+  }
+  .logosSub h2:nth-child(2) {
+    background-color: #ff8800;
+  }
+  .logosSub h2:nth-child(3) {
+    background-color: #19c8ce;
+  }
+  .logosSub h2:nth-child(4) {
+    background-color: #26c000;
+  }
+  
+  @media screen and (max-width: 1000px) {
+    .container {
+      flex-direction: column;
+    }
+    .left {
+      width: 95%;
+  
+      margin: 0 auto;
+    }
+    .left h1 {
+      font-size: 1.8em;
+  
+      margin: 0;
+      line-height: 40px;
+    }
+    .right {
+      width: 100%;
+      margin-top: 20px;
+    }
+  }
+  .animation1 {
+    animation: animateText1 0.4s ease;
+  }
+  @keyframes animateText1 {
+    0% {
+      opacity: 0;
+      margin-top: 20px;
+    }
+  
+    100% {
+      opacity: 1;
+      margin-top: 0;
+    }
+  }
+  .animation2 {
+    animation: animateText2 0.7s ease-in-out;
+  }
+  @keyframes animateText2 {
+    0% {
+      opacity: 0;
+      margin-top: 30px;
+    }
+  
+    100% {
+      opacity: 1;
+      margin-top: 0;
+    }
+  }
+  

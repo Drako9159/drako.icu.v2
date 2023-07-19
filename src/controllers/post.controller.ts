@@ -14,6 +14,7 @@ export async function saveOnePost(req: Request, res: Response) {
       tag,
       language,
       color,
+      image,
       description,
       read_time,
       author,
@@ -27,6 +28,7 @@ export async function saveOnePost(req: Request, res: Response) {
       !tag ||
       !language ||
       !color ||
+      !image ||
       !description ||
       !read_time ||
       !author ||
@@ -47,6 +49,7 @@ export async function saveOnePost(req: Request, res: Response) {
       tag,
       language,
       color,
+      image,
       description,
       read_time,
       author,
@@ -115,6 +118,7 @@ export async function updateOnePost(req: Request, res: Response) {
       tag,
       language,
       color,
+      image,
       description,
       read_time,
       author,
@@ -132,6 +136,7 @@ export async function updateOnePost(req: Request, res: Response) {
       tag,
       language,
       color,
+      image,
       description,
       read_time,
       author,

@@ -1,0 +1,16 @@
+.container h2,
+.container h3,
+.container h4 {
+  color: #26C000;
+}
+.container blockquote {
+  background: #26c00010;
+  border-color: #26C000;
+}
+.container blockquote p {
+  color: #26C000;
+
+}
+.container a {
+  color: #26C000;
+}

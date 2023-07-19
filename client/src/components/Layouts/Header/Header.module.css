@@ -1,552 +1,551 @@
 /* Container */
 .container {
-    font-family: "Montserrat";
-  
-    width: 100%;
-    min-height: 135px;
-    display: flex;
-    justify-content: space-between;
-    -webkit-tap-highlight-color: transparent;
+  font-family: "Montserrat";
+
+  width: 100%;
+  min-height: 135px;
+  display: flex;
+  justify-content: space-between;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.title h3 {
+  margin: 0;
+  font-size: 26px;
+}
+.title .linkTitle {
+  cursor: pointer;
+  padding: 18px;
+  margin: 0;
+  font-size: 1.7rem;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.title .linkTitle:before {
+  content: "";
+  position: relative;
+  display: block;
+  top: 33px;
+  height: 2px;
+  max-width: 0;
+  transition: transform 0.3s ease;
+  transition: max-width 0.6s cubic-bezier(0.25, 0, 0, 1);
+}
+.title .linkTitle:hover:before {
+  max-width: 200px;
+}
+
+.titleDay .linkTitle:before {
+  background-color: #121213;
+}
+.titleNight .linkTitle:before {
+  background-color: #ececec;
+}
+
+.nav ul {
+  display: flex;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  justify-content: center;
+  align-items: center;
+  width: 700px;
+}
+.nav ul li {
+  font-size: 1.1rem;
+  padding: 18px;
+  margin: 0;
+  transition: color 0.3s ease;
+}
+.nav .linksDesktop:before {
+  content: "";
+  position: relative;
+  display: block;
+  top: 25px;
+  height: 2px;
+  max-width: 0;
+  transition: transform 0.3s ease;
+  transition: max-width 0.6s cubic-bezier(0.25, 0, 0, 1);
+}
+.nav .linksDesktop:hover:before {
+  max-width: 200px;
+}
+
+.navNight .linksDesktop:before {
+  background-color: #ececec;
+}
+.navNight .linksDesktop:before {
+  max-width: 200;
+}
+
+.navNight .linksDesktop {
+  color: #c4c4c4;
+}
+.navNight .linksDesktop:hover h3 {
+  transition: color 0.6s ease;
+  color: #ececec;
+}
+
+.navDay .linksDesktop:before {
+  background-color: #121213;
+}
+.navDay .linksDesktop h3 {
+  color: #53545e;
+}
+.navDay .linksDesktop:hover h3 {
+  transition: color 0.6s ease;
+  color: #000000;
+}
+
+/* Nav Desktop */
+.linksDesktop {
+  text-decoration: none;
+  cursor: pointer;
+}
+.linksDesktop h3 {
+  margin: 0;
+  font-size: 16px;
+}
+
+/* Active link */
+.nav .activeLinkNight:before {
+  max-width: 200px;
+}
+.nav .activeLinkDay:before {
+  max-width: 200px;
+}
+.nav .activeLinkNight h3 {
+  color: #ececec;
+}
+.nav .activeLinkDay h3 {
+  color: #000000;
+}
+/**/
+
+/* Burguer Button */
+
+.hamburgerNav {
+  position: absolute;
+  flex-direction: column;
+  right: 0;
+  top: 135px;
+  width: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+.hamburgerActive {
+  display: flex;
+}
+.hamburgerNotActive {
+  display: none;
+}
+.hamburgerNav ul {
+  overflow-x: hidden;
+  display: -webkit-box;
+  scroll-behavior: smooth;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 500px;
+  opacity: 1;
+  animation: transitionButton 0.3s ease;
+  z-index: 200;
+}
+@keyframes transitionButton {
+  0% {
+    opacity: 0;
+    max-height: 0px;
   }
-  
-  .title {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  50% {
   }
-  .title h3 {
-    margin: 0;
-    font-size: 26px;
+  100% {
+    opacity: 1;
+    max-height: 500px;
   }
-  .title .linkTitle {
-    cursor: pointer;
-    padding: 18px;
-    margin: 0;
-    font-size: 1.7rem;
-    text-decoration: none;
-    -webkit-tap-highlight-color: transparent;
+}
+.hamburgerNav .linksDesktop {
+  display: flex;
+  padding: 40px;
+  cursor: pointer;
+  width: 100%;
+}
+.hamburgerNavNight .linksDesktop {
+  background-color: #4e4e53;
+}
+.hamburgerNavNight .linksDesktop h3 {
+  color: #c4c4c4;
+}
+
+.hamburgerNavNight .linksDesktop:hover {
+  background-color: #636368;
+  transition: background 0.3s ease;
+}
+.hamburgerNavDay .linksDesktop {
+  background-color: #d0d1d6;
+}
+.hamburgerNavDay .linksDesktop h3 {
+  color: #3d3e44;
+}
+.hamburgerNavDay .linksDesktop:hover {
+  background-color: rgb(96, 96, 102);
+  transition: background 0.3s ease;
+}
+.hamburgerNavDay .linksDesktop:hover h3 {
+  color: #dee1ec;
+}
+
+/* Burguer Button */
+
+/* Buttons */
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 150px;
+  min-width: 120px;
+}
+.dayOrNight {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+  width: 3.3rem;
+  height: 3.3rem;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease;
+}
+
+.setDay {
+  box-shadow: 0 0 0 2px #9f9fa3e3;
+}
+.setDay:hover {
+  box-shadow: 0 0 0 2px #29292be3;
+}
+.setNight {
+  box-shadow: 0 0 0 2px #b4b4c4bd;
+}
+.setNight:hover {
+  box-shadow: 0 0 0 2px #ffffffbd;
+}
+/* Buttons */
+.pickDay {
+  width: 1.5rem;
+  height: 1.5rem;
+  position: relative;
+  opacity: 0;
+}
+.pickDayAnimation {
+  width: 1.5rem;
+  height: 1.5rem;
+  position: relative;
+  transform: translateX(12px);
+}
+.pickDayAnimationOn {
+  animation: day 1s ease;
+}
+
+@keyframes day {
+  0% {
+    transform: translateX(50px);
+    opacity: 0;
   }
-  
-  .title .linkTitle:before {
-    content: "";
-    position: relative;
-    display: block;
-    top: 33px;
-    height: 2px;
-    max-width: 0;
-    transition: transform 0.3s ease;
-    transition: max-width 0.6s cubic-bezier(0.25, 0, 0, 1);
+  5% {
+    transform: translateX(0px);
+    transform: rotate(-40deg);
+    opacity: 0;
   }
-  .title .linkTitle:hover:before {
-    max-width: 200px;
+  100% {
+    opacity: 1;
   }
-  
-  .titleDay .linkTitle:before {
-    background-color: #121213;
+}
+.pickNight {
+  width: 1.5rem;
+  height: 1.5rem;
+  position: relative;
+  opacity: 0;
+  visibility: hidden;
+}
+.pickNightAnimation {
+  width: 1.5rem;
+  height: 1.5rem;
+  position: relative;
+
+  filter: contrast(1%);
+  transform: translateX(-11px);
+}
+.pickNightAnimationOn {
+  animation: night 1s ease;
+}
+
+@keyframes night {
+  0% {
+    transform: translateX(-50px);
+    opacity: 0;
   }
-  .titleNight .linkTitle:before {
-    background-color: #ececec;
+  5% {
+    transform: translateX(0px);
+    transform: rotate(40deg);
+    opacity: 0;
   }
-  
-  .nav ul {
-    display: flex;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    justify-content: center;
-    align-items: center;
-    width: 700px;
+  100% {
+    opacity: 1;
   }
-  .nav ul li {
-    font-size: 1.1rem;
-    padding: 18px;
-    margin: 0;
-    transition: color 0.3s ease;
+}
+/* Circle Animation */
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.icon .svg {
+  width: 4.3rem;
+  height: 4.3rem;
+  cursor: pointer;
+  animation: iconSvg 10s linear infinite;
+  /*box-shadow: 0 0 0 2px rgba(131, 131, 134, 0.404);
+         */
+  border-radius: 100%;
+}
+
+@keyframes iconSvg {
+  0% {
+    transform: rotate(360deg);
   }
-  .nav .linksDesktop:before {
-    content: "";
-    position: relative;
-    display: block;
-    top: 25px;
-    height: 2px;
-    max-width: 0;
-    transition: transform 0.3s ease;
-    transition: max-width 0.6s cubic-bezier(0.25, 0, 0, 1);
+}
+
+.containerBtn {
+  margin: 0 auto;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+  width: 3.3rem;
+  height: 3.3rem;
+
+  cursor: pointer;
+  transition: box-shadow 0.3s ease;
+  display: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.containerBtnNight:hover {
+  box-shadow: 0 0 0 2px #19ff71f8;
+}
+.containerBtnDay:hover {
+  box-shadow: 0 0 0 2px #1f1f20e3;
+}
+.containerBtnDay {
+  box-shadow: 0 0 0 2px rgba(131, 131, 134, 0.404);
+}
+.containerBtnNight {
+  box-shadow: 0 0 0 2px rgba(230, 230, 230, 0.404);
+}
+.containerBtnDay span {
+  color: #1f1f20e3;
+  background-color: #1f1f20e3;
+}
+.containerBtnNight span {
+  color: #1f1f20e3;
+  background-color: #d3d3d3e3;
+}
+.btn {
+  /*display: none;*/
+  width: 25px;
+  cursor: pointer;
+}
+.span span {
+  display: block;
+  width: 100%;
+  padding: 1px;
+  box-shadow: 0 1px 1px 0 rgba(153, 153, 153, 0.3);
+  border-radius: 3px;
+  height: 0;
+  background-color: #e2e3f167;
+  transition: all 0.3s;
+  position: relative;
+}
+.span span + span {
+  margin-top: 5px;
+}
+.active span:nth-child(1) {
+  animation: ease 0.5s top forwards;
+}
+.notActive span:nth-child(1) {
+  animation: ease 0.5s top-2 forwards;
+}
+.notActive span:nth-child(2) {
+  animation: ease 0.5s scaled-2 forwards;
+  box-shadow: inset 0 0 3px 0 red7;
+}
+.notActive span:nth-child(3) {
+  animation: ease 0.5s bottom-2 forwards;
+}
+.active span:nth-child(2) {
+  animation: ease 0.5s scaled forwards;
+}
+.active span:nth-child(3) {
+  animation: ease 0.5s bottom forwards;
+  box-shadow: inset 0 0 3px 0 #cecfda67;
+}
+@keyframes top {
+  0% {
+    top: 0;
+    transform: rotate(0);
   }
-  .nav .linksDesktop:hover:before {
-    max-width: 200px;
+  50% {
+    top: 8px;
+    transform: rotate(0);
   }
-  
-  .navNight .linksDesktop:before {
-    background-color: #ececec;
+  100% {
+    top: 8px;
+    transform: rotate(45deg);
   }
-  .navNight .linksDesktop:before {
-    max-width: 200;
+}
+@keyframes top-2 {
+  0% {
+    top: 5px;
+    transform: rotate(45deg);
   }
-  
-  .navNight .linksDesktop {
-    color: #c4c4c4;
+  50% {
+    top: 5px;
+    transform: rotate(0);
   }
-  .navNight .linksDesktop:hover h3 {
-    transition: color 0.6s ease;
-    color: #ececec;
+  100% {
+    top: 0;
+    transform: rotate(0);
   }
-  
-  .navDay .linksDesktop:before {
-    background-color: #121213;
+}
+@keyframes bottom {
+  0% {
+    bottom: 5px;
+    transform: rotate(0);
   }
-  .navDay .linksDesktop h3 {
-    color: #53545e;
+  50% {
+    bottom: 5px;
+    transform: rotate(0);
   }
-  .navDay .linksDesktop:hover h3 {
-    transition: color 0.6s ease;
-    color: #000000;
+  100% {
+    bottom: 6px;
+    transform: rotate(135deg);
   }
-  
-  /* Nav Desktop */
-  .linksDesktop {
-    text-decoration: none;
-    cursor: pointer;
+}
+@keyframes bottom-2 {
+  0% {
+    bottom: 5px;
+    transform: rotate(135deg);
   }
-  .linksDesktop h3 {
-    margin: 0;
-    font-size: 16px;
+  50% {
+    bottom: 5px;
+    transform: rotate(0);
   }
-  
-  /* Active link */
-  .nav .activeLinkNight:before {
-    max-width: 200px;
+  100% {
+    bottom: 0;
+    transform: rotate(0);
   }
-  .nav .activeLinkDay:before {
-    max-width: 200px;
+}
+@keyframes scaled {
+  50% {
+    transform: scale(0);
   }
-  .nav .activeLinkNight h3 {
-    color: #ececec;
+  100% {
+    transform: scale(0);
   }
-  .nav .activeLinkDay h3 {
-    color: #000000;
+}
+@keyframes scaled-2 {
+  0% {
+    transform: scale(0);
   }
-  /**/
-  
-  /* Burguer Button */
-  
-  .hamburgerNav {
-    position: absolute;
-    flex-direction: column;
-    right: 0;
-    top: 135px;
-    width: 100%;
-    -webkit-tap-highlight-color: transparent;
+  50% {
+    transform: scale(0);
   }
-  .hamburgerActive {
-    display: flex;
+  100% {
+    transform: scale(1);
   }
-  .hamburgerNotActive {
+}
+/* Container Burguer Button */
+@media screen and (max-width: 1123px) {
+  .icon {
     display: none;
   }
-  .hamburgerNav ul {
-    overflow-x: hidden;
-    display: -webkit-box;
-    scroll-behavior: smooth;
-    -webkit-line-clamp: 4;
-    -webkit-box-orient: vertical;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    max-height: 500px;
-    opacity: 1;
-    animation: transitionButton 0.3s ease;
-    z-index: 200;
+}
+@media screen and (max-width: 1050px) {
+  .nav {
+    display: none;
   }
-  @keyframes transitionButton {
-    0% {
-      opacity: 0;
-      max-height: 0px;
-    }
-    50% {
-    }
-    100% {
-      opacity: 1;
-      max-height: 500px;
-    }
+
+  .iconDayOrNight {
+    display: none;
   }
-  .hamburgerNav .linksDesktop {
+  .containerBtn {
     display: flex;
-    padding: 40px;
-    cursor: pointer;
-    width: 100%;
   }
-  .hamburgerNavNight .linksDesktop {
-    background-color: #4e4e53;
-  }
-  .hamburgerNavNight .linksDesktop h3 {
-    color: #c4c4c4;
-  }
-  
-  .hamburgerNavNight .linksDesktop:hover {
-    background-color: #636368;
-    transition: background 0.3s ease;
-  }
-  .hamburgerNavDay .linksDesktop {
-    background-color: #d0d1d6;
-  }
-  .hamburgerNavDay .linksDesktop h3 {
-    color: #3d3e44;
-  }
-  .hamburgerNavDay .linksDesktop:hover {
-    background-color: rgb(96, 96, 102);
-    transition: background 0.3s ease;
-  }
-  .hamburgerNavDay .linksDesktop:hover h3 {
-    color: #dee1ec;
-  }
-  
-  /* Burguer Button */
-  
-  /* Buttons */
-  .buttons {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    width: 150px;
-    min-width: 120px;
-  }
-  .dayOrNight {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 100%;
-    width: 3.3rem;
-    height: 3.3rem;
-    cursor: pointer;
-    transition: box-shadow 0.3s ease;
-  }
-  
-  .setDay {
-    box-shadow: 0 0 0 2px #9f9fa3e3;
-  }
-  .setDay:hover {
-    box-shadow: 0 0 0 2px #29292be3;
-  }
-  .setNight {
-    box-shadow: 0 0 0 2px #b4b4c4bd;
-  }
-  .setNight:hover {
-    box-shadow: 0 0 0 2px #ffffffbd;
-  }
-  /* Buttons */
-  .pickDay {
-    width: 1.5rem;
-    height: 1.5rem;
-    position: relative;
-    opacity: 0;
-  }
-  .pickDayAnimation {
-    width: 1.5rem;
-    height: 1.5rem;
-    position: relative;
-    transform: translateX(12px);
-  }
-  .pickDayAnimationOn {
-    animation: day 1s ease;
-  }
-  
-  @keyframes day {
-    0% {
-      transform: translateX(50px);
-      opacity: 0;
-    }
-    5% {
-      transform: translateX(0px);
-      transform: rotate(-40deg);
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
-  .pickNight {
-    width: 1.5rem;
-    height: 1.5rem;
-    position: relative;
-    opacity: 0;
-    visibility: hidden;
-  }
-  .pickNightAnimation {
-    width: 1.5rem;
-    height: 1.5rem;
-    position: relative;
-  
-    filter: contrast(1%);
-    transform: translateX(-11px);
-  }
-  .pickNightAnimationOn {
-    animation: night 1s ease;
-  }
-  
-  @keyframes night {
-    0% {
-      transform: translateX(-50px);
-      opacity: 0;
-    }
-    5% {
-      transform: translateX(0px);
-      transform: rotate(40deg);
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
-  /* Circle Animation */
   .icon {
     display: flex;
-    align-items: center;
-    justify-content: center;
   }
-  .icon .svg {
-    width: 4.3rem;
-    height: 4.3rem;
-    cursor: pointer;
-    animation: iconSvg 10s linear infinite;
-    /*box-shadow: 0 0 0 2px rgba(131, 131, 134, 0.404);
-         */
-    border-radius: 100%;
-  }
-  
-  @keyframes iconSvg {
-    0% {
-      transform: rotate(360deg);
-    }
-  }
-  
-  .containerBtn {
-    margin: 0 auto;
-    align-items: center;
-    justify-content: center;
-    border-radius: 100%;
-    width: 3.3rem;
-    height: 3.3rem;
-  
-    cursor: pointer;
-    transition: box-shadow 0.3s ease;
+}
+@media screen and (min-width: 1050px) {
+  .hamburgerNav {
     display: none;
-    -webkit-tap-highlight-color: transparent;
   }
-  
-  .containerBtnNight:hover {
-    box-shadow: 0 0 0 2px #19ff71f8;
-  }
-  .containerBtnDay:hover {
-    box-shadow: 0 0 0 2px #1f1f20e3;
-  }
-  .containerBtnDay {
-    box-shadow: 0 0 0 2px rgba(131, 131, 134, 0.404);
-  }
-  .containerBtnNight {
-    box-shadow: 0 0 0 2px rgba(230, 230, 230, 0.404);
-  }
-  .containerBtnDay span {
-    color: #1f1f20e3;
-    background-color: #1f1f20e3;
-  }
-  .containerBtnNight span {
-    color: #1f1f20e3;
-    background-color: #d3d3d3e3;
-  }
-  .btn {
-    /*display: none;*/
-    width: 25px;
-    cursor: pointer;
-  }
-  span {
-    display: block;
-    width: 100%;
-    padding: 1px;
-    box-shadow: 0 1px 1px 0 rgba(153, 153, 153, 0.3);
-    border-radius: 3px;
-    height: 0;
-    background-color: #e2e3f167;
-    transition: all 0.3s;
-    position: relative;
-  }
-  span + span {
-    margin-top: 5px;
-  }
-  .active span:nth-child(1) {
-    animation: ease 0.5s top forwards;
-  }
-  .notActive span:nth-child(1) {
-    animation: ease 0.5s top-2 forwards;
-  }
-  .notActive span:nth-child(2) {
-    animation: ease 0.5s scaled-2 forwards;
-    box-shadow: inset 0 0 3px 0 red7;
-  }
-  .notActive span:nth-child(3) {
-    animation: ease 0.5s bottom-2 forwards;
-  }
-  .active span:nth-child(2) {
-    animation: ease 0.5s scaled forwards;
-  }
-  .active span:nth-child(3) {
-    animation: ease 0.5s bottom forwards;
-    box-shadow: inset 0 0 3px 0 #cecfda67;
-  }
-  @keyframes top {
-    0% {
-      top: 0;
-      transform: rotate(0);
-    }
-    50% {
-      top: 8px;
-      transform: rotate(0);
-    }
-    100% {
-      top: 8px;
-      transform: rotate(45deg);
-    }
-  }
-  @keyframes top-2 {
-    0% {
-      top: 5px;
-      transform: rotate(45deg);
-    }
-    50% {
-      top: 5px;
-      transform: rotate(0);
-    }
-    100% {
-      top: 0;
-      transform: rotate(0);
-    }
-  }
-  @keyframes bottom {
-    0% {
-      bottom: 5px;
-      transform: rotate(0);
-    }
-    50% {
-      bottom: 5px;
-      transform: rotate(0);
-    }
-    100% {
-      bottom: 6px;
-      transform: rotate(135deg);
-    }
-  }
-  @keyframes bottom-2 {
-    0% {
-      bottom: 5px;
-      transform: rotate(135deg);
-    }
-    50% {
-      bottom: 5px;
-      transform: rotate(0);
-    }
-    100% {
-      bottom: 0;
-      transform: rotate(0);
-    }
-  }
-  @keyframes scaled {
-    50% {
-      transform: scale(0);
-    }
-    100% {
-      transform: scale(0);
-    }
-  }
-  @keyframes scaled-2 {
-    0% {
-      transform: scale(0);
-    }
-    50% {
-      transform: scale(0);
-    }
-    100% {
-      transform: scale(1);
-    }
-  }
-  /* Container Burguer Button */
-  @media screen and (max-width: 1123px) {
-    .icon {
-      display: none;
-    }
-  }
-  @media screen and (max-width: 1050px) {
-    .nav {
-      display: none;
-    }
-  
-    .iconDayOrNight {
-      display: none;
-    }
-    .containerBtn {
-      display: flex;
-    }
-    .icon {
-      display: flex;
-    }
-  }
-  @media screen and (min-width: 1050px) {
-    .hamburgerNav {
-      display: none;
-    }
-    .iconDayOrNightMobile {
-      display: flex;
-    }
-  }
-  
-  @media screen and (max-width: 370px) {
-    .icon {
-      display: none;
-    }
-  }
-  /* for shutdown icon animation */
-  
-  .logo {
-    position: absolute;
-    font-family: "Tumble";
+  .iconDayOrNightMobile {
     display: flex;
-    align-items: center;
-    margin: 0;
-    justify-content: center;
-    font-size: 25px;
-  
-    padding: 8px;
-    border-radius: 100%;
-    width: 1.8rem;
-    height: 1.8rem;
-    font-weight: bold;
-    text-align: center;
-    animation: logo 10s ease infinite;
   }
-  .logoNight {
-    color: #ececec;
+}
+
+@media screen and (max-width: 370px) {
+  .icon {
+    display: none;
   }
-  .logoDay {
-    color: #ececec;
+}
+/* for shutdown icon animation */
+
+.logo {
+  position: absolute;
+  font-family: "Tumble";
+  display: flex;
+  align-items: center;
+  margin: 0;
+  justify-content: center;
+  font-size: 25px;
+
+  padding: 8px;
+  border-radius: 100%;
+  width: 1.8rem;
+  height: 1.8rem;
+  font-weight: bold;
+  text-align: center;
+  animation: logo 10s ease infinite;
+}
+.logoNight {
+  color: #ececec;
+}
+.logoDay {
+  color: #ececec;
+}
+@keyframes logo {
+  0% {
+    background-color: #0aa8cfbd;
   }
-  @keyframes logo {
-    0% {
-      background-color: #0aa8cfbd;
-    }
-    20% {
-      background-color: #ff6708;
-    }
-    40% {
-      background-color: #ff6708;
-    }
-    60% {
-      background-color: #df2007bd;
-    }
-    80% {
-      background-color: #df2007bd;
-    }
-    100% {
-      background-color: #0aa8cfbd;
-    }
+  20% {
+    background-color: #ff6708;
   }
-  
+  40% {
+    background-color: #ff6708;
+  }
+  60% {
+    background-color: #df2007bd;
+  }
+  80% {
+    background-color: #df2007bd;
+  }
+  100% {
+    background-color: #0aa8cfbd;
+  }
+}

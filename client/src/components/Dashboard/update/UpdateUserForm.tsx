@@ -5,10 +5,12 @@ export default function UpdateUserForm({
   user,
   setIsUpdating,
   getUsers,
+  setIsCharge
 }: {
   user: any;
   setIsUpdating: any;
   getUsers: any;
+  setIsCharge: any;
 }) {
   const idRef = useRef<HTMLInputElement>(null);
   const firstNameRef = useRef<HTMLInputElement>(null);
@@ -27,12 +29,13 @@ export default function UpdateUserForm({
       lastName: lastNameValue,
       type: typeValue,
     };
-
+    setIsCharge(true)
     const response = await updateOneUser(idValue as string, prepare);
     if (response.status === 200) {
       alert("user updated");
       getUsers();
       setIsUpdating(false);
+      setIsCharge(false)
     }
   }
 

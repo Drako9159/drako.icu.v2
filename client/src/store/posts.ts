@@ -4,18 +4,17 @@ export interface PostData {
   id: string;
   category: string;
   tag: string;
-  filename: string;
   language: string;
   color: string;
   title: string;
   image: string;
   description: string;
-  createdAt: string;
-  readTime: string;
+  read_time: string;
   author: string;
+  date: string;
+  createdAt: string;
+  updatedAt: string;
 }
-
-
 
 interface PostsStoreState {
   posts: PostData[];

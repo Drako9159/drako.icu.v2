@@ -4,7 +4,13 @@ import CreateUserForm from "./create/CreateUserForm";
 
 import ListUser from "./lists/ListUser";
 import CreatePostForm from "./create/CreatePostForm";
-export default function DashboardMain({ element }: { element: any }) {
+export default function DashboardMain({
+  setElement,
+  element,
+}: {
+  setElement: any;
+  element: any;
+}) {
   return (
     <div className={styles.container}>
       {element === "Posts" ? (
@@ -12,9 +18,9 @@ export default function DashboardMain({ element }: { element: any }) {
       ) : element === "Users" ? (
         <ListUser />
       ) : element === "Create-User" ? (
-        <CreateUserForm />
+        <CreateUserForm setElement={setElement}/>
       ) : element === "Create-Post" ? (
-        <CreatePostForm />
+        <CreatePostForm setElement={setElement}/>
       ) : (
         ""
       )}

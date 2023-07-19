@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import pickDay from "../../assets/icons/sunAll.png";
-import pickNight from "../../assets/icons/sunWhite.png";
+import pickDay from "../../../assets/icons/sunAll.png";
+import pickNight from "../../../assets/icons/sunWhite.png";
 import { useConfigsStore } from "../../../store/configs";
 import styles from "./Header.module.css";
 import languageLibrary from "../../../languages/language";
@@ -164,7 +164,7 @@ export default function Header({ activeLink }: { activeLink: string }) {
           }`}
           onClick={handleClickHamburger}
         >
-          <div className={`${styles.btn} ${btn}`}>
+          <div className={`${styles.span} ${styles.btn} ${btn}`}>
             <span></span>
             <span></span>
             <span></span>

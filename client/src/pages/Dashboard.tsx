@@ -6,7 +6,7 @@ export default function Dashboard() {
   return (
     <>
       <DashboardNav setElement={setElement} element={element}/>
-      <DashboardMain element={element}/>
+      <DashboardMain setElement={setElement} element={element}/>
     </>
   );
 }

@@ -5,6 +5,8 @@
     font-size: 13px;
     display: flex;
     justify-content: center;
+    position: relative;
+    align-items: center;
 }
 
 form{

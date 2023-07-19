@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import { deleteOneUser, getUsersList } from "../../../api/user";
 import styles from "./ListUser.module.css";
 import UpdateUserForm from "../update/UpdateUserForm";
+import ChargeAnimation from "../../Layouts/ChargeAnimation/ChargeAnimation";
 export default function ListUser() {
   const [users, setUsers] = useState([]);
   const [user, setUser] = useState({});
   const [isUpdating, setIsUpdating] = useState<boolean>(false);
+  const [isCharge, setIsCharge] = useState<boolean>(true);
 
   useEffect(() => {
     getUsers();
@@ -15,26 +17,32 @@ export default function ListUser() {
     const response = await getUsersList();
     if (response.status === 200) {
       setUsers(response.data.users);
+      setIsCharge(false)
     }
   }
 
   function handleUpdate(e: object) {
+    setIsCharge(true)
     setIsUpdating(true);
     setUser(e);
+    setIsCharge(false)
   }
 
   async function deleteUser(id: string) {
     if (!confirm("Do you want delete this user?")) {
       return;
     }
+    setIsCharge(true)
     const response = await deleteOneUser(id);
     if (response.status === 204) {
       getUsers();
+      setIsCharge(false)
     }
   }
 
   return (
     <div className={styles.container}>
+      <ChargeAnimation delay={isCharge} />
       <div>
         {users.map((e: any) => {
           return (
@@ -62,6 +70,7 @@ export default function ListUser() {
           user={user}
           setIsUpdating={setIsUpdating}
           getUsers={getUsers}
+          setIsCharge={setIsCharge}
         />
       ) : (
         ""
