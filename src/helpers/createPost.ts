@@ -6,12 +6,12 @@ class CreatePost {
   private tag: string;
   private language: string;
   private color: string;
+  private image: string;
   private description: string;
   private read_time: string;
   private author: string;
   private date: string;
   private content: string;
-  private image: string
 
   constructor(
     title: string,
@@ -19,12 +19,12 @@ class CreatePost {
     tag: string,
     language: string,
     color: string,
+    image: string,
     description: string,
     read_time: string,
     author: string,
     date: string,
-    content: string,
-    image: string
+    content: string
   ) {
     this.title = title;
     this.category = category;
@@ -37,7 +37,6 @@ class CreatePost {
     this.author = author;
     this.date = date;
     this.content = content;
-    
   }
 
   async savePost() {
@@ -53,7 +52,6 @@ class CreatePost {
       author: this.author,
       date: this.date,
       content: this.content,
-      
     });
     const savedPost = await post.save();
     return savedPost;

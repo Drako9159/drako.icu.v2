@@ -10,8 +10,10 @@ export interface IPost {
   read_time: string;
   author: string;
   date: string;
+  content: string;
   createdAt: Date;
   updatedAt: Date;
-  content: string;
   save(): string;
 }
+
+

@@ -1,8 +1,5 @@
-
 import styles from "./UpdatePostForm.module.css";
-import { useQuill } from "react-quilljs";
-import "quill/dist/quill.snow.css";
-
+import EditorMarked from "../../utils/EditorMarked";
 import { useEffect, useRef, useState } from "react";
 import { updateOnePost } from "../../../api/post";
 export default function UpdatePostForm({
@@ -16,36 +13,8 @@ export default function UpdatePostForm({
   getPosts: any;
   setIsCharge: any;
 }) {
-  const { quill, quillRef } = useQuill();
-  const [content, setContent] = useState("");
-
-  useEffect(() => {
-    if (quill) {
-      quill.on("text-change", (delta, oldDelta, source) => {
-        // console.log("Text change!");
-        // console.log(quill.getText());
-        // console.log(quill.getContents());
-        // console.log(quill.root.innerHTML);
-        // console.log(quillRef.current.firstChild.innerHTML);
-        setContent(quill.root.innerHTML);
-      });
-      quill.root.innerHTML = post.content;
-    }
-  }, [quill]);
-
-  function handleInsertImg() {
-    const url = prompt("Por favor, ingresa la URL de la imagen:");
-    if (url && quill) {
-      const altText = prompt(
-        "Por favor, ingresa el texto alternativo (alt) para la imagen:"
-      );
-      const range = quill.getSelection();
-      quill.insertEmbed(range!.index, "image", url);
-      const imageElement = quill.getLeaf(range!.index)[0].domNode;
-      imageElement.alt = altText;
-    }
-  }
-
+  const [content, setContent] = useState(post.content);
+  
   const titleRef = useRef<HTMLInputElement>(null);
   const categoryRef = useRef<HTMLInputElement>(null);
   const tagRef = useRef<HTMLInputElement>(null);
@@ -97,135 +66,121 @@ export default function UpdatePostForm({
   }
 
   return (
-    <div className={styles.container}>
+    <div className={styles.containerUpdateForm}>
       <form onSubmit={handleUpdatePost}>
-        <label htmlFor="title">Title</label>
-        <input
-          type="text"
-          name="title"
-          id="title"
-          required={true}
-          placeholder="New Blog"
-          ref={titleRef}
-          defaultValue={post.title}
-        />
+        <div>
+          <label htmlFor="title">Title</label>
+          <input
+            type="text"
+            name="title"
+            id="title"
+            required={true}
+            placeholder="New Blog"
+            ref={titleRef}
+            defaultValue={post.title}
+          />
 
-        <label htmlFor="category">Category</label>
-        <input
-          type="text"
-          name="category"
-          id="category"
-          required={true}
-          placeholder="Education"
-          ref={categoryRef}
-          defaultValue={post.category}
-        />
+          <label htmlFor="category">Category</label>
+          <input
+            type="text"
+            name="category"
+            id="category"
+            required={true}
+            placeholder="Education"
+            ref={categoryRef}
+            defaultValue={post.category}
+          />
 
-        <label htmlFor="tag">Tag</label>
-        <input
-          type="text"
-          name="tag"
-          id="tag"
-          required={true}
-          placeholder="Javascript"
-          ref={tagRef}
-          defaultValue={post.tag}
-        />
+          <label htmlFor="tag">Tag</label>
+          <input
+            type="text"
+            name="tag"
+            id="tag"
+            required={true}
+            placeholder="Javascript"
+            ref={tagRef}
+            defaultValue={post.tag}
+          />
 
-        <label htmlFor="language">Language</label>
-        <select id="language" ref={languageRef} defaultValue={post.language}>
-          <option value="es">es - spanish</option>
-          <option value="en">en - english</option>
-        </select>
+          <label htmlFor="language">Language</label>
+          <select id="language" ref={languageRef} defaultValue={post.language} name="language">
+            <option value="es">es - spanish</option>
+            <option value="en">en - english</option>
+          </select>
 
-        <label htmlFor="color">Color</label>
-        <select id="color" ref={colorRef} defaultValue={post.color}>
-          <option value="green">green</option>
-          <option value="blue">blue</option>
-          <option value="pink">pink</option>
-          <option value="red">red</option>
-          <option value="orange">orange</option>
-        </select>
+          <label htmlFor="color">Color</label>
+          <select id="color" ref={colorRef} defaultValue={post.color} name="color">
+            <option value="green">green</option>
+            <option value="blue">blue</option>
+            <option value="pink">pink</option>
+            <option value="red">red</option>
+            <option value="orange">orange</option>
+          </select>
 
-        <label htmlFor="read_time">Read Time</label>
-        <input
-          type="text"
-          name="read_time"
-          id="read_time"
-          required={true}
-          placeholder="15 min read"
-          ref={readTimeRef}
-          defaultValue={post.read_time}
-        />
+          <label htmlFor="read_time">Read Time</label>
+          <input
+            type="text"
+            name="read_time"
+            id="read_time"
+            required={true}
+            placeholder="15 min read"
+            ref={readTimeRef}
+            defaultValue={post.read_time}
+          />
+        </div>
+        <div>
+          <label htmlFor="image">Image</label>
+          <input
+            type="text"
+            name="image"
+            id="image"
+            required={true}
+            placeholder="http://image.webp"
+            ref={imageRef}
+            defaultValue={post.image}
+          />
 
-        <label htmlFor="image">Image</label>
-        <input
-          type="text"
-          name="image"
-          id="image"
-          required={true}
-          placeholder="http://image.webp"
-          ref={imageRef}
-          defaultValue={post.image}
-        />
+          <label htmlFor="description">Description</label>
+          <textarea
+            name="description"
+            id="description"
+            required={true}
+            placeholder="About the blog"
+            ref={descriptionRef}
+            defaultValue={post.description}
+          />
 
-        <label htmlFor="description">Description</label>
-        <textarea
-          name="description"
-          id="description"
-          required={true}
-          placeholder="About the blog"
-          ref={descriptionRef}
-          defaultValue={post.description}
-        />
+          <label htmlFor="author">Author</label>
+          <input
+            type="text"
+            name="author"
+            id="author"
+            required={true}
+            placeholder="Frederic Hobbs"
+            ref={authorRef}
+            defaultValue={post.author}
+          />
 
-        <label htmlFor="author">Author</label>
-        <input
-          type="text"
-          name="author"
-          id="author"
-          required={true}
-          placeholder="Frederic Hobbs"
-          ref={authorRef}
-          defaultValue={post.author}
-        />
+          <label htmlFor="date">Date</label>
+          <input
+            type="text"
+            name="date"
+            id="date"
+            required={true}
+            placeholder="Ene 14, 2023"
+            ref={dateRef}
+            defaultValue={post.date}
+          />
 
-        <label htmlFor="date">Date</label>
-        <input
-          type="text"
-          name="date"
-          id="date"
-          required={true}
-          placeholder="Ene 14, 2023"
-          ref={dateRef}
-          defaultValue={post.date}
-        />
-
-        <div className={styles.actions}>
-          <button disabled={content === "" ? true : false}>Update</button>
-          <button type="button" onClick={() => setIsUpdating(false)}>
-            Cancel
-          </button>
+          <div className={styles.actions}>
+            <button disabled={content === "" ? true : false}>Update</button>
+            <button type="button" onClick={() => setIsUpdating(false)}>
+              Cancel
+            </button>
+          </div>
         </div>
       </form>
-
-      <div
-        style={{
-          width: 500,
-          height: 400,
-          minWidth: 320,
-          margin: "5px",
-          marginBottom: "100px",
-        }}
-      >
-        <button
-          style={{ marginBottom: "5px" }}
-          onClick={() => handleInsertImg()}
-        >
-          Insert img
-        </button>
-        <div ref={quillRef}></div>
-      </div>
+      <EditorMarked content={content} setContent={setContent} />
     </div>
   );
 }

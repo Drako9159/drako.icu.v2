@@ -1,0 +1,32 @@
+.container {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  overflow: hidden;
+  gap: 5px;
+}
+.container .editor {
+  display: flex;
+  min-height: 120px;
+
+}
+.container .editor textarea {
+  
+  padding: 0;
+  width: 100%;
+  padding: 5px;
+  min-height: 100px;
+  min-width: 200px;
+  max-width: 90%;
+}
+.container .panel {
+  margin: 5px;
+  overflow-x: scroll;
+}
+
+*::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+  
