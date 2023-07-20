@@ -7,7 +7,7 @@ import Footer from "../components/Layouts/Footer/Footer";
 import { useEffect, useState } from "react";
 import { useAuthStore } from "../store/auth";
 import { usePostStore } from "../store/posts";
-import { getPostsList } from "../api/post";
+import { getPostsList, getPostsListByLanguage } from "../api/post";
 import BlogHead from "../components/Blog/BlogHead";
 import BlogMain from "../components/Blog/BlogMain";
 
@@ -25,9 +25,8 @@ export default function Blog() {
   }, []);
 
   async function getPosts() {
-    const response = await getPostsList();
+    const response = await getPostsListByLanguage(language);
     if (response.status === 200) {
-      
       setPosts(response.data.posts);
     }
     setStatus(response.status);
@@ -43,10 +42,9 @@ export default function Blog() {
     </>
   ) : (
     <>
-   
       <Header activeLink={"blog"} />
       <BlogHead />
-      <BlogMain status={status} isLoading={isLoading}/>
+      <BlogMain status={status} isLoading={isLoading} />
       <Footer />
     </>
   );

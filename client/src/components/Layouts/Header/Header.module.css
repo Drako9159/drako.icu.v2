@@ -1,5 +1,5 @@
 /* Container */
-.container {
+.containerHeader {
   font-family: "Montserrat";
 
   width: 100%;
@@ -9,16 +9,16 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-.title {
+.containerHeader .title {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.title h3 {
+.containerHeader .title h3 {
   margin: 0;
   font-size: 26px;
 }
-.title .linkTitle {
+.containerHeader .title .linkTitle {
   cursor: pointer;
   padding: 18px;
   margin: 0;
@@ -27,7 +27,7 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-.title .linkTitle:before {
+.containerHeader .title .linkTitle:before {
   content: "";
   position: relative;
   display: block;
@@ -37,18 +37,18 @@
   transition: transform 0.3s ease;
   transition: max-width 0.6s cubic-bezier(0.25, 0, 0, 1);
 }
-.title .linkTitle:hover:before {
+.containerHeader .title .linkTitle:hover:before {
   max-width: 200px;
 }
 
-.titleDay .linkTitle:before {
+.containerHeader .titleDay .linkTitle:before {
   background-color: #121213;
 }
-.titleNight .linkTitle:before {
+.containerHeader .titleNight .linkTitle:before {
   background-color: #ececec;
 }
 
-.nav ul {
+.containerHeader .nav ul {
   display: flex;
   height: 100%;
   margin: 0;
@@ -58,13 +58,13 @@
   align-items: center;
   width: 700px;
 }
-.nav ul li {
+.containerHeader .nav ul li {
   font-size: 1.1rem;
   padding: 18px;
   margin: 0;
   transition: color 0.3s ease;
 }
-.nav .linksDesktop:before {
+.containerHeader .nav .linksDesktop:before {
   content: "";
   position: relative;
   display: block;
@@ -74,64 +74,64 @@
   transition: transform 0.3s ease;
   transition: max-width 0.6s cubic-bezier(0.25, 0, 0, 1);
 }
-.nav .linksDesktop:hover:before {
+.containerHeader .nav .linksDesktop:hover:before {
   max-width: 200px;
 }
 
-.navNight .linksDesktop:before {
+.containerHeader .navNight .linksDesktop:before {
   background-color: #ececec;
 }
-.navNight .linksDesktop:before {
+.containerHeader .navNight .linksDesktop:before {
   max-width: 200;
 }
 
-.navNight .linksDesktop {
+.containerHeader .navNight .linksDesktop {
   color: #c4c4c4;
 }
-.navNight .linksDesktop:hover h3 {
+.containerHeader .navNight .linksDesktop:hover h3 {
   transition: color 0.6s ease;
   color: #ececec;
 }
 
-.navDay .linksDesktop:before {
+.containerHeader .navDay .linksDesktop:before {
   background-color: #121213;
 }
-.navDay .linksDesktop h3 {
+.containerHeader .navDay .linksDesktop h3 {
   color: #53545e;
 }
-.navDay .linksDesktop:hover h3 {
+.containerHeader .navDay .linksDesktop:hover h3 {
   transition: color 0.6s ease;
   color: #000000;
 }
 
 /* Nav Desktop */
-.linksDesktop {
+.containerHeader .linksDesktop {
   text-decoration: none;
   cursor: pointer;
 }
-.linksDesktop h3 {
+.containerHeader .linksDesktop h3 {
   margin: 0;
   font-size: 16px;
 }
 
 /* Active link */
-.nav .activeLinkNight:before {
+.containerHeader .nav .activeLinkNight:before {
   max-width: 200px;
 }
-.nav .activeLinkDay:before {
+.containerHeader .nav .activeLinkDay:before {
   max-width: 200px;
 }
-.nav .activeLinkNight h3 {
+.containerHeader .nav .activeLinkNight h3 {
   color: #ececec;
 }
-.nav .activeLinkDay h3 {
+.containerHeader .nav .activeLinkDay h3 {
   color: #000000;
 }
 /**/
 
 /* Burguer Button */
 
-.hamburgerNav {
+.containerHeader .hamburgerNav {
   position: absolute;
   flex-direction: column;
   right: 0;
@@ -139,13 +139,13 @@
   width: 100%;
   -webkit-tap-highlight-color: transparent;
 }
-.hamburgerActive {
+.containerHeader .hamburgerActive {
   display: flex;
 }
-.hamburgerNotActive {
+.containerHeader .hamburgerNotActive {
   display: none;
 }
-.hamburgerNav ul {
+.containerHeader .hamburgerNav ul {
   overflow-x: hidden;
   display: -webkit-box;
   scroll-behavior: smooth;
@@ -171,48 +171,48 @@
     max-height: 500px;
   }
 }
-.hamburgerNav .linksDesktop {
+.containerHeader .hamburgerNav .linksDesktop {
   display: flex;
   padding: 40px;
   cursor: pointer;
   width: 100%;
 }
-.hamburgerNavNight .linksDesktop {
+.containerHeader .hamburgerNavNight .linksDesktop {
   background-color: #4e4e53;
 }
-.hamburgerNavNight .linksDesktop h3 {
+.containerHeader .hamburgerNavNight .linksDesktop h3 {
   color: #c4c4c4;
 }
 
-.hamburgerNavNight .linksDesktop:hover {
+.containerHeader .hamburgerNavNight .linksDesktop:hover {
   background-color: #636368;
   transition: background 0.3s ease;
 }
-.hamburgerNavDay .linksDesktop {
+.containerHeader .hamburgerNavDay .linksDesktop {
   background-color: #d0d1d6;
 }
-.hamburgerNavDay .linksDesktop h3 {
+.containerHeader .hamburgerNavDay .linksDesktop h3 {
   color: #3d3e44;
 }
-.hamburgerNavDay .linksDesktop:hover {
+.containerHeader .hamburgerNavDay .linksDesktop:hover {
   background-color: rgb(96, 96, 102);
   transition: background 0.3s ease;
 }
-.hamburgerNavDay .linksDesktop:hover h3 {
+.containerHeader .hamburgerNavDay .linksDesktop:hover h3 {
   color: #dee1ec;
 }
 
 /* Burguer Button */
 
 /* Buttons */
-.buttons {
+.containerHeader .buttons {
   display: flex;
   align-items: center;
   justify-content: space-around;
   width: 150px;
   min-width: 120px;
 }
-.dayOrNight {
+.containerHeader .dayOrNight {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -223,32 +223,32 @@
   transition: box-shadow 0.3s ease;
 }
 
-.setDay {
+.containerHeader .setDay {
   box-shadow: 0 0 0 2px #9f9fa3e3;
 }
-.setDay:hover {
+.containerHeader .setDay:hover {
   box-shadow: 0 0 0 2px #29292be3;
 }
-.setNight {
+.containerHeader .setNight {
   box-shadow: 0 0 0 2px #b4b4c4bd;
 }
-.setNight:hover {
+.containerHeader .setNight:hover {
   box-shadow: 0 0 0 2px #ffffffbd;
 }
 /* Buttons */
-.pickDay {
+.containerHeader .pickDay {
   width: 1.5rem;
   height: 1.5rem;
   position: relative;
   opacity: 0;
 }
-.pickDayAnimation {
+.containerHeader .pickDayAnimation {
   width: 1.5rem;
   height: 1.5rem;
   position: relative;
   transform: translateX(12px);
 }
-.pickDayAnimationOn {
+.containerHeader .pickDayAnimationOn {
   animation: day 1s ease;
 }
 
@@ -266,14 +266,14 @@
     opacity: 1;
   }
 }
-.pickNight {
+.containerHeader .pickNight {
   width: 1.5rem;
   height: 1.5rem;
   position: relative;
   opacity: 0;
   visibility: hidden;
 }
-.pickNightAnimation {
+.containerHeader .pickNightAnimation {
   width: 1.5rem;
   height: 1.5rem;
   position: relative;
@@ -281,7 +281,7 @@
   filter: contrast(1%);
   transform: translateX(-11px);
 }
-.pickNightAnimationOn {
+.containerHeader .pickNightAnimationOn {
   animation: night 1s ease;
 }
 
@@ -300,12 +300,12 @@
   }
 }
 /* Circle Animation */
-.icon {
+.containerHeader .icon {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.icon .svg {
+.containerHeader .icon .svg {
   width: 4.3rem;
   height: 4.3rem;
   cursor: pointer;
@@ -321,7 +321,7 @@
   }
 }
 
-.containerBtn {
+.containerHeader .containerBtn {
   margin: 0 auto;
   align-items: center;
   justify-content: center;
@@ -335,32 +335,32 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-.containerBtnNight:hover {
+.containerHeader .containerBtnNight:hover {
   box-shadow: 0 0 0 2px #19ff71f8;
 }
-.containerBtnDay:hover {
+.containerHeader .containerBtnDay:hover {
   box-shadow: 0 0 0 2px #1f1f20e3;
 }
-.containerBtnDay {
+.containerHeader .containerBtnDay {
   box-shadow: 0 0 0 2px rgba(131, 131, 134, 0.404);
 }
-.containerBtnNight {
+.containerHeader .containerBtnNight {
   box-shadow: 0 0 0 2px rgba(230, 230, 230, 0.404);
 }
-.containerBtnDay span {
+.containerHeader .containerBtnDay span {
   color: #1f1f20e3;
   background-color: #1f1f20e3;
 }
-.containerBtnNight span {
+.containerHeader .containerBtnNight span {
   color: #1f1f20e3;
   background-color: #d3d3d3e3;
 }
-.btn {
+.containerHeader .btn {
   /*display: none;*/
   width: 25px;
   cursor: pointer;
 }
-.span span {
+.containerHeader span {
   display: block;
   width: 100%;
   padding: 1px;
@@ -371,26 +371,26 @@
   transition: all 0.3s;
   position: relative;
 }
-.span span + span {
+.containerHeader span + span {
   margin-top: 5px;
 }
-.active span:nth-child(1) {
+.containerHeader .active span:nth-child(1) {
   animation: ease 0.5s top forwards;
 }
-.notActive span:nth-child(1) {
+.containerHeader .notActive span:nth-child(1) {
   animation: ease 0.5s top-2 forwards;
 }
-.notActive span:nth-child(2) {
+.containerHeader .notActive span:nth-child(2) {
   animation: ease 0.5s scaled-2 forwards;
   box-shadow: inset 0 0 3px 0 red7;
 }
-.notActive span:nth-child(3) {
+.containerHeader .notActive span:nth-child(3) {
   animation: ease 0.5s bottom-2 forwards;
 }
-.active span:nth-child(2) {
+.containerHeader .active span:nth-child(2) {
   animation: ease 0.5s scaled forwards;
 }
-.active span:nth-child(3) {
+.containerHeader .active span:nth-child(3) {
   animation: ease 0.5s bottom forwards;
   box-shadow: inset 0 0 3px 0 #cecfda67;
 }
@@ -471,42 +471,42 @@
 }
 /* Container Burguer Button */
 @media screen and (max-width: 1123px) {
-  .icon {
+  .containerHeader .icon {
     display: none;
   }
 }
 @media screen and (max-width: 1050px) {
-  .nav {
+  .containerHeader .nav {
     display: none;
   }
 
-  .iconDayOrNight {
+  .containerHeader .iconDayOrNight {
     display: none;
   }
-  .containerBtn {
+  .containerHeader .containerBtn {
     display: flex;
   }
-  .icon {
+  .containerHeader .icon {
     display: flex;
   }
 }
 @media screen and (min-width: 1050px) {
-  .hamburgerNav {
+  .containerHeader .hamburgerNav {
     display: none;
   }
-  .iconDayOrNightMobile {
+  .containerHeader .iconDayOrNightMobile {
     display: flex;
   }
 }
 
 @media screen and (max-width: 370px) {
-  .icon {
+  .containerHeader .icon {
     display: none;
   }
 }
 /* for shutdown icon animation */
 
-.logo {
+.containerHeader .logo {
   position: absolute;
   font-family: "Tumble";
   display: flex;
@@ -523,10 +523,10 @@
   text-align: center;
   animation: logo 10s ease infinite;
 }
-.logoNight {
+.containerHeader .logoNight {
   color: #ececec;
 }
-.logoDay {
+.containerHeader .logoDay {
   color: #ececec;
 }
 @keyframes logo {

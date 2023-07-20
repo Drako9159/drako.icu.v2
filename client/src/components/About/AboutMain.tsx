@@ -9,7 +9,7 @@ export default function AboutMain() {
   const strings = languageLibrary(language);
 
   return (
-    <div className={styles.container}>
+    <div className={styles.containerAboutMain}>
       <div className={styles.left}>
         <h1 style={color.textEnable} className={styles.animation1}>
           {strings.about.text1} <br></br>

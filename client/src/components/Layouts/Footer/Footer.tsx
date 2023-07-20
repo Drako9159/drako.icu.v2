@@ -27,8 +27,8 @@ export default function Footer() {
 
   return (
     <>
-      <span className={styles.spanDown}></span>
-      <div className={`${styles.container}`}>
+      <span className={styles.spanDownFooter}></span>
+      <div className={`${styles.containerFooter}`}>
         <div className={styles.socialMedia}>
           <div className={styles.left}>
             <h2 style={color.textEnable}>{strings.footer.name}</h2>

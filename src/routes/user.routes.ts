@@ -3,12 +3,12 @@ import { deleteOneUser, getAllUsers, getOneUser, updateOneUser } from "../contro
 
 const router: Router = Router();
 
-router.get("/get-all-users", getAllUsers);
+router.get("/", getAllUsers);
 
-router.get("/get-one-user/:id", getOneUser)
+router.get("/:id", getOneUser)
 
-router.delete("/delete-one-user/:id", deleteOneUser);
+router.delete("/:id", deleteOneUser);
 
-router.put("/update-one-user/:id", updateOneUser)
+router.put("/:id", updateOneUser)
 
 export default router;

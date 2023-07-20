@@ -1,10 +1,15 @@
 import { Request, Response } from "express";
 import handleErrorResponse from "../utils/handleErrorResponse";
+import { pageUtil } from "../utils/handlePageable";
+import {
+  filterByLanguage,
+  PostData,
+  sortByElement,
+} from "../utils/handleSorter";
 
 import CreatePost from "../helpers/createPost";
 
 import Posts from "../helpers/post";
-import { Post } from "models/Posts";
 
 export async function saveOnePost(req: Request, res: Response) {
   try {
@@ -19,6 +24,7 @@ export async function saveOnePost(req: Request, res: Response) {
       read_time,
       author,
       date,
+      is_public,
       content,
     } = req.body;
 
@@ -54,7 +60,8 @@ export async function saveOnePost(req: Request, res: Response) {
       read_time,
       author,
       date,
-      content
+      content,
+      is_public
     );
     const saveUser = await post.savePost();
     return res.status(201).json({
@@ -69,9 +76,19 @@ export async function saveOnePost(req: Request, res: Response) {
 
 export async function getAllPosts(req: Request, res: Response) {
   try {
-    const posts = await Posts.getAllPosts();
+    const { sort, language, page, size }: any = req.query;
+    let posts = await Posts.getAllPosts();
+
+    let data = [...posts];
+    posts = sortByElement(sort, data);
+    posts = filterByLanguage(language, posts);
+
+    const { content, pageDefinition } = pageUtil(posts, page, size, sort);
+    posts = content;
+
     return res.status(200).json({
       posts,
+      ...pageDefinition,
     });
   } catch (error) {
     console.error(error);
@@ -123,7 +140,9 @@ export async function updateOnePost(req: Request, res: Response) {
       read_time,
       author,
       date,
+
       content,
+      is_public,
     } = req.body;
 
     if (language !== "en" && language !== "es")
@@ -141,12 +160,29 @@ export async function updateOnePost(req: Request, res: Response) {
       read_time,
       author,
       date,
-      content
+      content,
+      is_public
     );
     const post = await posts.getAndUpdate();
     return res.status(200).json({
       message: "Post Updated",
       post,
+    });
+  } catch (error) {
+    console.error(error);
+    return handleErrorResponse(res);
+  }
+}
+
+export async function searchPost(req: Request, res: Response) {
+  try {
+    const title = req.params.title;
+    if (!title)
+      return handleErrorResponse(res, 400, "Please include title param!!");
+    let posts = await Posts.getAllPosts();
+    posts = posts.filter((e) => e.title.toLowerCase().includes(title));
+    return res.status(200).json({
+      results: posts,
     });
   } catch (error) {
     console.error(error);

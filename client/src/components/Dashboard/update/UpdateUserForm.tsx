@@ -40,7 +40,7 @@ export default function UpdateUserForm({
   }
 
   return (
-    <div className={styles.container}>
+    <div className={styles.containerUpdateUserForm}>
       <form onSubmit={handleUpdateUser}>
         <input
           type="text"

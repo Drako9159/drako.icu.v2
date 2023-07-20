@@ -34,7 +34,7 @@ export default function CreateUserForm({ setElement }: { setElement: any }) {
   }
 
   return (
-    <div className={styles.container}>
+    <div className={styles.containerCreateUserForm}>
       <ChargeAnimation delay={isCharge} />
       <form onSubmit={handleCreateUser}>
         <label htmlFor="firstName">Name</label>

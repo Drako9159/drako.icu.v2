@@ -1,4 +1,4 @@
-.container {
+.containerEditorMarked {
   width: 100%;
   margin: 0;
   padding: 0;
@@ -6,27 +6,25 @@
   overflow: hidden;
   gap: 5px;
 }
-.container .editor {
+.containerEditorMarked .editor {
   display: flex;
   min-height: 120px;
-
+  max-width: 100%;
 }
-.container .editor textarea {
-  
+.containerEditorMarked .editor textarea {
   padding: 0;
   width: 100%;
   padding: 5px;
   min-height: 100px;
   min-width: 200px;
-  max-width: 90%;
+  max-width: 100%;
 }
-.container .panel {
+.containerEditorMarked .panel {
   margin: 5px;
   overflow-x: scroll;
 }
 
-*::-webkit-scrollbar {
-    width: 5px;
-    height: 5px;
-  }
-  
+.containerEditorMarked ::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}

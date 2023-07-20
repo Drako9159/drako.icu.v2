@@ -40,7 +40,7 @@ export default function EditorMarked({
   
 
   return (
-    <div className={styles.container}>
+    <div className={styles.containerEditorMarked}>
       <div className={styles.editor}>
         <textarea value={markdownContent} onChange={handleMarkdownChange} />
       </div>

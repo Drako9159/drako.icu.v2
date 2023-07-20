@@ -15,7 +15,7 @@ export default function NotRequest({ status }: { status: number }) {
   }
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container400BadRequest}>
       <h3 style={color.textEnable}>{status} &nbsp; ¡Oh, no!</h3>
       <button
         className={`${styles.button} ${

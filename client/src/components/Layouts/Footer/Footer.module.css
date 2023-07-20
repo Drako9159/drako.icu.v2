@@ -1,22 +1,23 @@
-.container {
-    font-family: "Montserrat";
-    width: 100%;
-    padding-top: 20px;
-    display: flex;
-    flex-direction: column;
-  }
-  .container .laster {
-    font-size: 1.2rem;
-    padding: 10px;
-    display: flex;
-    flex-wrap: wrap;
-  }
-  .container .socialMedia {
-    display: flex;
-  
-    justify-content: center;
-  }
-  /*
+.containerFooter {
+  font-family: "Montserrat";
+  width: 100%;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 20px;
+}
+.containerFooter .laster {
+  font-size: 1.2rem;
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.containerFooter .socialMedia {
+  display: flex;
+
+  justify-content: center;
+}
+/*
     .containerNight {
       color: #7f7f85;
     }
@@ -24,77 +25,78 @@
       color: #7f7f85;
     }
     */
-  .spanDown {
-    margin-top: 50px;
-    background-color: transparent;
-    box-shadow: 0 1px 0 0 #7f7f856e;
-  }
-  
-  .left {
-    width: 35%;
-  }
-  /*
+ .spanDownFooter {
+  margin-top: 50px;
+  background-color: transparent;
+  box-shadow: 0 1px 0 0 #7f7f856e;
+}
+
+.containerFooter .left {
+  width: 35%;
+}
+/*
     .left .nameNight {
       color: #ffffff;
     }
     .left .nameDay {
       color: #000000;
     }*/
-  .right {
-    width: 55%;
+.containerFooter .right {
+  width: 55%;
+}
+.containerFooter .icons {
+  display: flex;
+}
+.containerFooter .icons img {
+  width: 35px;
+  height: 35px;
+  margin: 7px;
+}
+.containerFooter .iconsNight img {
+  filter: contrast(1%);
+}
+@media screen and (max-width: 1000px) {
+  .containerFooter .socialMedia {
+    flex-direction: column;
   }
-  .icons {
-    display: flex;
+  .containerFooter .left {
+    width: 100%;
   }
-  .icons img {
-    width: 35px;
-    height: 35px;
-    margin: 7px;
-  }
-  .iconsNight img {
-    filter: contrast(1%);
-  }
-  @media screen and (max-width: 1000px) {
-    .socialMedia {
-      flex-direction: column;
-    }
-    .left {
-      width: 100%;
-    }
-  }
-  .info {
-    display: flex;
-    justify-content: space-between;
-  }
-  .container .country {
-    font-size: 1.2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .country img {
-    width: 20px;
-    height: 20px;
-    margin: 5px;
-  }
-  .pickCountryNight {
-    filter: contrast(1%);
-  }
-  
-  .selector {
-    font-family: "Montserrat", sans-serif;
-    border: none;
-    font-size: 17px;
-    cursor: pointer;
-    outline: none;
-    color: #7f7f85;
-  }
-  .selector option {
-    padding: 10px;
-    border: none;
-    outline: none;
-  } /*
+}
+.containerFooter .info {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+.containerFooter .country {
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.containerFooter .country img {
+  width: 20px;
+  height: 20px;
+  margin: 5px;
+}
+.containerFooter .pickCountryNight {
+  filter: contrast(1%);
+}
+
+.containerFooter .selector {
+  font-family: "Montserrat", sans-serif;
+  border: none;
+  font-size: 17px;
+  cursor: pointer;
+  outline: none;
+  color: #7f7f85;
+}
+.containerFooter .selector option {
+  padding: 10px;
+  border: none;
+  outline: none;
+} /*
     .selectorDay {
       color: #4e4e4e;
       background-color: #ffffff;
@@ -103,4 +105,3 @@
       color: #7f7f85;
       background-color: #1f2028;
     }*/
-  

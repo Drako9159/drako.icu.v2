@@ -14,7 +14,7 @@ class Server {
     error404: "*",
     auth: "/api/auth",
     user: "/api/users",
-    post: "/api/posts"
+    post: "/api/posts",
   };
   private corsOptions = {
     origin: ["http://localhost:5173"],

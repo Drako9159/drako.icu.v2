@@ -11,6 +11,7 @@ export interface IPost {
   author: string;
   date: string;
   content: string;
+  is_public: boolean;
   createdAt: Date;
   updatedAt: Date;
   save(): string;

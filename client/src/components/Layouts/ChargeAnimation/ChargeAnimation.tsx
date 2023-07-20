@@ -11,12 +11,12 @@ export default function ChargeAnimation({ delay }: { delay: any }) {
     if (!delay) {
       setIsCharge(styles.delay);
     } else {
-      setIsCharge(styles.container)
+      setIsCharge(styles.containerChargeAnimation)
     }
   }, [delay]);
 
   return (
-    <div className={`${styles.container} ${isCharge}`}>
+    <div className={`${styles.containerChargeAnimation} ${isCharge}`}>
       <span
         className={`${styles.loader} ${
           theme === "night" ? styles.loaderNight : styles.loaderDay

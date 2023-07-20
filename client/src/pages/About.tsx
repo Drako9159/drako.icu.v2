@@ -3,7 +3,6 @@ import Footer from "../components/Layouts/Footer/Footer";
 import AboutMain from "../components/About/AboutMain";
 import useSEO from "../hooks/useSEO";
 import useLanguage from "../hooks/useLanguage";
-import EditorMarkdown from "./EditorMarkdown";
 
 
 
@@ -13,8 +12,7 @@ export default function About() {
     <>
       <Header activeLink={"about"} />
       <AboutMain />
-      {/* <MyEditor /> */}
-      <EditorMarkdown />
+     
       <Footer />
     </>
   );

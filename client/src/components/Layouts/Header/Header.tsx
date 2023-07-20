@@ -51,7 +51,7 @@ export default function Header({ activeLink }: { activeLink: string }) {
   }
 
   return (
-    <div className={styles.container}>
+    <div className={styles.containerHeader}>
       <div
         className={`${styles.title} ${
           theme === "night" ? styles.titleNight : styles.titleDay

@@ -14,6 +14,7 @@ class Posts {
   private author: string | undefined;
   private date: string | undefined;
   private content: string | undefined;
+  private is_public: boolean | undefined;
 
   constructor(
     id?: string,
@@ -27,7 +28,8 @@ class Posts {
     read_time?: string,
     author?: string,
     date?: string,
-    content?: string
+    content?: string,
+    is_public?: boolean
   ) {
     this.id = id;
     this.title = title;
@@ -41,10 +43,13 @@ class Posts {
     this.author = author;
     this.date = date;
     this.content = content;
+    this.is_public = is_public;
   }
 
   static async getAllPosts() {
     const posts = await Post.find({});
+
+    
     const response = posts.map((e) => {
       const obj = {
         id: e._id,
@@ -58,6 +63,7 @@ class Posts {
         read_time: e.read_time,
         author: e.author,
         date: e.date,
+        is_public: e.is_public,
         createdAt: e.createdAt,
         updatedAt: e.updatedAt,
       };
@@ -81,6 +87,7 @@ class Posts {
       read_time: post.read_time,
       author: post.author,
       date: post.date,
+      is_public: post.is_public,
       createdAt: post.createdAt,
       updatedAt: post.updatedAt,
       content: post.content,
@@ -104,6 +111,7 @@ class Posts {
       read_time: this.read_time,
       author: this.author,
       date: this.date,
+      is_public: this.is_public,
       content: this.content,
     };
     const post: IPost = (await Post.findByIdAndUpdate(
@@ -122,6 +130,7 @@ class Posts {
       read_time: post.read_time,
       author: post.author,
       date: post.date,
+      is_public: post.is_public,
       createdAt: post.createdAt,
       updatedAt: post.updatedAt,
       content: post.content,

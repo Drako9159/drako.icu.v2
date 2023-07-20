@@ -27,8 +27,8 @@ export default function PostMain({
 
   return (
     <div
-      className={`${styles.container} ${
-        theme === "night" ? styles.containerNight : styles.containerDay
+      className={`${styles.containerPostMain} ${
+        theme === "night" ? styles.containerPostMainNight : styles.containerPostMainDay
       } ${handleThemePost(colorPost).container}`}
       dangerouslySetInnerHTML={{ __html: post.content }}
     ></div>

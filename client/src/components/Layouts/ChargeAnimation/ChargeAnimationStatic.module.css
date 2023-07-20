@@ -1,17 +1,14 @@
-.containerChargeAnimation {
+.containerSpinnerStatic {
   display: flex;
   width: 100%;
   justify-content: center;
-  position: absolute;
+  position: fixed;
   align-items: center;
-  z-index: 120;
+  z-index: 220;
   pointer-events: none;
-  height: 100vh;
-}
-
-.delay {
-  opacity: 0;
-  animation: hidden 1s ease;
+  background-color: red;
+  height: 50px;
+  width: 50px;
 }
 
 @keyframes hidden {
@@ -23,7 +20,7 @@
   }
 }
 
-.containerChargeAnimation .loader {
+.containerSpinnerStatic .loader {
   width: 48px;
   height: 48px;
   border-radius: 50%;
@@ -32,8 +29,8 @@
   pointer-events: none;
 }
 
-.containerChargeAnimation .loader::before,
-.containerChargeAnimation .loader::after {
+.containerSpinnerStatic.loader::before,
+.containerSpinnerStatic .loader::after {
   content: "";
   box-sizing: border-box;
   position: absolute;
@@ -43,31 +40,31 @@
   animation: prixClipFix 2s linear infinite;
 }
 
-.containerChargeAnimation .loader::after {
+.containerSpinnerStatic .loader::after {
   animation: prixClipFix 2s linear infinite, rotate 0.5s linear infinite reverse;
   inset: 6px;
 }
 /* THEME DAY **/
-.containerChargeAnimation .loaderDay::before,
-.containerChargeAnimation .loaderDay::after {
+.containerSpinnerStatic .loaderDay::before,
+.containerSpinnerStatic .loaderDay::after {
   border: 5px solid #26c000;
 }
-.containerChargeAnimation .loaderDay::after {
+.containerSpinnerStatic .loaderDay::after {
   border-color: #f11818;
 }
-.containerChargeAnimation .loaderDay {
+.containerSpinnerStatic .loaderDay {
   background-color: #ffffff;
 }
 
 /* THEME NIGHT */
-.containerChargeAnimation .loaderNight {
+.containerSpinnerStatic .loaderNight {
   background-color: #1f2028;
 }
-.containerChargeAnimation .loaderNight::before,
-.loaderNight::after {
+.containerSpinnerStatic .loaderNight::before,
+.containerSpinnerStatic .loaderNight::after {
   border: 5px solid #ff8800;
 }
-.containerChargeAnimation .loaderNight::after {
+.containerSpinnerStatic .loaderNight::after {
   border-color: #19c8ce;
 }
 @keyframes rotate {

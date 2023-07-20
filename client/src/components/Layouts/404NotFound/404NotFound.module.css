@@ -1,4 +1,4 @@
-.container {
+.container404NotFound {
   font-family: "Montserrat";
   width: 100%;
   display: flex;
@@ -8,11 +8,11 @@
   height: 100vh;
 }
 
-.container h2 {
+.container404NotFound h2 {
   margin: 20px;
 }
 
-.button {
+.container404NotFound .button {
   text-decoration: none;
   border: solid 2px;
   padding: 20px;

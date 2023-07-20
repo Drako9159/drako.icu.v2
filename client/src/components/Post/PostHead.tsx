@@ -13,7 +13,7 @@ export default function PostHead() {
   const strings = languageLibrary(language);
 
   return (
-    <div className={styles.container}>
+    <div className={styles.containerPostHead}>
       <div className={styles.left}>
         <Link className={styles.button} to="/blog" aria-label="My Blog">
           <div>

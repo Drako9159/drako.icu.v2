@@ -1,17 +1,19 @@
 import { validateToken } from "../middlewares/validateJWT";
-import { deleteOnePost, getAllPosts, getOnePost, saveOnePost, updateOnePost } from "../controllers/post.controller";
+import { deleteOnePost, getAllPosts, getOnePost, saveOnePost, searchPost, updateOnePost } from "../controllers/post.controller";
 import { Router } from "express";
 
 const router: Router = Router();
 
-router.post("/create-one-post", saveOnePost);
+router.post("/", saveOnePost);
 
-router.get("/get-all-posts", getAllPosts);
+router.get("/", getAllPosts);
 
-router.get("/get-one-post/:id", getOnePost)
+router.get("/:id", getOnePost)
 
-router.delete("/delete-one-post/:id", deleteOnePost)
+router.delete("/:id", deleteOnePost)
 
-router.put("/update-one-post/:id", updateOnePost)
+router.put("/:id", updateOnePost)
+
+router.get("/search/:title", searchPost)
 
 export default router;

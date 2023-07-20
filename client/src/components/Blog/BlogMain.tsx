@@ -4,8 +4,9 @@ import NotRequest from "../Layouts/400BadRequest/400BadRequest";
 import ChargeAnimation from "../Layouts/ChargeAnimation/ChargeAnimation";
 import themeLibrary from "../../theme/theme";
 import { usePostStore } from "../../store/posts";
-
+import { useState, useEffect } from "react";
 import { useConfigsStore } from "../../store/configs";
+import ChargeAnimationStatic from "../Layouts/ChargeAnimation/ChargeAnimationStatic";
 
 export default function BlogMain({
   status,
@@ -14,6 +15,12 @@ export default function BlogMain({
   status: number;
   isLoading: boolean;
 }) {
+  const [loaded, setLoaded] = useState(false);
+
+  // useEffect(() => {
+  //   setIsImageLoaded(true);
+  // }, [isImageLoaded]);
+
   const theme = useConfigsStore((state) => state.configs.theme);
   const color = themeLibrary(theme);
   const posts2 = usePostStore((state) => state.posts);
@@ -29,7 +36,7 @@ export default function BlogMain({
   }
 
   return (
-    <div className={styles.container}>
+    <div className={styles.containerBlogMain}>
       {posts2.map((e: any) => {
         return (
           <Link
@@ -40,12 +47,26 @@ export default function BlogMain({
           >
             <div className={styles.card}>
               <div className={styles.head}>
-                <img
+                {/* <img
                   src={e.image}
                   alt={e.title}
                   className={styles.pick}
                   style={{ outlineColor: `${e.color}` }}
-                ></img>
+                ></img> */}
+
+                {loaded ? null : (
+                  
+                  <div className={styles.loadingPick}><ChargeAnimationStatic /></div>
+                  
+                )}
+
+                <img
+                  style={loaded ? {} : { display: "none", outlineColor: `${e.color}` }}
+                  alt={e.title}
+                  className={styles.pick}
+                  src={e.image}
+                  onLoad={() => setLoaded(true)}
+                />
               </div>
               <div className={styles.body}>
                 <p style={color.textDisable}>

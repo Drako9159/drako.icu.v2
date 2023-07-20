@@ -43,6 +43,10 @@ const PostSchema = new Schema(
       type: String,
       required: [true, "Date is required"],
     },
+    is_public: {
+      type: Boolean,
+      default: false,
+    },
     content: {
       type: String,
       required: [true, "Content is required"],

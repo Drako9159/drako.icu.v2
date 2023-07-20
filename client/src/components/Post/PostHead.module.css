@@ -1,152 +1,151 @@
-.container {
-    font-family: "Montserrat";
-    width: 100%;
-  
-    display: flex;
-    justify-content: center;
-    margin-top: 50px;
-  } /*
+.containerPostHead {
+  font-family: "Montserrat";
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+} /*
     .containerNight {
       color: #ececec;
     }
     .containerDay {
       color: #121213;
     }*/
-  .left {
-    width: 39%;
-    height: 100%;
-    display: flex;
-  
-    justify-content: center;
-    align-items: flex-end;
+.containerPostHead .left {
+  width: 39%;
+  height: 100%;
+  display: flex;
+
+  justify-content: center;
+  align-items: flex-end;
+}
+.containerPostHead .button {
+  display: flex;
+  margin-top: 120px;
+  gap: 20px;
+
+  text-decoration: none;
+}
+
+.containerPostHead .button div img {
+  width: 30px;
+  z-index: 50;
+  object-fit: contain;
+  transform: rotate(90deg);
+}
+.containerPostHead .button div {
+  display: flex;
+  justify-content: center;
+  width: 50px;
+}
+.containerPostHead .button:hover > div img {
+  position: relative;
+  left: -5px;
+  animation: down 0.3s ease;
+}
+@keyframes down {
+  0% {
+    left: 0;
   }
-  .button {
-    display: flex;
-    margin-top: 120px;
-    gap: 20px;
-  
-    text-decoration: none;
-  }
-  
-  .button div img {
-    width: 30px;
-    z-index: 50;
-    object-fit: contain;
-    transform: rotate(90deg);
-  }
-  .button div {
-    display: flex;
-    justify-content: center;
-    width: 50px;
-  }
-  .button:hover > div img {
-    position: relative;
+  100% {
     left: -5px;
-    animation: down 0.3s ease;
   }
-  @keyframes down {
-    0% {
-      left: 0;
-    }
-    100% {
-      left: -5px;
-    }
-  }
-  
-  .button p {
-    font-weight: bold;
-  }
-  
-  .right {
-    width: 50%;
-    width: 50%;
-    height: 100%;
-    font-family: "Tumble";
-  }
-  .logotype {
-    display: flex;
-    height: 100%;
-    width: 100%;
+}
+
+.containerPostHead .button p {
+  font-weight: bold;
+}
+
+.containerPostHead .right {
+  width: 50%;
+  width: 50%;
+  height: 100%;
+  font-family: "Tumble";
+}
+.containerPostHead .logotype {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.containerPostHead .logoHead {
+  border-radius: 10px;
+  padding: 20px;
+  font-size: 4rem;
+  margin: 0;
+}
+.containerPostHead .logosSub {
+  display: flex;
+}
+.containerPostHead .logosSub h2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  font-size: 2rem;
+  width: 70px;
+  height: 70px;
+  margin: 5px;
+}
+.containerPostHead .logosSub h2:nth-child(1) {
+  background-color: #f11818;
+}
+.containerPostHead .logosSub h2:nth-child(2) {
+  background-color: #ff8800;
+}
+.containerPostHead .logosSub h2:nth-child(3) {
+  background-color: #19c8ce;
+}
+.containerPostHead .logosSub h2:nth-child(4) {
+  background-color: #26c000;
+}
+
+@media screen and (max-width: 1000px) {
+  .containerPostHead .container {
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    width: 90%;
   }
-  .logoHead {
-    border-radius: 10px;
-    padding: 20px;
-    font-size: 4rem;
+  .containerPostHead .left {
+    justify-content: left;
+    width: 100%;
+  }
+  .containerPostHead .right {
+    width: 100%;
+    margin-top: 20px;
+    display: none;
+  }
+  .containerPostHead .button {
     margin: 0;
   }
-  .logosSub {
-    display: flex;
+}
+.containerPostHead .animation1 {
+  animation: animateText1 0.4s ease;
+}
+@keyframes animateText1 {
+  0% {
+    opacity: 0;
+    margin-top: 20px;
   }
-  .logosSub h2 {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
-    font-size: 2rem;
-    width: 70px;
-    height: 70px;
-    margin: 5px;
+
+  100% {
+    opacity: 1;
+    margin-top: 0;
   }
-  .logosSub h2:nth-child(1) {
-    background-color: #f11818;
+}
+.containerPostHead .animation2 {
+  animation: animateText2 0.7s ease-in-out;
+}
+@keyframes animateText2 {
+  0% {
+    opacity: 0;
+    margin-top: 30px;
   }
-  .logosSub h2:nth-child(2) {
-    background-color: #ff8800;
+
+  100% {
+    opacity: 1;
+    margin-top: 0;
   }
-  .logosSub h2:nth-child(3) {
-    background-color: #19c8ce;
-  }
-  .logosSub h2:nth-child(4) {
-    background-color: #26c000;
-  }
-  
-  @media screen and (max-width: 1000px) {
-    .container {
-      flex-direction: column;
-      width: 90%;
-    }
-    .left {
-      justify-content: left;
-      width: 100%;
-    }
-    .right {
-      width: 100%;
-      margin-top: 20px;
-      display: none;
-    }
-    .button {
-      margin: 0;
-    }
-  }
-  .animation1 {
-    animation: animateText1 0.4s ease;
-  }
-  @keyframes animateText1 {
-    0% {
-      opacity: 0;
-      margin-top: 20px;
-    }
-  
-    100% {
-      opacity: 1;
-      margin-top: 0;
-    }
-  }
-  .animation2 {
-    animation: animateText2 0.7s ease-in-out;
-  }
-  @keyframes animateText2 {
-    0% {
-      opacity: 0;
-      margin-top: 30px;
-    }
-  
-    100% {
-      opacity: 1;
-      margin-top: 0;
-    }
-  }
-  
+}

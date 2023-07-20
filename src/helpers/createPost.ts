@@ -12,6 +12,7 @@ class CreatePost {
   private author: string;
   private date: string;
   private content: string;
+  private is_public: boolean | undefined;
 
   constructor(
     title: string,
@@ -24,7 +25,8 @@ class CreatePost {
     read_time: string,
     author: string,
     date: string,
-    content: string
+    content: string,
+    is_public?: boolean
   ) {
     this.title = title;
     this.category = category;
@@ -37,6 +39,7 @@ class CreatePost {
     this.author = author;
     this.date = date;
     this.content = content;
+    this.is_public = is_public;
   }
 
   async savePost() {
@@ -51,6 +54,7 @@ class CreatePost {
       read_time: this.read_time,
       author: this.author,
       date: this.date,
+      is_public: this.is_public,
       content: this.content,
     });
     const savedPost = await post.save();

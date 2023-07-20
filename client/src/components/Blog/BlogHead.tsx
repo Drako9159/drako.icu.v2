@@ -10,7 +10,7 @@ export default function BlogHead() {
   const strings = languageLibrary(language);
 
   return (
-    <div className={styles.container}>
+    <div className={styles.containerBlogHead}>
       <div className={styles.left}>
         <h1 style={color.textEnable} className={styles.animation1}>
           {strings.blog.text1} <br></br>

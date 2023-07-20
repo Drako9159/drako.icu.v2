@@ -6,7 +6,7 @@ export default function Layout({ children }: any) {
   const theme = useConfigsStore((state) => state.configs.theme);
   const color = themeLibrary(theme);
   return (
-    <div style={color.layout} className={styles.container}>
+    <div style={color.layout} className={styles.containerLayout}>
       {children}
     </div>
   );

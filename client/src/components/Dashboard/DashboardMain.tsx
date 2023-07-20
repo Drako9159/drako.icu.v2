@@ -12,15 +12,15 @@ export default function DashboardMain({
   element: any;
 }) {
   return (
-    <div className={styles.container}>
+    <div className={styles.containerDashboardMain}>
       {element === "Posts" ? (
         <ListPost />
       ) : element === "Users" ? (
         <ListUser />
       ) : element === "Create-User" ? (
-        <CreateUserForm setElement={setElement}/>
+        <CreateUserForm setElement={setElement} />
       ) : element === "Create-Post" ? (
-        <CreatePostForm setElement={setElement}/>
+        <CreatePostForm setElement={setElement} />
       ) : (
         ""
       )}

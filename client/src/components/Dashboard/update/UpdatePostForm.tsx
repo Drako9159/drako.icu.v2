@@ -14,7 +14,7 @@ export default function UpdatePostForm({
   setIsCharge: any;
 }) {
   const [content, setContent] = useState(post.content);
-  
+
   const titleRef = useRef<HTMLInputElement>(null);
   const categoryRef = useRef<HTMLInputElement>(null);
   const tagRef = useRef<HTMLInputElement>(null);
@@ -22,6 +22,7 @@ export default function UpdatePostForm({
   const colorRef = useRef<HTMLSelectElement>(null);
   const imageRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
+  const isPublicRef = useRef<HTMLSelectElement>(null);
 
   const readTimeRef = useRef<HTMLInputElement>(null);
   const authorRef = useRef<HTMLInputElement>(null);
@@ -36,6 +37,7 @@ export default function UpdatePostForm({
     const colorValue = colorRef.current?.value;
     const imageValue = imageRef.current?.value;
     const descriptionValue = descriptionRef.current?.value;
+    const isPublicValue = isPublicRef.current?.value === "false" ? false : true;
 
     const readTimeValue = readTimeRef.current?.value;
     const authorValue = authorRef.current?.value;
@@ -52,6 +54,7 @@ export default function UpdatePostForm({
       read_time: readTimeValue,
       author: authorValue,
       date: dateValue,
+      is_public: isPublicValue,
       content: content,
     };
 
@@ -64,6 +67,8 @@ export default function UpdatePostForm({
       setIsCharge(false);
     }
   }
+
+  
 
   return (
     <div className={styles.containerUpdateForm}>
@@ -103,13 +108,23 @@ export default function UpdatePostForm({
           />
 
           <label htmlFor="language">Language</label>
-          <select id="language" ref={languageRef} defaultValue={post.language} name="language">
+          <select
+            id="language"
+            ref={languageRef}
+            defaultValue={post.language}
+            name="language"
+          >
             <option value="es">es - spanish</option>
             <option value="en">en - english</option>
           </select>
 
           <label htmlFor="color">Color</label>
-          <select id="color" ref={colorRef} defaultValue={post.color} name="color">
+          <select
+            id="color"
+            ref={colorRef}
+            defaultValue={post.color}
+            name="color"
+          >
             <option value="green">green</option>
             <option value="blue">blue</option>
             <option value="pink">pink</option>
@@ -127,6 +142,17 @@ export default function UpdatePostForm({
             ref={readTimeRef}
             defaultValue={post.read_time}
           />
+
+          <label htmlFor="is_public">Public</label>
+          <select
+            id="is_public"
+            ref={isPublicRef}
+            name="is_public"
+            defaultValue={post.is_public}
+          >
+            <option value="true">active</option>
+            <option value="false">inactive</option>
+          </select>
         </div>
         <div>
           <label htmlFor="image">Image</label>
@@ -163,13 +189,13 @@ export default function UpdatePostForm({
 
           <label htmlFor="date">Date</label>
           <input
-            type="text"
+            type="date"
             name="date"
             id="date"
             required={true}
-            placeholder="Ene 14, 2023"
             ref={dateRef}
             defaultValue={post.date}
+            
           />
 
           <div className={styles.actions}>

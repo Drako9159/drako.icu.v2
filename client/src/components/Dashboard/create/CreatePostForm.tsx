@@ -15,6 +15,7 @@ export default function CreatePostForm({ setElement }: { setElement: any }) {
   const colorRef = useRef<HTMLSelectElement>(null);
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
   const imageRef = useRef<HTMLInputElement>(null);
+  const isPublicRef = useRef<HTMLSelectElement>(null);
 
   const readTimeRef = useRef<HTMLInputElement>(null);
   const authorRef = useRef<HTMLInputElement>(null);
@@ -27,8 +28,10 @@ export default function CreatePostForm({ setElement }: { setElement: any }) {
     const tagValue = tagRef.current?.value;
     const languageValue = languageRef.current?.value;
     const colorValue = colorRef.current?.value;
-    const imageValue = imageRef.current?.value;
     const descriptionValue = descriptionRef.current?.value;
+    const imageValue = imageRef.current?.value;
+
+    const isPublicValue = isPublicRef.current?.value === "false" ? false : true;
 
     const readTimeValue = readTimeRef.current?.value;
     const authorValue = authorRef.current?.value;
@@ -45,9 +48,9 @@ export default function CreatePostForm({ setElement }: { setElement: any }) {
       read_time: readTimeValue,
       author: authorValue,
       date: dateValue,
+      is_public: isPublicValue,
       content: content,
     };
-    console.log(prepare)
 
     setIsCharge(true);
     const response = await createOnePost(prepare);
@@ -117,6 +120,12 @@ export default function CreatePostForm({ setElement }: { setElement: any }) {
             placeholder="15 min read"
             ref={readTimeRef}
           />
+
+          <label htmlFor="is_public">Public</label>
+          <select id="is_public" ref={isPublicRef} name="is_public">
+            <option value="true">active</option>
+            <option value="false">inactive</option>
+          </select>
         </div>
         <div>
           <label htmlFor="image">Image</label>
@@ -150,18 +159,18 @@ export default function CreatePostForm({ setElement }: { setElement: any }) {
 
           <label htmlFor="date">Date</label>
           <input
-            type="text"
+            type="date"
             name="date"
             id="date"
             required={true}
-            placeholder="Ene 14, 2023"
             ref={dateRef}
+            
           />
 
-          <button  disabled={content === "" ? true : false}>Create</button>
+          <button disabled={content === "" ? true : false}>Create</button>
         </div>
       </form>
-      <EditorMarked content={content} setContent={setContent}/>
+      <EditorMarked content={content} setContent={setContent} />
     </div>
   );
 }

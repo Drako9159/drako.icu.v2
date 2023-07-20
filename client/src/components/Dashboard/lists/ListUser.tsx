@@ -41,7 +41,7 @@ export default function ListUser() {
   }
 
   return (
-    <div className={styles.container}>
+    <div className={styles.containerListUser}>
       <ChargeAnimation delay={isCharge} />
       <div>
         {users.map((e: any) => {

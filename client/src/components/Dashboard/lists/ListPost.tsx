@@ -43,7 +43,7 @@ export default function ListPost() {
   }
 
   return (
-    <div className={styles.container}>
+    <div className={styles.containerListPost}>
       <ChargeAnimation delay={isCharge}/>
       <div>
         {posts.map((e: any) => {
@@ -58,6 +58,7 @@ export default function ListPost() {
                 <p>Description: {e.description}</p>
                 <p>Language: {e.language}</p>
                 <p>Date: {e.date}</p>
+                <p>Public: {e.is_public ? "active" : "inactive"}</p>
                 <p>Color: {e.color}</p>
                 <p>ReadTime: {e.read_time}</p>
               </div>

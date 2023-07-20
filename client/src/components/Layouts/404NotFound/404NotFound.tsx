@@ -8,7 +8,7 @@ export default function NotFound() {
   const color = themeLibrary(theme);
 
   return (
-    <div style={color.textDisable} className={styles.container}>
+    <div style={color.textDisable} className={styles.container404NotFound}>
       <h2>404 Not Found</h2>
       <Link className={styles.button} style={color.textDisable} to="/" aria-label="Home Page">
         Back

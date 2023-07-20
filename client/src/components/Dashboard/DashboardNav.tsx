@@ -14,7 +14,7 @@ export default function DashboardNav({ setElement, element }: { setElement: any,
     }
   }
   return (
-    <div className={styles.container}>
+    <div className={styles.containerDashboardNav}>
       <h2 className={styles.title}>{element}</h2>
       <div className={styles.nav}>
         <div className={styles.actions} onClick={() => handleClick()}>
