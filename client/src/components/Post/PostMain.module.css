@@ -78,6 +78,7 @@
   margin: 1.5em 10px;
   border-radius: 0 10px 10px 0;
   padding: 0.5em 10px;
+  
 }
 
 .containerPostMain blockquote p {
@@ -89,7 +90,7 @@
 li {
   color: #888888;
 }
-.containerPostMainDay h2,
+/* .containerPostMainDay h2,
 .containerPostMainDay h3,
 .containerPostMainDay h4 {
   color: #525252;
@@ -114,14 +115,14 @@ li {
 }
 .containerPostMainDay blockquote p {
   color: rgb(20, 145, 37);
-}
+} */
 
 /* THEME NIGHT */
 .containerPostMainNight p,
 li {
   color: #9b9b9b;
 }
-.containerPostMainNight h2,
+/* .containerPostMainNight h2,
 h3,
 h4 {
   color: #cacaca;
@@ -134,7 +135,7 @@ h4 {
   color: rgb(40, 170, 245);
 }
 .containerPostMainNight pre {
-  background-color: #262731;
+  background-color: #3a3a3f;
 }
 .containerPostMainNight pre code {
   color: #2fc937;
@@ -145,7 +146,7 @@ h4 {
 }
 .containerPostMainNight blockquote p {
   color: rgb(40, 170, 245);
-}
+} */
 
 @media screen and (max-width: 1000px) {
   .containerPostMain {

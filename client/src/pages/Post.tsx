@@ -11,16 +11,17 @@ import { getOnePost } from "../api/post";
 
 export interface PostContent {
   id: string;
+  title: string;
   category: string;
   tag: string;
   language: string;
   color: string;
-  title: string;
   image: string;
   description: string;
   read_time: string;
   author: string;
   date: string;
+  is_public: boolean;
   createdAt: string;
   updatedAt: string;
   content: string;
@@ -28,16 +29,17 @@ export interface PostContent {
 
 const initialPostContent: PostContent = {
   id: "",
+title: "",
   category: "",
   tag: "",
   language: "",
   color: "",
-  title: "",
   image: "",
   description: "",
   read_time: "",
   author: "",
   date: "",
+  is_public: false,
   createdAt: "",
   updatedAt: "",
   content: "",
@@ -71,16 +73,28 @@ export default function Post() {
   });
 
   useEffect(() => {
-    async function getPost() {
-      const response = await getOnePost(`${routeParams.id}`);
-      if (response.status === 200) {
-        setPost(response.data.post);
-        setIsLoading(false)
-        setStatus(200)
-      }
-    }
     getPost();
   }, []);
+
+  async function getPost() {
+    try {
+      const response = await getOnePost(`${routeParams.id}`);
+      setPost(response.data.post);
+      setColorPost(response.data.post.color)
+      
+      setIsLoading(false);
+      setStatus(200);
+      setPostHead({
+        description: response.data.post.description,
+        title: response.data.post.title,
+        link: import.meta.env.VITE_URL_DOMAIN + "blog/" + response.data.post.id,
+        image: response.data.post.image
+      })  
+    } catch (error: any) {
+      setStatus(error.request.status);
+      setIsLoading(false);
+    }
+  }
 
   return status >= 400 ? (
     <>

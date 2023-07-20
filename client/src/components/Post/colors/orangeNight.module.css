@@ -1,16 +1,17 @@
-.container h2,
-.container h3,
-.container h4 {
+.containerPostMain h2,
+.containerPostMain h3,
+.containerPostMain h4 {
   color: #FF8800;
 }
-.container blockquote {
+.containerPostMain blockquote {
   background: #ff880011;
   border-color: #FF8800;
 }
-.container blockquote p {
-  color: #FF8800;
 
+.containerPostMain blockquote p {
+  color: #FF8800;
+  
 }
-.container a {
+.containerPostMain a {
   color: #FF8800;
 }

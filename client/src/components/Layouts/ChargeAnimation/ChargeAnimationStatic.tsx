@@ -1,5 +1,5 @@
 import { useConfigsStore } from "../../../store/configs";
-import styles from "./ChargeAnimation.module.css";
+import styles from "./ChargeAnimationStatic.module.css";
 
 export default function ChargeAnimationStatic() {
   const theme = useConfigsStore((state) => state.configs.theme);

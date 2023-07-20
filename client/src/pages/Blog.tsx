@@ -10,6 +10,7 @@ import { usePostStore } from "../store/posts";
 import { getPostsList, getPostsListByLanguage } from "../api/post";
 import BlogHead from "../components/Blog/BlogHead";
 import BlogMain from "../components/Blog/BlogMain";
+import NotRequest from "../components/Layouts/400BadRequest/400BadRequest";
 
 export default function Blog() {
   useSEO(useLanguage().head.blog);
@@ -25,26 +26,29 @@ export default function Blog() {
   }, []);
 
   async function getPosts() {
-    const response = await getPostsListByLanguage(language);
-    if (response.status === 200) {
+    try {
+      const response = await getPostsListByLanguage(language);
       setPosts(response.data.posts);
+      setStatus(response.status);
+      setIsLoading(false);
+    } catch (error) {
+      setStatus(400);
+      setIsLoading(false);
     }
-    setStatus(response.status);
-    setIsLoading(false);
   }
 
   return status >= 400 ? (
     <>
       <Header activeLink={"blog"} />
       <BlogHead />
-      <NotFound />
+      <NotRequest status={status}/>
       <Footer />
     </>
   ) : (
     <>
       <Header activeLink={"blog"} />
       <BlogHead />
-      <BlogMain status={status} isLoading={isLoading} />
+      <BlogMain isLoading={isLoading} />
       <Footer />
     </>
   );

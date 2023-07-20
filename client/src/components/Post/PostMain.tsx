@@ -17,10 +17,8 @@ export default function PostMain({
   colorPost: string;
 }) {
   const theme = useConfigsStore((state) => state.configs.theme);
-  if (isLoading) return <ChargeAnimation delay={true} />;
-  if (status === 0) {
-    return <ChargeAnimation delay={true} />;
-  }
+  if (isLoading) return <ChargeAnimation delay={isLoading} />;
+
   if (status >= 400) {
     return <NotRequest status={status} />;
   }
@@ -28,8 +26,10 @@ export default function PostMain({
   return (
     <div
       className={`${styles.containerPostMain} ${
-        theme === "night" ? styles.containerPostMainNight : styles.containerPostMainDay
-      } ${handleThemePost(colorPost).container}`}
+        theme === "night"
+          ? styles.containerPostMainNight
+          : styles.containerPostMainDay
+      } ${handleThemePost("green").containerPostMain}`}
       dangerouslySetInnerHTML={{ __html: post.content }}
     ></div>
   );

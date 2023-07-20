@@ -64,7 +64,7 @@
   background-color: #1f2028;
 }
 .containerChargeAnimation .loaderNight::before,
-.loaderNight::after {
+.containerChargeAnimation .loaderNight::after {
   border: 5px solid #ff8800;
 }
 .containerChargeAnimation .loaderNight::after {

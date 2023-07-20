@@ -2,13 +2,11 @@
   display: flex;
   width: 100%;
   justify-content: center;
-  position: fixed;
+
   align-items: center;
   z-index: 220;
   pointer-events: none;
-  background-color: red;
-  height: 50px;
-  width: 50px;
+  position: relative;
 }
 
 @keyframes hidden {
@@ -29,7 +27,7 @@
   pointer-events: none;
 }
 
-.containerSpinnerStatic.loader::before,
+.containerSpinnerStatic .loader::before,
 .containerSpinnerStatic .loader::after {
   content: "";
   box-sizing: border-box;
