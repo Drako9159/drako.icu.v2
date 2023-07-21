@@ -26,9 +26,9 @@ class Auth {
       email: this.email,
       password: await User.encryptPassword(this.password),
     });
-    const saveUser = await userDB.save();
+    await userDB.save();
     const jwt = sign(
-      { id: userDB.id, type: userDB.type },
+      { id: userDB.id, role: userDB.role },
       config.jwtSecret as string,
       {
         expiresIn: "4h",
@@ -42,11 +42,10 @@ class Auth {
         email: userDB.email,
         createdAt: userDB.createdAt,
         updatedAt: userDB.updatedAt,
-        type: userDB.type,
+        role: userDB.role,
       },
       jwt,
     };
-    // return jwt;
   }
 
   async findOneUser() {
@@ -56,19 +55,22 @@ class Auth {
   async login() {
     const userDB = await User.findOne({ email: this.email });
 
-    if (!userDB) return "Wrong email!!";
+    if (!userDB) return "USER_NOT_FOUND";
+    if (!userDB.confirmed) return "USER_NOT_CONFIRMED";
+    if (userDB.blocked) return "USER_BLOCKED";
     const validPassword = await User.comparePassword(
       this.password,
       userDB.password
     );
-    if (!validPassword) return "Wrong password!!";
+    if (!validPassword) return "INVALID_PASSWORD";
     const jwt = sign(
-      { id: userDB.id, type: userDB.type },
+      { id: userDB.id, role: userDB.role },
       config.jwtSecret as string,
       {
         expiresIn: "4h",
       }
     );
+
     return {
       user: {
         id: userDB._id,
@@ -77,11 +79,10 @@ class Auth {
         email: userDB.email,
         createdAt: userDB.createdAt,
         updatedAt: userDB.updatedAt,
-        type: userDB.type,
+        role: userDB.role,
       },
-      jwt
+      jwt,
     };
-    // return jwt;
   }
 }
 

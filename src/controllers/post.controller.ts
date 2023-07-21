@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import handleErrorResponse from "../utils/handleErrorResponse";
+import handleError from "../utils/handleError";
 import { pageUtil } from "../utils/handlePageable";
 import {
   filterByLanguage,
@@ -10,6 +10,7 @@ import {
 import CreatePost from "../helpers/createPost";
 
 import Posts from "../helpers/post";
+import FindPost from "../helpers/FindPost";
 
 export async function saveOnePost(req: Request, res: Response) {
   try {
@@ -41,13 +42,9 @@ export async function saveOnePost(req: Request, res: Response) {
       !date ||
       !content
     )
-      return handleErrorResponse(
-        res,
-        400,
-        "Error 400 - Please Fill Elements!!"
-      );
+      return handleError(res, 400, "Error 400 - Please Fill Elements!!");
     if (language !== "en" && language !== "es")
-      return handleErrorResponse(res, 400, "Language only accept es or en!");
+      return handleError(res, 400, "Language only accept es or en!");
 
     const post = new CreatePost(
       title,
@@ -70,7 +67,7 @@ export async function saveOnePost(req: Request, res: Response) {
     });
   } catch (error) {
     console.error(error);
-    return handleErrorResponse(res);
+    return handleError(res);
   }
 }
 
@@ -92,7 +89,7 @@ export async function getAllPosts(req: Request, res: Response) {
     });
   } catch (error) {
     console.error(error);
-    return handleErrorResponse(res);
+    return handleError(res);
   }
 }
 
@@ -100,14 +97,22 @@ export async function getOnePost(req: Request, res: Response) {
   try {
     const id = req.params.id;
     const posts = new Posts(id);
-    const post = await posts.getOnePost();
-    if (!post) return handleErrorResponse(res, 404, "Post doesn't exist!");
+    let post;
+    try {
+      post = await posts.getOnePost();
+    } catch (error) {
+      const posts = new FindPost(id);
+      post = await posts.getBySlug();
+    }
+    if (!post) {
+      return handleError(res, 404, "Post doesn't exist!");
+    }
     return res.status(200).json({
       post,
     });
   } catch (error) {
     console.error(error);
-    return handleErrorResponse(res, 400, "Post doesn't exist!");
+    return handleError(res, 400, "Post doesn't exist!");
   }
 }
 
@@ -122,7 +127,7 @@ export async function deleteOnePost(req: Request, res: Response) {
     });
   } catch (error) {
     console.error(error);
-    return handleErrorResponse(res, 400, "User doesn't exist!");
+    return handleError(res, 400, "Post doesn't exist!");
   }
 }
 
@@ -140,13 +145,12 @@ export async function updateOnePost(req: Request, res: Response) {
       read_time,
       author,
       date,
-
       content,
       is_public,
     } = req.body;
 
     if (language !== "en" && language !== "es")
-      return handleErrorResponse(res, 400, "Language only accept es or en!");
+      return handleError(res, 400, "Language only accept es or en!");
 
     const posts = new Posts(
       id,
@@ -170,15 +174,14 @@ export async function updateOnePost(req: Request, res: Response) {
     });
   } catch (error) {
     console.error(error);
-    return handleErrorResponse(res);
+    return handleError(res);
   }
 }
 
 export async function searchPost(req: Request, res: Response) {
   try {
     const title = req.params.title;
-    if (!title)
-      return handleErrorResponse(res, 400, "Please include title param!!");
+    if (!title) return handleError(res, 400, "Please include title param!!");
     let posts = await Posts.getAllPosts();
     posts = posts.filter((e) => e.title.toLowerCase().includes(title));
     return res.status(200).json({
@@ -186,6 +189,6 @@ export async function searchPost(req: Request, res: Response) {
     });
   } catch (error) {
     console.error(error);
-    return handleErrorResponse(res);
+    return handleError(res);
   }
 }

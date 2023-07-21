@@ -29,7 +29,7 @@ export default function PostMain({
         theme === "night"
           ? styles.containerPostMainNight
           : styles.containerPostMainDay
-      } ${handleThemePost("green").containerPostMain}`}
+      } ${handleThemePost(colorPost).containerPostMain}  `}
       dangerouslySetInnerHTML={{ __html: post.content }}
     ></div>
   );

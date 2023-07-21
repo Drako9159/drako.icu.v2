@@ -1,6 +1,7 @@
 export interface PostData {
   id: string;
   title: string;
+  slug: string;
   category: string;
   tag: string;
   language: string;
@@ -47,6 +48,11 @@ export function filterByLanguage(
   }
   return data;
 }
+
+// export function findBySlug(slug: string, data: PostData[]): PostData[]{
+//   data = data.filter((e) => e.slug === slug)
+//   return data;
+// }
 
 export function sortByElement(sort: string, data: PostData[]): PostData[] {
   const availableSorts: string[] = [

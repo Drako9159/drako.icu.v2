@@ -1,5 +1,5 @@
 import { Post } from "../models/Posts";
-
+import handleSlug from "../utils/handleSlug";
 class CreatePost {
   private title: string;
   private category: string;
@@ -45,6 +45,7 @@ class CreatePost {
   async savePost() {
     const post = await new Post({
       title: this.title,
+      slug: handleSlug(this.title),
       category: this.category,
       tag: this.tag,
       language: this.language,

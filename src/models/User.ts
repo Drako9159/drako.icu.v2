@@ -18,24 +18,35 @@ const UserSchema = new Schema(
       required: [true, "Email is required"],
       unique: true,
       match: [/\S+@\S+\.\S+/, "Email is invalid!"],
+      trim: true,
     },
     password: {
       type: String,
       required: [true, "Password is required!"],
     },
-    createdAt: {
-      type: Date,
-      default: new Date(),
-    },
-    type: {
+    resetPasswordToken: {
       type: String,
-      enum: ["user", "admin"],
-      default: "user"
-    }
+    },
+    confirmationToken: {
+      type: String,
+    },
+    confirmed: {
+      type: Boolean,
+      default: true,
+    },
+    role: {
+      type: String,
+      enum: ["public", "admin"],
+      default: "public",
+    },
+    blocked: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     versionKey: false,
-    timestamps: true
+    timestamps: true,
   }
 );
 

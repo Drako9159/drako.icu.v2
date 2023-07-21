@@ -37,7 +37,7 @@ export default function Blog() {
     }
   }
 
-  return status >= 400 ? (
+  return status >= 400 ?  (
     <>
       <Header activeLink={"blog"} />
       <BlogHead />

@@ -1,5 +1,6 @@
 import { IPost } from "interfaces/IPost";
 import { Post } from "../models/Posts";
+import handleSlug from "../utils/handleSlug";
 
 class Posts {
   private id: string | undefined;
@@ -48,12 +49,11 @@ class Posts {
 
   static async getAllPosts() {
     const posts = await Post.find({});
-
-    
     const response = posts.map((e) => {
       const obj = {
         id: e._id,
         title: e.title,
+        slug: e.slug,
         category: e.category,
         tag: e.tag,
         language: e.language,
@@ -78,6 +78,7 @@ class Posts {
     return {
       id: post._id,
       title: post.title,
+      slug: post.slug,
       category: post.category,
       tag: post.tag,
       language: post.language,
@@ -94,6 +95,8 @@ class Posts {
     };
   }
 
+ 
+
   async getAndDelete() {
     const deletePost = await Post.findByIdAndDelete({ _id: this.id });
     return deletePost;
@@ -102,6 +105,7 @@ class Posts {
   async getAndUpdate() {
     const update = {
       title: this.title,
+      slug: this.title ? handleSlug(this.title) : undefined,
       category: this.category,
       tag: this.tag,
       language: this.language,
@@ -121,6 +125,7 @@ class Posts {
     )) as IPost;
     return {
       title: post.title,
+      slug: post.slug,
       category: post.category,
       tag: post.tag,
       language: post.language,

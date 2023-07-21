@@ -5,10 +5,15 @@
 }
 .containerPostMain blockquote {
   background: #c742e213;
+  border-left: 5px solid;
+  margin: 1.5em 10px;
+  border-radius: 0 10px 10px 0;
+  padding: 0.5em 10px;
   border-color: #c742e2;
 }
 .containerPostMain blockquote p {
   color: #c742e2;
+  display: inline;
 
 }
 .containerPostMain a {

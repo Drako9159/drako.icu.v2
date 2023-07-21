@@ -3,14 +3,23 @@
 .containerPostMain h4 {
   color: #26C000;
 }
+
 .containerPostMain blockquote {
-  background: #26c00010;
+  background-color: #26c00010;
+  border-left: 5px solid;
+  margin: 1.5em 10px;
+  border-radius: 0 10px 10px 0;
+  padding: 0.5em 10px;
   border-color: #26C000;
+  
 }
 .containerPostMain blockquote p {
+  display: inline;
   color: #26C000;
 
+
 }
+
 .containerPostMain a {
   color: #26C000;
 }

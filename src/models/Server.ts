@@ -5,6 +5,7 @@ import routerAuth from "../routes/auth.routes"
 import routerError404 from "../routes/error404.routes"
 import routerUser from "../routes/user.routes"
 import routerPost from "../routes/posts.routes"
+import routerAdmin from "../routes/admin/admin.routes"
 import { connectDB } from "../db/config";
 
 class Server {
@@ -15,6 +16,8 @@ class Server {
     auth: "/api/auth",
     user: "/api/users",
     post: "/api/posts",
+
+    admin: "/api/admin"
   };
   private corsOptions = {
     origin: ["http://localhost:5173"],

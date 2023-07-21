@@ -3,6 +3,7 @@ import { deleteOnePost, getOnePost, getPostsList } from "../../../api/post";
 import styles from "./ListPost.module.css";
 import UpdatePostForm from "../update/UpdatePostForm";
 import ChargeAnimation from "../../Layouts/ChargeAnimation/ChargeAnimation";
+import ListTools from "./ListTools";
 export default function ListPost() {
   const [posts, setPosts] = useState([]);
   const [post, setPost] = useState({});
@@ -13,7 +14,7 @@ export default function ListPost() {
     getPosts();
   }, []);
   async function getPosts() {
-    const response = await getPostsList();
+    const response = await getPostsList(0);
     if (response.status === 200) {
       setPosts(response.data.posts);
       setIsCharge(false)
@@ -70,6 +71,8 @@ export default function ListPost() {
           );
         })}
       </div>
+      <ListTools setPosts={setPosts}/>
+      
       {isUpdating ? (
         <UpdatePostForm
           post={post}

@@ -73,17 +73,18 @@
   font-size: 15px;
 }
 
-.containerPostMain blockquote {
+/* .containerPostMain blockquote {
   border-left: 5px solid;
   margin: 1.5em 10px;
   border-radius: 0 10px 10px 0;
   padding: 0.5em 10px;
   
-}
+} 
 
 .containerPostMain blockquote p {
   display: inline;
-}
+  
+} */
 
 /* THEME DAY */
 .containerPostMainDay p,
@@ -94,14 +95,14 @@ li {
 .containerPostMainDay h3,
 .containerPostMainDay h4 {
   color: #525252;
-}
+} */
 
 .containerPostMainDay h1 {
   color: #000000;
 }
-.containerPostMainDay a {
+/* .containerPostMainDay a {
   color: rgb(40, 170, 245);
-}
+} */
 
 .containerPostMainDay pre {
   background-color: #ececec;
@@ -109,7 +110,7 @@ li {
 .containerPostMainDay pre code {
   color: #31a514;
 }
-.containerPostMainDay blockquote {
+/* .containerPostMainDay blockquote {
   background: rgba(31, 180, 51, 0.26);
   border-color: rgb(0, 204, 27);
 }
@@ -126,21 +127,22 @@ li {
 h3,
 h4 {
   color: #cacaca;
-}
+} */
 
 .containerPostMainNight h1 {
   color: #ffffff;
 }
+/* 
 .containerPostMainNight a {
   color: rgb(40, 170, 245);
-}
+} */
 .containerPostMainNight pre {
-  background-color: #3a3a3f;
+  background-color: #262731;
 }
 .containerPostMainNight pre code {
   color: #2fc937;
 }
-.containerPostMainNight blockquote {
+/* .containerPostMainNight blockquote {
   background: rgba(0, 97, 158, 0.212);
   border-color: rgb(40, 170, 245);
 }

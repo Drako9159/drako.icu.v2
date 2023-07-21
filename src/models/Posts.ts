@@ -1,11 +1,16 @@
 import { Schema, model } from "mongoose";
-import { IPost } from "interfaces/IPost";
+import { IPost } from "../interfaces/IPost";
 
 const PostSchema = new Schema(
   {
     title: {
       type: String,
       required: [true, "Title is required!"],
+      unique: true
+    },
+    slug: {
+      type: String,
+      quired: [true, "Slug is required!"],
     },
     category: {
       type: String,
@@ -57,5 +62,6 @@ const PostSchema = new Schema(
     timestamps: true,
   }
 );
+
 
 export const Post = model<IPost>("Post", PostSchema);

@@ -106,9 +106,10 @@ export default function CreatePostForm({ setElement }: { setElement: any }) {
           <select id="color" ref={colorRef} name="color">
             <option value="green">green</option>
             <option value="blue">blue</option>
-            <option value="pink">pink</option>
+            <option value="purple">purple</option>
             <option value="red">red</option>
             <option value="orange">orange</option>
+            <option value="yellow">yellow</option>
           </select>
 
           <label htmlFor="read_time">Read Time</label>

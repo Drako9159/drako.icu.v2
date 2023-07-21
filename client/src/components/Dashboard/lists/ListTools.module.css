@@ -1,0 +1,30 @@
+.containerListTools {
+  background-color: rgb(78, 78, 78);
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.containerListTools .search {
+  /* background-color: blue; */
+}
+.containerListTools .search input {
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  padding: 5px;
+}
+
+.containerListTools .pagination {
+  color: #ffffff;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.containerListTools .pagination button {
+  padding: 5px;
+  cursor: pointer;
+}

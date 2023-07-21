@@ -22,6 +22,9 @@
 .containerEditorMarked .panel {
   margin: 5px;
   overflow-x: scroll;
+  background-color: #ffffff;
+  width: 100%;
+  padding: 5px;
 }
 
 .containerEditorMarked ::-webkit-scrollbar {

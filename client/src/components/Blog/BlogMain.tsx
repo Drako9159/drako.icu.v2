@@ -23,7 +23,7 @@ export default function BlogMain({ isLoading }: { isLoading: boolean }) {
           <Link
             key={e.id}
             className={styles.Link}
-            to={`/blog/${e.id}`}
+            to={`/blog/${e.slug}`}
             aria-label={e.title}
           >
             <div className={styles.card}>

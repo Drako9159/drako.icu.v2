@@ -4,8 +4,12 @@ export interface IUser {
   lastName: string;
   email: string;
   password: string;
+  resetPasswordToken: string;
+  confirmationToken: string;
+  confirmed: Boolean;
+  role: string;
+  blocked: Boolean;
   createdAt: Date;
-  type: string,
-  updatedAt: Date,
+  updatedAt: Date;
   save(): string;
 }

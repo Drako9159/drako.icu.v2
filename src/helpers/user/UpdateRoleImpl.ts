@@ -1,42 +1,37 @@
-import { User } from "../models/User";
-import { IUser } from "../interfaces/IUser";
+import { User } from "../../models/User";
+import { IUser } from "../../interfaces/IUser";
 
-class Users {
+class UpdateRoleImpl {
   private id: string | undefined;
-  private firstName: string | undefined;
-  private lastName: string | undefined;
-  // private type: string | undefined;
+  private role: string | undefined;
 
   constructor(
     id?: string,
-    firstName?: string,
-    lastName?: string
-    // type?: string
+    role?: string,
   ) {
     this.id = id;
-    this.firstName = firstName;
-    this.lastName = lastName;
-    // this.type = type;
+    this.role = role;
+    
   }
 
-  static async getAllUsers() {
-    const users = await User.find({});
-    const response = users.map((e) => {
-      const obj = {
-        id: e._id,
-        firstName: e.firstName,
-        lastName: e.lastName,
-        email: e.email,
-        confirmed: e.confirmed,
-        role: e.role,
-        blocked: e.blocked,
-        createdAt: e.createdAt,
-        updatedAt: e.updatedAt,
-      };
-      return obj;
-    });
-    return response;
-  }
+  // static async getAllUsers() {
+  //   const users = await User.find({});
+  //   const response = users.map((e) => {
+  //     const obj = {
+  //       id: e._id,
+  //       firstName: e.firstName,
+  //       lastName: e.lastName,
+  //       email: e.email,
+  //       confirmed: e.confirmed,
+  //       role: e.role,
+  //       blocked: e.blocked,
+  //       createdAt: e.createdAt,
+  //       updatedAt: e.updatedAt,
+  //     };
+  //     return obj;
+  //   });
+  //   return response;
+  // }
 
   async getOneUser() {
     const user = await User.findById({ _id: this.id });
@@ -85,4 +80,4 @@ class Users {
   }
 }
 
-export default Users;
+export default UpdateRoleImpl;

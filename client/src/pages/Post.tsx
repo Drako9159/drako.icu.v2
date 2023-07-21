@@ -81,7 +81,7 @@ export default function Post() {
       const response = await getOnePost(`${routeParams.id}`);
       setPost(response.data.post);
       setColorPost(response.data.post.color)
-      
+    
       setIsLoading(false);
       setStatus(200);
       setPostHead({
