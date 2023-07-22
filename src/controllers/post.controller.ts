@@ -1,16 +1,10 @@
 import { Request, Response } from "express";
 import handleError from "../utils/handleError";
 import { pageUtil } from "../utils/handlePageable";
-import {
-  filterByLanguage,
-  PostData,
-  sortByElement,
-} from "../utils/handleSorter";
-
-import CreatePost from "../helpers/createPost";
-
-import Posts from "../helpers/post";
-import FindPost from "../helpers/FindPost";
+import { filterByLanguage, sortByElement } from "../utils/handleSorter";
+import FindPostService from "../helpers/post/FindPostService";
+import PostService from "../helpers/post/PostService";
+import CreatePostService from "../helpers/post/CreatePostService";
 
 export async function saveOnePost(req: Request, res: Response) {
   try {
@@ -48,7 +42,7 @@ export async function saveOnePost(req: Request, res: Response) {
     }
     if (language !== "en" && language !== "es")
       return handleError(res, 400, "enum [es, en]");
-    const post = new CreatePost(
+    const post = new CreatePostService(
       title,
       category,
       tag,
@@ -76,7 +70,7 @@ export async function saveOnePost(req: Request, res: Response) {
 export async function getAllPosts(req: Request, res: Response) {
   try {
     const { sort, language, page, size }: any = req.query;
-    let posts = await Posts.getAllPosts();
+    let posts = await PostService.getPosts();
     let data = [...posts];
     posts = sortByElement(sort, data);
     posts = filterByLanguage(language, posts);
@@ -92,41 +86,58 @@ export async function getAllPosts(req: Request, res: Response) {
   }
 }
 
+// export async function getOnePost(req: Request, res: Response) {
+//   try {
+//     const id = req.params.id;
+//     const posts = new Posts(id);
+//     let post;
+//     try {
+//       post = await posts.getOnePost();
+//     } catch (error) {
+//       const posts = new FindPost(id);
+//       post = await posts.getBySlug();
+//     }
+//     if (!post) {
+//       return handleError(res, 404, "POST_NOT_FOUND");
+//     }
+//     return res.status(200).json({
+//       post,
+//     });
+//   } catch (error) {
+//     console.error(error);
+//     return handleError(res, 404, "POST_NOT_FOUND");
+//   }
+// }
+
 export async function getOnePost(req: Request, res: Response) {
   try {
-    const id = req.params.id;
-    const posts = new Posts(id);
+    const idOrSlug = req.params.idOrSlug;
     let post;
-    try {
-      post = await posts.getOnePost();
-    } catch (error) {
-      const posts = new FindPost(id);
-      post = await posts.getBySlug();
-    }
-    if (!post) {
-      return handleError(res, 404, "POST_NOT_FOUND");
-    }
+    post = await FindPostService.findById(idOrSlug);
+    if (post === "POST_NOT_FOUND")
+      post = await FindPostService.findBySlug(idOrSlug);
+    if (post === "POST_NOT_FOUND") return handleError(res, 404, post);
     return res.status(200).json({
       post,
     });
   } catch (error) {
     console.error(error);
-    return handleError(res, 404, "POST_NOT_FOUND");
+    return handleError(res);
   }
 }
 
 export async function deleteOnePost(req: Request, res: Response) {
   try {
     const id = req.params.id;
-    const posts = new Posts(id);
-    const post = await posts.getAndDelete();
+    const posts = new PostService(id);
+    const post = await posts.deletePost();
     return res.status(204).json({
-      message: "User Deleted",
+      message: "USER_DELETED",
       posts,
     });
   } catch (error) {
     console.error(error);
-    return handleError(res, 400, "Post doesn't exist!");
+    return handleError(res);
   }
 }
 
@@ -149,9 +160,9 @@ export async function updateOnePost(req: Request, res: Response) {
     } = req.body;
 
     if (language !== "en" && language !== "es")
-      return handleError(res, 400, "Language only accept es or en!");
+      return handleError(res, 400, "enum [es, en]");
 
-    const posts = new Posts(
+    const posts = new PostService(
       id,
       title,
       category,
@@ -166,9 +177,9 @@ export async function updateOnePost(req: Request, res: Response) {
       content,
       is_public
     );
-    const post = await posts.getAndUpdate();
+    const post = await posts.updatePost();
     return res.status(200).json({
-      message: "Post Updated",
+      message: "POST_UPDATED",
       post,
     });
   } catch (error) {
@@ -180,8 +191,8 @@ export async function updateOnePost(req: Request, res: Response) {
 export async function searchPost(req: Request, res: Response) {
   try {
     const title = req.params.title;
-    if (!title) return handleError(res, 400, "Please include title param!!");
-    let posts = await Posts.getAllPosts();
+    if (!title) return handleError(res, 400, "require: string [title]");
+    let posts = await PostService.getPosts();
     posts = posts.filter((e) => e.title.toLowerCase().includes(title));
     return res.status(200).json({
       results: posts,

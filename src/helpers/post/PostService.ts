@@ -47,7 +47,7 @@ class PostService {
     this.is_public = is_public;
   }
 
-  static async getAllPosts() {
+  static async getPosts() {
     const posts = await Post.find({});
     const response = posts.map((e) => {
       const obj = {
@@ -72,37 +72,12 @@ class PostService {
     return response;
   }
 
-  async getOnePost() {
-    const post = await Post.findById({ _id: this.id });
-    if (!post) return "POST_NOT_FOUND";
-    return {
-      id: post._id,
-      title: post.title,
-      slug: post.slug,
-      category: post.category,
-      tag: post.tag,
-      language: post.language,
-      color: post.color,
-      image: post.image,
-      description: post.description,
-      read_time: post.read_time,
-      author: post.author,
-      date: post.date,
-      is_public: post.is_public,
-      createdAt: post.createdAt,
-      updatedAt: post.updatedAt,
-      content: post.content,
-    };
-  }
-
- 
-
-  async getAndDelete() {
+  async deletePost() {
     const deletePost = await Post.findByIdAndDelete({ _id: this.id });
     return deletePost;
   }
 
-  async getAndUpdate() {
+  async updatePost() {
     const update = {
       title: this.title,
       slug: this.title ? handleSlug(this.title) : undefined,

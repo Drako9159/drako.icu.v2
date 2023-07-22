@@ -1,6 +1,6 @@
 import { Post } from "../../models/Posts";
 import handleSlug from "../../utils/handleSlug";
-class CreatePost {
+class CreatePostService {
   private title: string;
   private category: string;
   private tag: string;
@@ -63,4 +63,4 @@ class CreatePost {
   }
 }
 
-export default CreatePost;
+export default CreatePostService;

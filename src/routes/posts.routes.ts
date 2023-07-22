@@ -15,7 +15,7 @@ router.post("/", saveOnePost);
 
 router.get("/", getAllPosts);
 
-router.get("/:id", getOnePost);
+router.get("/:idOrSlug", getOnePost);
 
 router.delete("/:id", deleteOnePost);
 
