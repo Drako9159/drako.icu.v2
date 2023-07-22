@@ -1,8 +1,8 @@
-import { User } from "../models/User";
+import { User } from "../../models/User";
 import { sign } from "jsonwebtoken";
-import config from "../config";
+import config from "../../config";
 
-class Auth {
+class AuthService {
   private firstName: string | undefined;
   private lastName: string | undefined;
   private email: string;
@@ -86,4 +86,4 @@ class Auth {
   }
 }
 
-export default Auth;
+export default AuthService;

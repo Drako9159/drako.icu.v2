@@ -19,8 +19,8 @@ export const validateToken = (
       accessToken,
       config.jwtSecret as string
     );
-    const type = (auth as { type: string }).type;
-    if (type !== "admin") {
+    const role = (auth as { role: string }).role;
+    if (role !== "admin") {
       return res.status(400).json({
         message: "Access denied, you need an admin user",
       });

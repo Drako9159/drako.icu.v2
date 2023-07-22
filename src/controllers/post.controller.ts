@@ -29,23 +29,25 @@ export async function saveOnePost(req: Request, res: Response) {
       content,
     } = req.body;
 
-    if (
-      !title ||
-      !category ||
-      !tag ||
-      !language ||
-      !color ||
-      !image ||
-      !description ||
-      !read_time ||
-      !author ||
-      !date ||
-      !content
-    )
-      return handleError(res, 400, "Error 400 - Please Fill Elements!!");
+    const fields = [
+      "title",
+      "category",
+      "tag",
+      "language",
+      "color",
+      "image",
+      "description",
+      "read_time",
+      "author",
+      "date",
+      "is_public",
+      "content",
+    ].filter((field) => !req.body[field]);
+    if (fields.length > 0) {
+      return handleError(res, 400, `require: [${fields.join(", ")}]`);
+    }
     if (language !== "en" && language !== "es")
-      return handleError(res, 400, "Language only accept es or en!");
-
+      return handleError(res, 400, "enum [es, en]");
     const post = new CreatePost(
       title,
       category,
@@ -62,7 +64,7 @@ export async function saveOnePost(req: Request, res: Response) {
     );
     const saveUser = await post.savePost();
     return res.status(201).json({
-      message: "Post Created",
+      message: "POST_CREATED",
       id: saveUser._id,
     });
   } catch (error) {
@@ -75,14 +77,11 @@ export async function getAllPosts(req: Request, res: Response) {
   try {
     const { sort, language, page, size }: any = req.query;
     let posts = await Posts.getAllPosts();
-
     let data = [...posts];
     posts = sortByElement(sort, data);
     posts = filterByLanguage(language, posts);
-
     const { content, pageDefinition } = pageUtil(posts, page, size, sort);
     posts = content;
-
     return res.status(200).json({
       posts,
       ...pageDefinition,
@@ -105,14 +104,14 @@ export async function getOnePost(req: Request, res: Response) {
       post = await posts.getBySlug();
     }
     if (!post) {
-      return handleError(res, 404, "Post doesn't exist!");
+      return handleError(res, 404, "POST_NOT_FOUND");
     }
     return res.status(200).json({
       post,
     });
   } catch (error) {
     console.error(error);
-    return handleError(res, 400, "Post doesn't exist!");
+    return handleError(res, 404, "POST_NOT_FOUND");
   }
 }
 
