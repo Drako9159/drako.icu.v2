@@ -35,6 +35,7 @@ http://localhost:3000/api/
          -  is_public: boolean
          -  content: string 
 - users/
+    - GET /get-one-user/: [get basic info user]
     - PUT /updated-one-user/:id [update one user by id]
       - optional body
         - firstName: string
@@ -54,7 +55,7 @@ http://localhost:3000/api/
         - password: string
 - admin/
     - GET /get-all-users [list of all users]
-    - GET /get-one-user/:id [get one user]
+    - GET /get-one-user/:id [get full user info]
     - DELETE /delete-one-user/:id [delete one user]
     - PUT /update-user-role/:id [change role for admin or public]
       - body

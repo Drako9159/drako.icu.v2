@@ -2,6 +2,22 @@ import { Request, Response } from "express";
 import handleError from "../utils/handleError";
 import UserService from "../helpers/user/UserService";
 
+
+export async function getOneUser(req: Request, res: Response) {
+  try {
+    const id = req.params.id;
+    const users = new UserService(id);
+    const user = await users.getUser();
+    if (user === "USER_NOT_FOUND") return handleError(res, 404, user);
+    return res.status(200).json({
+      user,
+    });
+  } catch (error) {
+    console.error(error);
+    return handleError(res);
+  }
+}
+
 export async function updateOneUser(req: Request, res: Response) {
   try {
     const id = req.params.id;

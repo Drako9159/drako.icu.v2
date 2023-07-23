@@ -18,7 +18,7 @@ export async function getOneUser(req: Request, res: Response) {
   try {
     const id = req.params.id;
     const users = new UserService(id);
-    const user = await users.getUser();
+    const user = await users.getUserFull();
     if (user === "USER_NOT_FOUND") return handleError(res, 404, user);
     return res.status(200).json({
       user,

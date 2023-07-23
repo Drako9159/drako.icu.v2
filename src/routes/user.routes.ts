@@ -1,7 +1,9 @@
 import { Router } from "express";
-import { createOneTokenPasswordReset, updateOneConfirmed, updateOneUser } from "../controllers/user.controller";
+import { createOneTokenPasswordReset, getOneUser, updateOneConfirmed, updateOneUser } from "../controllers/user.controller";
 
 const router: Router = Router();
+
+router.get("/get-one-user/:id", getOneUser)
 
 router.put("/update-one-user/:id", updateOneUser)
 

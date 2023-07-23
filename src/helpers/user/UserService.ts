@@ -44,6 +44,21 @@ class UserService {
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
+    };
+  }
+
+  async getUserFull() {
+    const isId = mongoose.Types.ObjectId.isValid(this.id as string);
+    if (!isId) return "USER_NOT_FOUND";
+    const user = await User.findById({ _id: this.id });
+    if (!user) return "USER_NOT_FOUND";
+    return {
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
       resetPasswordToken: user.resetPasswordToken,
       confirmationToken: user.confirmationToken,
       confirmed: user.confirmed,
