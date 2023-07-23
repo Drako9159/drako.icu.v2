@@ -2,54 +2,11 @@ import { Request, Response } from "express";
 import handleError from "../utils/handleError";
 import UserService from "../helpers/user/UserService";
 
-// export async function getAllUsers(req: Request, res: Response) {
-//   try {
-//     const users = await UserService.getUsers();
-//     return res.status(200).json({
-//       users,
-//     });
-//   } catch (error) {
-//     console.error(error);
-//     return handleError(res);
-//   }
-// }
-
-// export async function getOneUser(req: Request, res: Response) {
-//   try {
-//     const id = req.params.id;
-//     const users = new UserService(id);
-//     const user = await users.getUser();
-//     if (user === "USER_NOT_FOUND") return handleError(res, 404, user);
-//     return res.status(200).json({
-//       user,
-//     });
-//   } catch (error) {
-//     console.error(error);
-//     return handleError(res);
-//   }
-// }
-
-// export async function deleteOneUser(req: Request, res: Response) {
-//   try {
-//     const id = req.params.id;
-//     const users = new UserService(id);
-//     const user = await users.deleteUser();
-//     if (user === "USER_NOT_FOUND") return handleError(res, 404, user);
-//     return res.status(204).json({
-//       message: "USER_DELETED",
-//       users,
-//     });
-//   } catch (error) {
-//     console.error(error);
-//     return handleError(res);
-//   }
-// }
-
 export async function updateOneUser(req: Request, res: Response) {
   try {
     const id = req.params.id;
     const { firstName, lastName } = req.body;
-   const service = new UserService(id, firstName, lastName);
+    const service = new UserService(id, firstName, lastName);
     const user = await service.updateUser();
     if (user === "USER_NOT_FOUND") return handleError(res, 404, user);
 
@@ -67,13 +24,12 @@ export async function updateOneUser(req: Request, res: Response) {
 // aqui se debería enviar el token por email
 export async function createOneTokenPasswordReset(req: Request, res: Response) {
   try {
-    const { email } = req.body;
+    const email = req.params.email;
     if (!email) return handleError(res, 400, "require: string [email]");
     const token = await UserService.createTokenPasswordReset(email);
     if (token === "USER_NOT_FOUND") return handleError(res, 404, token);
     return res.status(200).json({
       message: "TOKEN_GENERATED",
-      token,
     });
   } catch (error) {
     console.error(error);
@@ -90,7 +46,6 @@ export async function updateOneConfirmed(req: Request, res: Response) {
     const user = await UserService.updateConfirmed(token);
     if (user === "USER_NOT_FOUND") return handleError(res, 404, user);
     if (user === "FAIL_VALIDATION") return handleError(res, 401, user);
-
     return res.status(200).json({
       message: "CONFIRMED_UPDATED",
     });

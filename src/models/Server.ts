@@ -50,6 +50,8 @@ class Server {
 
     this.app.use(this.path.post, routerPost)
 
+    this.app.use(this.path.admin, routerAdmin)
+
     this.app.use(this.path.error404, routerError404)
   }
 

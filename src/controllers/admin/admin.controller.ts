@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import handleError from "../../utils/handleError";
-import UserService from "helpers/user/UserService";
-
+import UserService from "../../helpers/user/UserService";
 
 export async function getAllUsers(req: Request, res: Response) {
   try {
@@ -46,7 +45,6 @@ export async function deleteOneUser(req: Request, res: Response) {
   }
 }
 
-
 export async function updateRole(req: Request, res: Response) {
   try {
     const id = req.params.id;
@@ -63,7 +61,7 @@ export async function updateRole(req: Request, res: Response) {
     });
   } catch (error) {
     console.error(error);
-    return handleError(res, 400, "User doesn't exist!");
+    return handleError(res);
   }
 }
 
@@ -71,15 +69,16 @@ export async function updateBlocked(req: Request, res: Response) {
   try {
     const id = req.params.id;
     const { blocked } = req.body;
-    if (!blocked) return handleError(res, 400, "require: boolean [blocked]");
+    if (blocked === null)
+      return handleError(res, 400, "require: boolean [blocked]");
     if (blocked !== true && blocked !== false)
       return handleError(res, 400, "boolean: [true, false]");
     const service = new UserService(id);
     const user = await service.updateBlocked(blocked);
-    if(user === "USER_NOT_FOUND") return handleError(res, 404, user)
+    if (user === "USER_NOT_FOUND") return handleError(res, 404, user);
     return res.status(200).json({
-      message: "BLOCKED_UPDATED"
-    })
+      message: "BLOCKED_UPDATED",
+    });
   } catch (error) {
     console.error(error);
     return handleError(res);

@@ -9,9 +9,9 @@ const router: Router = Router();
 
 // router.delete("/:id", deleteOneUser);
 
-router.put("/:id", updateOneUser)
+router.put("/update-one-user/:id", updateOneUser)
 
-router.put("/create-token-password/:id", createOneTokenPasswordReset)
+router.put("/create-token-password/:email", createOneTokenPasswordReset)
 
 router.put("/user-confirm/:token", updateOneConfirmed)
 

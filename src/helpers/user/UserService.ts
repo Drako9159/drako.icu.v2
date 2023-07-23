@@ -2,6 +2,7 @@ import { User } from "../../models/User";
 import { IUser } from "../../interfaces/IUser";
 import config from "../../config";
 import jwt, { JwtPayload, sign } from "jsonwebtoken";
+import mongoose from "mongoose";
 
 class UserService {
   private id: string | undefined;
@@ -34,9 +35,12 @@ class UserService {
   }
 
   async getUser() {
+    const isId = mongoose.Types.ObjectId.isValid(this.id as string);
+    if (!isId) return "USER_NOT_FOUND";
     const user = await User.findById({ _id: this.id });
     if (!user) return "USER_NOT_FOUND";
     return {
+      id: user.id,
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
@@ -51,12 +55,17 @@ class UserService {
   }
 
   async deleteUser() {
+    const isId = mongoose.Types.ObjectId.isValid(this.id as string);
+    if (!isId) return "USER_NOT_FOUND";
     const user = await User.findByIdAndDelete({ _id: this.id });
     if (!user) return "USER_NOT_FOUND";
     return user;
   }
 
   async updateUser() {
+    const isId = mongoose.Types.ObjectId.isValid(this.id as string);
+    if (!isId) return "USER_NOT_FOUND";
+
     const user: IUser = (await User.findByIdAndUpdate(
       { _id: this.id },
       { firstName: this.firstName, lastName: this.lastName },
@@ -74,6 +83,8 @@ class UserService {
   }
 
   async updateRole(role: string) {
+    const isId = mongoose.Types.ObjectId.isValid(this.id as string);
+    if (!isId) return "USER_NOT_FOUND";
     const user: IUser = (await User.findByIdAndUpdate(
       { _id: this.id },
       { role: role },
@@ -92,6 +103,8 @@ class UserService {
   }
 
   async updateBlocked(blocked: boolean) {
+    const isId = mongoose.Types.ObjectId.isValid(this.id as string);
+    if (!isId) return "USER_NOT_FOUND";
     const user: IUser = (await User.findByIdAndUpdate(
       { _id: this.id },
       { blocked: blocked },
@@ -109,20 +122,31 @@ class UserService {
     };
   }
 
+  static isValidJWT(token: string) {
+    try {
+      jwt.decode(token);
+      const auth: string | JwtPayload = jwt.verify(
+        token,
+        config.jwtSecret as string
+      );
+      return auth;
+    } catch (error) {
+      return false;
+    }
+  }
+
   static async updateConfirmed(token: string) {
-    const auth: string | JwtPayload = jwt.verify(
-      token,
-      config.jwtSecret as string
-    );
+    if (!this.isValidJWT(token)) return "FAIL_VALIDATION";
+    const auth = this.isValidJWT(token);
     const email = (auth as { email: string }).email;
     const user = await User.findOne({ email: email });
     if (!user) return "USER_NOT_FOUND";
     if (user?.resetPasswordToken !== token) {
       return "FAIL_VALIDATION";
     }
-    const update: IUser = (await User.findOneAndUpdate(
-      { email: email },
-      { confirm: true },
+    const update: IUser = (await User.findByIdAndUpdate(
+      { _id: user.id },
+      { confirmed: true },
       { new: true }
     )) as IUser;
     return {
@@ -152,9 +176,6 @@ class UserService {
       { resetPasswordToken: jwt },
       { new: true }
     )) as IUser;
-    return {
-      token: generate.resetPasswordToken,
-    };
   }
 }
 
