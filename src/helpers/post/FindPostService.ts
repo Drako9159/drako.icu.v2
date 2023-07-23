@@ -1,4 +1,5 @@
 import { Post } from "../../models/Posts";
+import mongoose from "mongoose";
 
 class FindPostService {
   static async findBySlug(slug: string) {
@@ -25,6 +26,8 @@ class FindPostService {
   }
 
   static async findById(id: string) {
+    const isId = mongoose.Types.ObjectId.isValid(id as string);
+    if (!isId) return "POST_NOT_FOUND";
     const post = await Post.findById({ _id: id });
     if (!post) return "POST_NOT_FOUND";
     return {
@@ -46,6 +49,7 @@ class FindPostService {
       content: post.content,
     };
   }
+
 }
 
 export default FindPostService;

@@ -1,7 +1,7 @@
 import { IPost } from "../../interfaces/IPost";
 import { Post } from "../../models/Posts";
 import handleSlug from "../../utils/handleSlug";
-
+import mongoose from "mongoose";
 class PostService {
   private id: string | undefined;
   private title: string | undefined;
@@ -73,6 +73,8 @@ class PostService {
   }
 
   async deletePost() {
+    const isId = mongoose.Types.ObjectId.isValid(this.id as string);
+    if (!isId) return "POST_NOT_FOUND";
     const deletePost = await Post.findByIdAndDelete({ _id: this.id });
     return deletePost;
   }
@@ -93,6 +95,8 @@ class PostService {
       is_public: this.is_public,
       content: this.content,
     };
+    const isId = mongoose.Types.ObjectId.isValid(this.id as string);
+    if (!isId) return "POST_NOT_FOUND";
     const post: IPost = (await Post.findByIdAndUpdate(
       { _id: this.id },
       update,

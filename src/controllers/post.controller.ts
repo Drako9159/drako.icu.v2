@@ -86,29 +86,6 @@ export async function getAllPosts(req: Request, res: Response) {
   }
 }
 
-// export async function getOnePost(req: Request, res: Response) {
-//   try {
-//     const id = req.params.id;
-//     const posts = new Posts(id);
-//     let post;
-//     try {
-//       post = await posts.getOnePost();
-//     } catch (error) {
-//       const posts = new FindPost(id);
-//       post = await posts.getBySlug();
-//     }
-//     if (!post) {
-//       return handleError(res, 404, "POST_NOT_FOUND");
-//     }
-//     return res.status(200).json({
-//       post,
-//     });
-//   } catch (error) {
-//     console.error(error);
-//     return handleError(res, 404, "POST_NOT_FOUND");
-//   }
-// }
-
 export async function getOnePost(req: Request, res: Response) {
   try {
     const idOrSlug = req.params.idOrSlug;
@@ -131,9 +108,9 @@ export async function deleteOnePost(req: Request, res: Response) {
     const id = req.params.id;
     const posts = new PostService(id);
     const post = await posts.deletePost();
+    if (post === "POST_NOT_FOUND") return handleError(res, 404, post);
     return res.status(204).json({
-      message: "USER_DELETED",
-      posts,
+      message: "POST_DELETED",
     });
   } catch (error) {
     console.error(error);
@@ -178,6 +155,9 @@ export async function updateOnePost(req: Request, res: Response) {
       is_public
     );
     const post = await posts.updatePost();
+    if(post === "POST_NOT_FOUND") return handleError(res, 404, post)
+
+
     return res.status(200).json({
       message: "POST_UPDATED",
       post,
