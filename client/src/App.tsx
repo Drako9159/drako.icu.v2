@@ -12,18 +12,19 @@ import Post from "./pages/Post";
 
 export default function App() {
   useConfigs();
+  
   return (
     <Layout>
       <Wrapper>
         <BrowserRouter>
-        <ScrollTopTop />
+          <ScrollTopTop />
           <Routes>
-            <Route path="/dashboard" element={<Dashboard />}/>
-            <Route path="/" element={<HomePage />}/>
-            <Route path="/about" element={<About />}/>
-            <Route path="/blog" element={<Blog />}/>
-            <Route path="/blog/:id" element={<Post />}/>
-            <Route path="*" element={<NotFound />}/>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/" element={<HomePage />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:id" element={<Post />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
       </Wrapper>

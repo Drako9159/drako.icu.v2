@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useAuthStore } from "../store/auth";
 import Header from "../components/Layouts/Header/Header";
 import NotRequest from "../components/Layouts/400BadRequest/400BadRequest";
 import Footer from "../components/Layouts/Footer/Footer";
@@ -8,6 +7,10 @@ import useSEO from "../hooks/useSEO";
 import PostHead from "../components/Post/PostHead";
 import PostMain from "../components/Post/PostMain";
 import { getOnePost } from "../api/post";
+import ChargeAnimation from "../components/Layouts/ChargeAnimation/ChargeAnimation";
+import { useLoadingStore } from "../store/loading";
+import useAuthWebsite from "../hooks/useAuthWebsite";
+import { useAuthStore } from "../store/auth";
 
 export interface PostContent {
   id: string;
@@ -29,7 +32,7 @@ export interface PostContent {
 
 const initialPostContent: PostContent = {
   id: "",
-title: "",
+  title: "",
   category: "",
   tag: "",
   language: "",
@@ -58,12 +61,14 @@ const initialSeo: PostHead = {
   image: "",
 };
 export default function Post() {
+  useAuthWebsite();
+  const isAuth = useAuthStore((state) => state.isAuth);
+  
   const routeParams = useParams();
   const [post, setPost] = useState<PostContent>(initialPostContent);
   const [status, setStatus] = useState(0);
-  const [isLoading, setIsLoading] = useState(true);
   const [postHead, setPostHead] = useState<PostHead>(initialSeo);
-  const [colorPost, setColorPost] = useState("blue");
+  const setIsLoading = useLoadingStore((state) => state.setIsLoading);
 
   useSEO({
     description: postHead.description,
@@ -73,46 +78,36 @@ export default function Post() {
   });
 
   useEffect(() => {
-    getPost();
-  }, []);
+    if (isAuth) getPost();
+  }, [isAuth]);
 
   async function getPost() {
     try {
+      setIsLoading(true);
       const response = await getOnePost(`${routeParams.id}`);
+      setStatus(response.status);
       setPost(response.data.post);
-      setColorPost(response.data.post.color)
-    
       setIsLoading(false);
-      setStatus(200);
       setPostHead({
         description: response.data.post.description,
         title: response.data.post.title,
-        link: import.meta.env.VITE_URL_DOMAIN + "blog/" + response.data.post.id,
-        image: response.data.post.image
-      })  
+        link:
+          import.meta.env.VITE_URL_DOMAIN + "blog/" + response.data.post.slug,
+        image: response.data.post.image,
+      });
     } catch (error: any) {
       setStatus(error.request.status);
       setIsLoading(false);
     }
   }
 
-  return status >= 400 ? (
+  return (
     <>
       <Header activeLink={"blog"} />
       <PostHead />
-      <NotRequest status={status} />
-      <Footer />
-    </>
-  ) : (
-    <>
-      <Header activeLink={"blog"} />
-      <PostHead />
-      <PostMain
-        post={post}
-        status={status}
-        isLoading={isLoading}
-        colorPost={colorPost}
-      />
+      <ChargeAnimation />
+      {status >= 400 && <NotRequest status={status} />}
+      {post.id !== "" && <PostMain post={post} />}
       <Footer />
     </>
   );

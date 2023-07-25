@@ -1,13 +1,12 @@
 import styles from "./CreatePostForm.module.css";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { createOnePost } from "../../../api/post";
 import ChargeAnimation from "../../Layouts/ChargeAnimation/ChargeAnimation";
 import EditorMarked from "../../utils/EditorMarked";
 export default function CreatePostForm({ setElement }: { setElement: any }) {
   const [content, setContent] = useState("");
-  const [isCharge, setIsCharge] = useState<boolean>(false);
-
+  
   const titleRef = useRef<HTMLInputElement>(null);
   const categoryRef = useRef<HTMLInputElement>(null);
   const tagRef = useRef<HTMLInputElement>(null);
@@ -52,18 +51,17 @@ export default function CreatePostForm({ setElement }: { setElement: any }) {
       content: content,
     };
 
-    setIsCharge(true);
     const response = await createOnePost(prepare);
     if (response.status === 201) {
       alert("post created");
-      setIsCharge(false);
+
       setElement("Posts");
     }
   }
 
   return (
     <div className={styles.containerPostForm}>
-      <ChargeAnimation delay={isCharge} />
+      <ChargeAnimation />
       <form onSubmit={handleCreatePost}>
         <div>
           <label htmlFor="title">Title</label>
@@ -165,7 +163,6 @@ export default function CreatePostForm({ setElement }: { setElement: any }) {
             id="date"
             required={true}
             ref={dateRef}
-            
           />
 
           <button disabled={content === "" ? true : false}>Create</button>

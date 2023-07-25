@@ -3,46 +3,49 @@ import { deleteOneUser, getUsersList } from "../../../api/user";
 import styles from "./ListUser.module.css";
 import UpdateUserForm from "../update/UpdateUserForm";
 import ChargeAnimation from "../../Layouts/ChargeAnimation/ChargeAnimation";
+import { useLoadingStore } from "../../../store/loading";
 export default function ListUser() {
   const [users, setUsers] = useState([]);
   const [user, setUser] = useState({});
   const [isUpdating, setIsUpdating] = useState<boolean>(false);
-  const [isCharge, setIsCharge] = useState<boolean>(true);
+  //const [isCharge, setIsCharge] = useState<boolean>(true);
+  const setIsLoading = useLoadingStore((state) => state.setIsLoading);
 
   useEffect(() => {
     getUsers();
   }, []);
 
   async function getUsers() {
+    setIsLoading(true);
     const response = await getUsersList();
     if (response.status === 200) {
       setUsers(response.data.users);
-      setIsCharge(false)
     }
+    setIsLoading(false);
   }
 
   function handleUpdate(e: object) {
-    setIsCharge(true)
+    setIsLoading(true);
     setIsUpdating(true);
     setUser(e);
-    setIsCharge(false)
+    setIsLoading(false);
   }
 
   async function deleteUser(id: string) {
     if (!confirm("Do you want delete this user?")) {
       return;
     }
-    setIsCharge(true)
+    setIsLoading(true);
     const response = await deleteOneUser(id);
     if (response.status === 204) {
       getUsers();
-      setIsCharge(false)
     }
+    setIsLoading(false);
   }
 
   return (
     <div className={styles.containerListUser}>
-      <ChargeAnimation delay={isCharge} />
+      <ChargeAnimation />
       <div>
         {users.map((e: any) => {
           return (
@@ -52,9 +55,11 @@ export default function ListUser() {
                 <p>Name: {e.firstName}</p>
                 <p>LastN: {e.lastName}</p>
                 <p>Email: {e.email}</p>
-                <p>Type: {e.type}</p>
+                <p>Role: {e.role}</p>
+                <p>Blocked: {e.blocked ? "blocked": "unlocked"}</p>
                 <p>CreatedAt: {e.createdAt}</p>
                 <p>UpdatedAt: {e.updatedAt}</p>
+                
               </div>
               <div className={styles.actions}>
                 <button onClick={() => deleteUser(e.id)}>Delete</button>
@@ -70,7 +75,7 @@ export default function ListUser() {
           user={user}
           setIsUpdating={setIsUpdating}
           getUsers={getUsers}
-          setIsCharge={setIsCharge}
+          
         />
       ) : (
         ""

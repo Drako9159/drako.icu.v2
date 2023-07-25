@@ -1,24 +1,20 @@
 import styles from "./BlogMain.module.css";
 import { Link } from "react-router-dom";
-import ChargeAnimation from "../Layouts/ChargeAnimation/ChargeAnimation";
 import themeLibrary from "../../theme/theme";
 import { usePostStore } from "../../store/posts";
 import { useState } from "react";
 import { useConfigsStore } from "../../store/configs";
 import ChargeAnimationStatic from "../Layouts/ChargeAnimation/ChargeAnimationStatic";
 
-export default function BlogMain({ isLoading }: { isLoading: boolean }) {
+export default function BlogMain() {
   const [loaded, setLoaded] = useState(false);
-
   const theme = useConfigsStore((state) => state.configs.theme);
   const color = themeLibrary(theme);
-  const posts2 = usePostStore((state) => state.posts);
-
-  if (isLoading) return <ChargeAnimation delay={isLoading} />;
+  const posts = usePostStore((state) => state.posts);
 
   return (
     <div className={styles.containerBlogMain}>
-      {posts2.map((e: any) => {
+      {posts.map((e: any) => {
         return (
           <Link
             key={e.id}

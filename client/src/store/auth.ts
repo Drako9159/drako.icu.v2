@@ -1,19 +1,41 @@
 import { create } from "zustand";
 
+interface Profile {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  role: string;
+  createdAt: string;
+}
+
 interface AuthStoreState {
   token: string;
-  profile: null | any;
+  profile: Profile;
   isAuth: boolean;
-  setToken: (token: string) => void;
+  setAuth: (token: string, profile: Profile) => void;
   logout: () => void;
 }
 
 export const useAuthStore = create<AuthStoreState>((set) => ({
   token: "",
-  profile: null,
+  profile: {
+    id: "",
+    firstName: "",
+    lastName: "",
+    email: "",
+    role: "",
+    createdAt: "",
+  },
   isAuth: false,
-  setToken: (token) =>
-    set((state) => ({ ...state, token, isAuth: true })),
+  //setToken: (token) => set((state) => ({ ...state, token, isAuth: true })),
+  setAuth: (token, profile) =>
+    set((state) => ({ ...state, token, profile, isAuth: true })),
   logout: () =>
-    set((state) => ({ ...state, token: "", isAuth: false, profile: null })),
+    set((state) => ({
+      ...state,
+      token: "",
+      isAuth: false,
+      profile: { id: "", firstName: "", lastName: "", email: "", role: "", createdAt: "" },
+    })),
 }));

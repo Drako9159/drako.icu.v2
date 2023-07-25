@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { marked } from "marked";
 import TurndownService from "turndown";
 import styles from "./EditorMarked.module.css";
-import { useRef, useEffect } from "react";
 
 export default function EditorMarked({
   content,

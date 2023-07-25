@@ -1,5 +1,5 @@
 import axios from "./axios";
-import { Axios, AxiosResponse } from "axios";
+import { AxiosResponse } from "axios";
 
 export async function getPostsList(page: number = 0): Promise<AxiosResponse> {
   return await axios.get(`/posts?page=${page}`);
@@ -8,9 +8,8 @@ export async function getPostsList(page: number = 0): Promise<AxiosResponse> {
 export async function getPostsListByLanguage(
   language: string
 ): Promise<AxiosResponse> {
-  return await axios.get(`/posts?language=${language}`);
+  return await axios.get(`/posts?language=${language}&is_public=true`);
 }
-
 
 export async function getOnePost(id: string): Promise<AxiosResponse> {
   return await axios.get(`/posts/${id}`);

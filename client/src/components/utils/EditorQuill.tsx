@@ -1,23 +1,22 @@
-import React, { useState, useEffect } from "react";
+
 import { useQuill } from "react-quilljs";
 import "quill/dist/quill.snow.css";
 
 const MyEditor = () => {
   const { quill, quillRef } = useQuill();
-  const [content, setContent] = useState("");
 
-  useEffect(() => {
-    if (quill) {
-      quill.on("text-change", (delta, oldDelta, source) => {
-        setContent(quill.root.innerHTML);
-        // console.log("Text change!");
-        // console.log(quill.getText());
-        // console.log(quill.getContents());
-        // console.log(quill.root.innerHTML);
-        // console.log(quillRef.current.firstChild.innerHTML);
-      });
-    }
-  }, [quill]);
+  // useEffect(() => {
+  //   if (quill) {
+  //     quill.on("text-change", (delta, oldDelta, source) => {
+  //       setContent(quill.root.innerHTML);
+  //       // console.log("Text change!");
+  //       // console.log(quill.getText());
+  //       // console.log(quill.getContents());
+  //       // console.log(quill.root.innerHTML);
+  //       // console.log(quillRef.current.firstChild.innerHTML);
+  //     });
+  //   }
+  // }, [quill]);
 
   function handleInsertImg() {
     const url = prompt("Por favor, ingresa la URL de la imagen:");

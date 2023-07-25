@@ -49,6 +49,20 @@ export function filterByLanguage(
   return data;
 }
 
+export function filterByIsPublic(
+  isPublic: string,
+  data: PostData[]
+): PostData[] {
+  if (isPublic === "true") {
+    data = data.filter((e) => e.is_public === true);
+  
+  }
+  if (isPublic === "false") {
+    data = data.filter((e) => e.is_public === false);
+  }
+  return data;
+}
+
 // export function findBySlug(slug: string, data: PostData[]): PostData[]{
 //   data = data.filter((e) => e.slug === slug)
 //   return data;
@@ -70,11 +84,11 @@ export function sortByElement(sort: string, data: PostData[]): PostData[] {
   ];
 
   // default sort by id
-//   data = data.sort((a, b) => {
-//     if (a.id < b.id) return -1;
-//     if (a.id > b.id) return 1;
-//     return 0;
-//   });
+  //   data = data.sort((a, b) => {
+  //     if (a.id < b.id) return -1;
+  //     if (a.id > b.id) return 1;
+  //     return 0;
+  //   });
 
   if (!availableSorts.includes(sort)) return data;
 
@@ -109,33 +123,33 @@ export function sortByElement(sort: string, data: PostData[]): PostData[] {
       return dateA.getTime() - dateB.getTime();
     });
   }
-//   if (sort === "id,desc") {
-//     data = data.sort((a, b) => {
-//       if (a.id > b.id) return -1;
-//       if (a.id < b.id) return 1;
-//       return 0;
-//     });
-//   }
-//   if (sort === "id") {
-//     data = data.sort((a, b) => {
-//       if (a.id < b.id) return -1;
-//       if (a.id > b.id) return 1;
-//       return 0;
-//     });
-//   }
-//   if (sort === "title,desc") {
-//     data = data.sort((a, b) => {
-//       if (a.title > b.title) return -1;
-//       if (a.title < b.title) return 1;
-//       return 0;
-//     });
-//   }
-//   if (sort === "title") {
-//     data = data.sort((a, b) => {
-//       if (a.title < b.title) return -1;
-//       if (a.title > b.title) return 1;
-//       return 0;
-//     });
-//   }
+  //   if (sort === "id,desc") {
+  //     data = data.sort((a, b) => {
+  //       if (a.id > b.id) return -1;
+  //       if (a.id < b.id) return 1;
+  //       return 0;
+  //     });
+  //   }
+  //   if (sort === "id") {
+  //     data = data.sort((a, b) => {
+  //       if (a.id < b.id) return -1;
+  //       if (a.id > b.id) return 1;
+  //       return 0;
+  //     });
+  //   }
+  //   if (sort === "title,desc") {
+  //     data = data.sort((a, b) => {
+  //       if (a.title > b.title) return -1;
+  //       if (a.title < b.title) return 1;
+  //       return 0;
+  //     });
+  //   }
+  //   if (sort === "title") {
+  //     data = data.sort((a, b) => {
+  //       if (a.title < b.title) return -1;
+  //       if (a.title > b.title) return 1;
+  //       return 0;
+  //     });
+  //   }
   return data;
 }

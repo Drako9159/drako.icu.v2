@@ -3,7 +3,7 @@ import { useConfigsStore } from "../../../store/configs";
 import themeLibrary from "../../../theme/theme";
 import styles from "./400BadRequest.module.css";
 
-export default function NotRequest({ status }: { status: number }) {
+export default function BadRequest({ status }: { status: number }) {
   const theme = useConfigsStore((state) => state.configs.theme);
   const color = themeLibrary(theme);
 

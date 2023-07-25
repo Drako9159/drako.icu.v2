@@ -1,11 +1,15 @@
 import { Router } from "express";
+import { validateUserPublic } from "../middlewares/validateUserPublic";
 import { createOneTokenPasswordReset, getOneUser, updateOneConfirmed, updateOneUser } from "../controllers/user.controller";
 
 const router: Router = Router();
 
-router.get("/get-one-user/:id", getOneUser)
 
-router.put("/update-one-user/:id", updateOneUser)
+router.get("/get-one-user/:id", validateUserPublic, getOneUser)
+
+router.put("/update-one-user/:id", validateUserPublic, updateOneUser)
+
+
 
 router.put("/create-token-password/:email", createOneTokenPasswordReset)
 

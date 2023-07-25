@@ -1,4 +1,5 @@
-import { validateToken } from "../middlewares/validateJWT";
+import { validateUserPublic } from "../middlewares/validateUserPublic";
+import { validateUserAdmin } from "../middlewares/validateUserAdmin";
 import {
   deleteOnePost,
   getAllPosts,
@@ -12,16 +13,20 @@ import { Router } from "express";
 
 const router: Router = Router();
 
-router.post("/", saveOnePost);
+// admin 
 
-router.get("/", getAllPosts);
+router.post("/", validateUserAdmin, saveOnePost);
 
-router.get("/:idOrSlug", getOnePost);
+router.delete("/:id", validateUserAdmin, deleteOnePost);
 
-router.delete("/:id", deleteOnePost);
+router.put("/:id", validateUserAdmin, updateOnePost);
 
-router.put("/:id", updateOnePost);
+// public
 
-router.get("/search/:title", searchPost);
+router.get("/search/:title", validateUserPublic, searchPost);
+
+router.get("/", validateUserPublic, getAllPosts);
+
+router.get("/:idOrSlug", validateUserPublic, getOnePost);
 
 export default router;

@@ -1,48 +1,57 @@
 import { searchOnePost } from "../../../api/post";
 import styles from "./ListTools.module.css";
-import { useState, useRef, useEffect } from "react";
-import { ChangeEvent } from "react";
+import { useState, useRef, useEffect, FormEvent } from "react";
 import { getPostsList } from "../../../api/post";
+import { useLoadingStore } from "../../../store/loading";
 
 export default function ListTools({ setPosts }: { setPosts: any }) {
-  const [search, setSearch] = useState("");
   const [page, setPage] = useState(0);
 
-  const searchRef = useRef<HTMLInputElement>(null);
+  const setIsLoading = useLoadingStore((state) => state.setIsLoading);
 
   useEffect(() => {
-    async function getPosts() {
+    
+    getPosts();
+  }, [page]);
+
+  async function getPosts() {
+    try {
+      setIsLoading(true);
       const response = await getPostsList(page);
       if (response.status === 200) {
         setPosts(response.data.posts);
       }
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
     }
-    getPosts();
-  }, [page]);
+  }
 
+  const searchRef = useRef<HTMLInputElement>(null);
 
-  //e: ChangeEvent<HTMLInputElement>
-
-//   useEffect(() => {
-//     async function searchPost() {
-//       const response = await searchOnePost(search);
-//       if (response.status === 200) {
-//         setPosts(response.data.posts);
-//       }
-//     }
-//     searchPost();
-//   }, [search]);
+  async function handleSearch(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setIsLoading(true);
+    const searchValue = searchRef.current?.value;
+    if (searchValue === "") return getPosts();
+    const response = await searchOnePost(searchValue as string);
+    setPosts(response.data.results);
+    setIsLoading(false);
+  }
 
   return (
     <div className={styles.containerListTools}>
       <div className={styles.search}>
-        <input
-          type="text"
-          name="search"
-          id="search"
-          placeholder="search title"
-          onChange={(e) => setSearch(e.target.value)}
-        />
+        <form onSubmit={handleSearch}>
+          <input
+            type="text"
+            name="search"
+            id="search"
+            placeholder="search title"
+            ref={searchRef}
+          />
+          <button type="submit">search</button>
+        </form>
       </div>
       <div className={styles.pagination}>
         <p>page: {page}</p>

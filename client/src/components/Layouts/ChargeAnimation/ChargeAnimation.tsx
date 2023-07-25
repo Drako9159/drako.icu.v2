@@ -1,19 +1,21 @@
 import { useEffect, useState } from "react";
 import { useConfigsStore } from "../../../store/configs";
 import styles from "./ChargeAnimation.module.css";
+import { useLoadingStore } from "../../../store/loading";
 
-export default function ChargeAnimation({ delay }: { delay: any }) {
+export default function ChargeAnimation() {
   const theme = useConfigsStore((state) => state.configs.theme);
+  const isLoading = useLoadingStore((state) => state.isLoading);
 
   const [isCharge, setIsCharge] = useState({});
 
   useEffect(() => {
-    if (!delay) {
+    if (!isLoading) {
       setIsCharge(styles.delay);
     } else {
-      setIsCharge(styles.containerChargeAnimation)
+      setIsCharge(styles.containerChargeAnimation);
     }
-  }, [delay]);
+  }, [isLoading]);
 
   return (
     <div className={`${styles.containerChargeAnimation} ${isCharge}`}>

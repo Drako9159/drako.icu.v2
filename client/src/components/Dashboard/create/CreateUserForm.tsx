@@ -1,10 +1,8 @@
-import { createOneUser } from "../../../api/user";
+import { registerUser } from "../../../api/auth";
 import ChargeAnimation from "../../Layouts/ChargeAnimation/ChargeAnimation";
 import styles from "./CreateUserForm.module.css";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 export default function CreateUserForm({ setElement }: { setElement: any }) {
-  const [isCharge, setIsCharge] = useState<boolean>(false);
-
   const firstNameRef = useRef<HTMLInputElement>(null);
   const lastNameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
@@ -24,18 +22,17 @@ export default function CreateUserForm({ setElement }: { setElement: any }) {
       password: passwordValue,
     };
 
-    setIsCharge(true);
-    const response = await createOneUser(prepare);
+    const response = await registerUser(prepare);
     if (response.status === 201) {
-      alert("user created");
-      setIsCharge(false);
-      setElement("Users")
+      // alert("user created");
+
+      setElement("Users");
     }
   }
 
   return (
     <div className={styles.containerCreateUserForm}>
-      <ChargeAnimation delay={isCharge} />
+      <ChargeAnimation />
       <form onSubmit={handleCreateUser}>
         <label htmlFor="firstName">Name</label>
         <input

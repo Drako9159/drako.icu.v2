@@ -11,6 +11,9 @@ export default function DashboardMain({
   setElement: any;
   element: any;
 }) {
+
+  
+
   return (
     <div className={styles.containerDashboardMain}>
       {element === "Posts" ? (

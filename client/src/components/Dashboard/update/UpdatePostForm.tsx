@@ -1,17 +1,15 @@
 import styles from "./UpdatePostForm.module.css";
 import EditorMarked from "../../utils/EditorMarked";
-import { useEffect, useRef, useState } from "react";
+import {  useRef, useState } from "react";
 import { updateOnePost } from "../../../api/post";
 export default function UpdatePostForm({
   post,
   setIsUpdating,
   getPosts,
-  setIsCharge,
 }: {
   post: any;
   setIsUpdating: any;
   getPosts: any;
-  setIsCharge: any;
 }) {
   const [content, setContent] = useState(post.content);
 
@@ -58,17 +56,13 @@ export default function UpdatePostForm({
       content: content,
     };
 
-    setIsCharge(true);
     const response = await updateOnePost(post.id, prepare);
     if (response.status === 200) {
       alert("post updated");
       getPosts();
       setIsUpdating(false);
-      setIsCharge(false);
     }
   }
-
-  
 
   return (
     <div className={styles.containerUpdateForm}>
@@ -133,7 +127,6 @@ export default function UpdatePostForm({
             <option value="yellow">yellow</option>
           </select>
 
-
           <label htmlFor="read_time">Read Time</label>
           <input
             type="text"
@@ -197,7 +190,6 @@ export default function UpdatePostForm({
             required={true}
             ref={dateRef}
             defaultValue={post.date}
-            
           />
 
           <div className={styles.actions}>

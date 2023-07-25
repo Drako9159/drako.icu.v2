@@ -1,41 +1,51 @@
-import { updateOneUser } from "../../../api/user";
+import { updateBlocked, updateOneUser, updateRole } from "../../../api/user";
 import styles from "./UpdateUserForm.module.css";
 import { useRef } from "react";
 export default function UpdateUserForm({
   user,
   setIsUpdating,
   getUsers,
-  setIsCharge
 }: {
   user: any;
   setIsUpdating: any;
   getUsers: any;
-  setIsCharge: any;
 }) {
   const idRef = useRef<HTMLInputElement>(null);
   const firstNameRef = useRef<HTMLInputElement>(null);
   const lastNameRef = useRef<HTMLInputElement>(null);
-  const typeRef = useRef<HTMLSelectElement>(null);
+  const roleRef = useRef<HTMLSelectElement>(null);
+  const blockedRef = useRef<HTMLSelectElement>(null);
 
   async function handleUpdateUser(e: React.FormEvent) {
     e.preventDefault();
     const idValue = idRef.current?.value;
     const firstNameValue = firstNameRef.current?.value;
     const lastNameValue = lastNameRef.current?.value;
-    const typeValue = typeRef.current?.value;
+    const roleValue = roleRef.current?.value;
+    const blockedValue = blockedRef.current?.value === "false" ? false : true;
 
     const prepare = {
       firstName: firstNameValue,
       lastName: lastNameValue,
-      type: typeValue,
     };
-    setIsCharge(true)
     const response = await updateOneUser(idValue as string, prepare);
-    if (response.status === 200) {
-      alert("user updated");
+
+    const responseRole = await updateRole(idValue as string, {
+      role: roleValue as string,
+    });
+
+    const responseBlocked = await updateBlocked(idValue as string, {
+      blocked: blockedValue,
+    });
+
+    if (
+      response.status === 200 &&
+      responseRole.status === 200 &&
+      responseBlocked.status === 200
+    ) {
+      // alert("user updated");
       getUsers();
       setIsUpdating(false);
-      setIsCharge(false)
     }
   }
 
@@ -73,10 +83,16 @@ export default function UpdateUserForm({
           defaultValue={user.lastName}
         />
 
-        <label htmlFor="type">Type</label>
-        <select id="type" ref={typeRef} defaultValue={user.type}>
-          <option value="user">user</option>
+        <label htmlFor="role">Role</label>
+        <select id="role" ref={roleRef} defaultValue={user.role}>
+          <option value="public">public</option>
           <option value="admin">admin</option>
+        </select>
+
+        <label htmlFor="blocked">Blocked</label>
+        <select id="blocked" ref={blockedRef} defaultValue={user.blocked}>
+          <option value="false">unlocked</option>
+          <option value="true">blocked</option>
         </select>
 
         <div className={styles.actions}>

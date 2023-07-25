@@ -4,20 +4,28 @@ import styles from "./ListPost.module.css";
 import UpdatePostForm from "../update/UpdatePostForm";
 import ChargeAnimation from "../../Layouts/ChargeAnimation/ChargeAnimation";
 import ListTools from "./ListTools";
+import { useLoadingStore } from "../../../store/loading";
 export default function ListPost() {
   const [posts, setPosts] = useState([]);
   const [post, setPost] = useState({});
   const [isUpdating, setIsUpdating] = useState<boolean>(false);
-  const [isCharge, setIsCharge] = useState<boolean>(true);
+
+  const setIsLoading = useLoadingStore((state) => state.setIsLoading);
 
   useEffect(() => {
     getPosts();
   }, []);
   async function getPosts() {
-    const response = await getPostsList(0);
-    if (response.status === 200) {
-      setPosts(response.data.posts);
-      setIsCharge(false)
+    try {
+      setIsLoading(true);
+      const response = await getPostsList(0);
+      if (response.status === 200) {
+        setPosts(response.data.posts);
+      }
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false);
     }
   }
 
@@ -25,27 +33,27 @@ export default function ListPost() {
     if (!confirm("Do you want delete this post?")) {
       return;
     }
-    setIsCharge(true)
+    setIsLoading(true);
     const response = await deleteOnePost(id);
     if (response.status === 204) {
       getPosts();
-      setIsCharge(false)
     }
+    setIsLoading(false);
   }
 
   async function handleUpdate(id: string) {
-    setIsCharge(true)
+    setIsLoading(true);
     const response = await getOnePost(id);
     if (response.status === 200) {
       setPost(response.data.post);
       setIsUpdating(true);
-      setIsCharge(false)
     }
+    setIsLoading(false);
   }
 
   return (
     <div className={styles.containerListPost}>
-      <ChargeAnimation delay={isCharge}/>
+      <ChargeAnimation />
       <div>
         {posts.map((e: any) => {
           return (
@@ -71,14 +79,14 @@ export default function ListPost() {
           );
         })}
       </div>
-      <ListTools setPosts={setPosts}/>
-      
+      <ListTools setPosts={setPosts} />
+
       {isUpdating ? (
         <UpdatePostForm
           post={post}
           setIsUpdating={setIsUpdating}
           getPosts={getPosts}
-          setIsCharge={setIsCharge}
+        
         />
       ) : (
         ""

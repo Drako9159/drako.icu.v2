@@ -1,7 +1,11 @@
 import { Request, Response } from "express";
 import handleError from "../utils/handleError";
 import { pageUtil } from "../utils/handlePageable";
-import { filterByLanguage, sortByElement } from "../utils/handleSorter";
+import {
+  filterByIsPublic,
+  filterByLanguage,
+  sortByElement,
+} from "../utils/handleSorter";
 import FindPostService from "../helpers/post/FindPostService";
 import PostService from "../helpers/post/PostService";
 import CreatePostService from "../helpers/post/CreatePostService";
@@ -69,11 +73,12 @@ export async function saveOnePost(req: Request, res: Response) {
 
 export async function getAllPosts(req: Request, res: Response) {
   try {
-    const { sort, language, page, size }: any = req.query;
+    const { sort, language, page, size, is_public }: any = req.query;
     let posts = await PostService.getPosts();
     let data = [...posts];
     posts = sortByElement(sort, data);
     posts = filterByLanguage(language, posts);
+    posts = filterByIsPublic(is_public, posts);
     const { content, pageDefinition } = pageUtil(posts, page, size, sort);
     posts = content;
     return res.status(200).json({
@@ -155,8 +160,7 @@ export async function updateOnePost(req: Request, res: Response) {
       is_public
     );
     const post = await posts.updatePost();
-    if(post === "POST_NOT_FOUND") return handleError(res, 404, post)
-
+    if (post === "POST_NOT_FOUND") return handleError(res, 404, post);
 
     return res.status(200).json({
       message: "POST_UPDATED",
