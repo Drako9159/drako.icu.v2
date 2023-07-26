@@ -24,9 +24,7 @@ export default function DashboardNav({
   }
   async function handleLogout() {
     try {
-      
       const response = await logoutUser();
-      console.log(response)
       if (response.status === 200) {
         logout();
       }
