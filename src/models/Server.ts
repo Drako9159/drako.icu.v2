@@ -6,7 +6,7 @@ import routerAuth from "../routes/auth.routes";
 import routerUser from "../routes/user.routes";
 import routerPost from "../routes/posts.routes";
 import routerAdmin from "../routes/admin/admin.routes";
-import routerClient from "../routes/client.routes"
+import routerClient from "../routes/client.routes";
 import { connectDB } from "../db/config";
 import path from "node:path";
 import cookieParser from "cookie-parser";
@@ -24,8 +24,14 @@ class Server {
     admin: "/api/admin",
   };
   private corsOptions = {
-    origin: ["http://localhost:5173"],
-    exposedHeaders: ["authorization"],
+    origin: [
+      "http://localhost:5173",
+      "http://localhost:3000",
+      config.clientFly,
+      config.clientSecure,
+      config.clientVercel,
+    ],
+   exposedHeaders: ["authorization"],
     credentials: true,
   };
 
@@ -49,7 +55,6 @@ class Server {
     this.app.use(express.static(path.join(process.cwd(), "./client/dist")));
   }
 
-
   routes() {
     this.app.use(this.path.auth, routerAuth);
 
@@ -59,7 +64,7 @@ class Server {
 
     this.app.use(this.path.admin, routerAdmin);
 
-    this.app.use(this.path.client, routerClient)
+    this.app.use(this.path.client, routerClient);
 
     //this.app.use(this.path.error404, routerError404);
   }

@@ -41,6 +41,7 @@ export async function login(req: Request, res: Response) {
     if (user === "USER_NOT_CONFIRMED") return handleError(res, 401, user);
     if (user === "INVALID_PASSWORD") return handleError(res, 401, user);
     if (user === "USER_BLOCKED") return handleError(res, 401, user);
+    
     return res
       .cookie("token", user.jwt, {
         httpOnly: true,

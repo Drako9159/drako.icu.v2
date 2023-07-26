@@ -124,8 +124,8 @@ export async function deleteOnePost(req: Request, res: Response) {
 }
 
 export async function updateOnePost(req: Request, res: Response) {
-  const id = req.params.id;
   try {
+    const id = req.params.id;
     const {
       title,
       category,

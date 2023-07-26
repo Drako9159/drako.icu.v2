@@ -21,6 +21,7 @@ export default function Header({ activeLink }: { activeLink: string }) {
   const color = themeLibrary(theme);
 
   function handleClickHamburger() {
+
     if (isActiveButton === styles.hamburgerNotActive) {
       setActiveButton(styles.hamburgerActive);
       setBtn(styles.active);

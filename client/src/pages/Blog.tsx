@@ -13,8 +13,8 @@ import BadRequest from "../components/Layouts/400BadRequest/400BadRequest";
 import { useLoadingStore } from "../store/loading";
 import useAuthWebsite from "../hooks/useAuthWebsite";
 import { useAuthStore } from "../store/auth";
-
 export default function Blog() {
+  
   const isAuth = useAuthStore((state) => state.isAuth);
   useAuthWebsite();
   useSEO(useLanguage().head.blog);
