@@ -1,33 +1,30 @@
-
-.containerDashboardLogin{
-   
-    color: #000000;
-    width: 100%;
-    font-family: "Montserrat";
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    justify-content: center;
-    padding: 10px;
-    max-width: 300px;
+.containerDashboardLogin {
+  color: #000000;
+  width: 100%;
+  font-family: "Montserrat";
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  padding: 10px;
+  max-width: 300px;
 }
 
-.containerDashboardLogin form{
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
-    gap: 5px;
-    background-color: pink;
-    border-radius: 5px;
+.containerDashboardLogin form {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  gap: 5px;
+  background-color: rgb(199, 199, 199);
+  border-radius: 5px;
 }
-.containerDashboardLogin form input{
-    padding: 5px;
-    border-radius: 5px;
-    border: none;
-    outline: none;
-    
+.containerDashboardLogin form input {
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
 }
 
-.containerDashboardLogin form input button{
-    cursor: pointer;
+.containerDashboardLogin form button {
+  cursor: pointer;
 }

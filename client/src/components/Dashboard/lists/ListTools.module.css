@@ -1,7 +1,7 @@
 .containerListTools {
   background-color: rgb(78, 78, 78);
   width: 100%;
-  padding: 5px;
+
   display: flex;
   gap: 5px;
 }
@@ -17,10 +17,9 @@
   border: none;
   padding: 5px;
   margin: 5px;
-  
 }
 
-.containerListTools .search form button{
+.containerListTools .search form button {
   padding: 3px;
   cursor: pointer;
 }

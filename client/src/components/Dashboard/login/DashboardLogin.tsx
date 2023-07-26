@@ -16,7 +16,7 @@ export default function DashboardLogin() {
       emailValue as string,
       passwordValue as string
     );
-   
+
     setAuth(response.data.jwt, {
       id: response.data.user.id,
       firstName: response.data.user.firstName,
@@ -29,8 +29,8 @@ export default function DashboardLogin() {
 
   return (
     <div className={styles.containerDashboardLogin}>
-      <h2>Login for admin</h2>
       <form onSubmit={handleSubmit}>
+        <h2>Login for admin</h2>
         <input
           type="email"
           placeholder="admin@mail.com"

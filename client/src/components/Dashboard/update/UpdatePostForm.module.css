@@ -15,15 +15,13 @@
 .containerUpdateForm form {
   background-color: rgb(185, 185, 185);
   width: 100%;
-  padding: 5px;
   gap: 5px;
-  margin: 5px;
-  border-radius: 5px;
   box-shadow: 0 0 2px 0 #000000;
   display: flex;
   flex-direction: row;
   justify-content: center;
   gap: 15px;
+  
 }
 
 .containerUpdateForm form div {
@@ -31,6 +29,7 @@
   flex-direction: column;
   max-width: 350px;
   width: 100%;
+ 
 }
 
 .containerUpdateForm form input {

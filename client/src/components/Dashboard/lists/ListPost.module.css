@@ -5,15 +5,39 @@
   position: relative;
   justify-content: center;
   flex-direction: column;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  margin-top: 50px;
 }
 .containerListPost > div {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-}
-.containerListPost p {
+  
+  width: 100%;
+  align-items: center;
+  
+} 
+/* .containerListPost p {
   padding: 0;
   margin: 0;
+  
+  
+} */
+.containerListPost .element{
+ 
+  margin: 0;
+  padding: 0;
+  
+  
+}
+
+
+.containerListPost .element div p{
+  margin: 0;
+  padding: 0;
+  
 }
 .containerListPost .element {
   background-color: rgb(238, 238, 238);
@@ -24,6 +48,8 @@
   width: 210px;
   overflow: hidden;
   box-shadow: inset 0 0 2px 0 #000000;
+  
+  
 }
 .containerListPost .element div {
   overflow: hidden;
@@ -32,6 +58,9 @@
   overflow: hidden;
   height: 16px;
   width: 500px;
+  margin: 0;
+  padding: 0;
+  
 }
 
 .containerListPost .actions {
@@ -39,6 +68,7 @@
   display: flex;
   padding: 5px;
   overflow: hidden;
+  
 }
 .containerListPost .actions button {
   cursor: pointer;
@@ -46,15 +76,16 @@
   border-radius: 5px;
   padding: 5px;
   transition: box-shadow 0.3s ease;
+  
 }
 .containerListPost .actions button:hover {
   box-shadow: 0 0 2px 0 #000000;
 }
 .containerListPost .actions button:nth-child(1) {
   background-color: rgb(194, 6, 0);
+  
 }
 .containerListPost .actions button:nth-child(2) {
   background-color: rgb(20, 108, 143);
+  
 }
-
-
