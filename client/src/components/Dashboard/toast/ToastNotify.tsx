@@ -19,6 +19,7 @@ export default function ToastNotify() {
   }, [active]);
 
   function timer() {
+    if(!active) return;
     const timeoutId = setTimeout(() => {
       deactivate(false);
     }, 3000);
