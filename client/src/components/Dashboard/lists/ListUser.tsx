@@ -4,12 +4,15 @@ import styles from "./ListUser.module.css";
 import UpdateUserForm from "../update/UpdateUserForm";
 import ChargeAnimation from "../../Layouts/ChargeAnimation/ChargeAnimation";
 import { useLoadingStore } from "../../../store/loading";
+import { useToastStore } from "../../../store/toastNotify";
+import axios from "axios";
 export default function ListUser() {
   const [users, setUsers] = useState([]);
   const [user, setUser] = useState({});
   const [isUpdating, setIsUpdating] = useState<boolean>(false);
   //const [isCharge, setIsCharge] = useState<boolean>(true);
   const setIsLoading = useLoadingStore((state) => state.setIsLoading);
+  const setNotify = useToastStore((state) => state.setNotify);
 
   useEffect(() => {
     getUsers();
@@ -36,9 +39,16 @@ export default function ListUser() {
       return;
     }
     setIsLoading(true);
-    const response = await deleteOneUser(id);
-    if (response.status === 204) {
-      getUsers();
+    try {
+      const response = await deleteOneUser(id);
+      if (response.status === 204) {
+        getUsers();
+        setNotify({ color: "green", message: "User deleted" });
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        setNotify({ color: "red", message: error.response?.data.message });
+      }
     }
     setIsLoading(false);
   }
@@ -56,10 +66,9 @@ export default function ListUser() {
                 <p>LastN: {e.lastName}</p>
                 <p>Email: {e.email}</p>
                 <p>Role: {e.role}</p>
-                <p>Blocked: {e.blocked ? "blocked": "unlocked"}</p>
+                <p>Blocked: {e.blocked ? "blocked" : "unlocked"}</p>
                 <p>CreatedAt: {e.createdAt}</p>
                 <p>UpdatedAt: {e.updatedAt}</p>
-                
               </div>
               <div className={styles.actions}>
                 <button onClick={() => deleteUser(e.id)}>Delete</button>
@@ -75,7 +84,6 @@ export default function ListUser() {
           user={user}
           setIsUpdating={setIsUpdating}
           getUsers={getUsers}
-          
         />
       ) : (
         ""

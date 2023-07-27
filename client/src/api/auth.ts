@@ -20,6 +20,10 @@ export async function logoutUser() {
   return await axios.get("/auth/logout");
 }
 
+export async function createUser(user: object): Promise<AxiosResponse> {
+  return await axios.post("/admin/create-one-user", user);
+}
+
 // export async function dashboardLoginRequest(
 //   user: string,
 //   password: string

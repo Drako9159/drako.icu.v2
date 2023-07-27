@@ -5,11 +5,13 @@ import UpdatePostForm from "../update/UpdatePostForm";
 import ChargeAnimation from "../../Layouts/ChargeAnimation/ChargeAnimation";
 import ListTools from "./ListTools";
 import { useLoadingStore } from "../../../store/loading";
+import { useToastStore } from "../../../store/toastNotify";
+import axios from "axios";
 export default function ListPost() {
   const [posts, setPosts] = useState([]);
   const [post, setPost] = useState({});
   const [isUpdating, setIsUpdating] = useState<boolean>(false);
-
+  const setNotify = useToastStore((state) => state.setNotify);
   const setIsLoading = useLoadingStore((state) => state.setIsLoading);
 
   useEffect(() => {
@@ -34,15 +36,24 @@ export default function ListPost() {
       return;
     }
     setIsLoading(true);
-    const response = await deleteOnePost(id);
-    if (response.status === 204) {
-      getPosts();
+    try {
+      const response = await deleteOnePost(id);
+      if (response.status === 204) {
+        getPosts();
+        setNotify({ color: "green", message: "Post updated" });
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        setNotify({ color: "red", message: error.response?.data.message });
+      }
     }
+
     setIsLoading(false);
   }
 
   async function handleUpdate(id: string) {
     setIsLoading(true);
+
     const response = await getOnePost(id);
     if (response.status === 200) {
       setPost(response.data.post);
@@ -86,7 +97,6 @@ export default function ListPost() {
           post={post}
           setIsUpdating={setIsUpdating}
           getPosts={getPosts}
-        
         />
       ) : (
         ""

@@ -1,12 +1,14 @@
 import styles from "./CreatePostForm.module.css";
-
+import axios from "axios";
 import { useRef, useState } from "react";
 import { createOnePost } from "../../../api/post";
 import ChargeAnimation from "../../Layouts/ChargeAnimation/ChargeAnimation";
 import EditorMarked from "../../utils/EditorMarked";
+import { useToastStore } from "../../../store/toastNotify";
 export default function CreatePostForm({ setElement }: { setElement: any }) {
+  const setNotify = useToastStore((state) => state.setNotify);
   const [content, setContent] = useState("");
-  
+
   const titleRef = useRef<HTMLInputElement>(null);
   const categoryRef = useRef<HTMLInputElement>(null);
   const tagRef = useRef<HTMLInputElement>(null);
@@ -22,6 +24,7 @@ export default function CreatePostForm({ setElement }: { setElement: any }) {
 
   async function handleCreatePost(e: React.FormEvent) {
     e.preventDefault();
+
     const titleValue = titleRef.current?.value;
     const categoryValue = categoryRef.current?.value;
     const tagValue = tagRef.current?.value;
@@ -51,11 +54,17 @@ export default function CreatePostForm({ setElement }: { setElement: any }) {
       content: content,
     };
 
-    const response = await createOnePost(prepare);
-    if (response.status === 201) {
-      alert("post created");
-
-      setElement("Posts");
+    try {
+      const response = await createOnePost(prepare);
+      if (response.status === 201) {
+        alert("post created");
+        setElement("Posts");
+      }
+      setNotify({ color: "green", message: "Post created" });
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        setNotify({ color: "red", message: error.response?.data.message });
+      }
     }
   }
 
@@ -120,8 +129,8 @@ export default function CreatePostForm({ setElement }: { setElement: any }) {
             ref={readTimeRef}
           />
 
-          <label htmlFor="is_public">Public</label>
-          <select id="is_public" ref={isPublicRef} name="is_public">
+          <label htmlFor="is_public" >Public</label>
+          <select id="is_public" ref={isPublicRef} name="is_public" defaultValue={"false"}>
             <option value="true">active</option>
             <option value="false">inactive</option>
           </select>

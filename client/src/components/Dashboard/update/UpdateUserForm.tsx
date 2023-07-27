@@ -1,6 +1,8 @@
+import axios from "axios";
 import { updateBlocked, updateOneUser, updateRole } from "../../../api/user";
 import styles from "./UpdateUserForm.module.css";
 import { useRef } from "react";
+import { useToastStore } from "../../../store/toastNotify";
 export default function UpdateUserForm({
   user,
   setIsUpdating,
@@ -15,9 +17,11 @@ export default function UpdateUserForm({
   const lastNameRef = useRef<HTMLInputElement>(null);
   const roleRef = useRef<HTMLSelectElement>(null);
   const blockedRef = useRef<HTMLSelectElement>(null);
+  const setNotify = useToastStore((state) => state.setNotify);
 
   async function handleUpdateUser(e: React.FormEvent) {
     e.preventDefault();
+
     const idValue = idRef.current?.value;
     const firstNameValue = firstNameRef.current?.value;
     const lastNameValue = lastNameRef.current?.value;
@@ -28,24 +32,29 @@ export default function UpdateUserForm({
       firstName: firstNameValue,
       lastName: lastNameValue,
     };
-    const response = await updateOneUser(idValue as string, prepare);
 
-    const responseRole = await updateRole(idValue as string, {
-      role: roleValue as string,
-    });
+    try {
+      const response = await updateOneUser(idValue as string, prepare);
+      const responseRole = await updateRole(idValue as string, {
+        role: roleValue as string,
+      });
+      const responseBlocked = await updateBlocked(idValue as string, {
+        blocked: blockedValue,
+      });
 
-    const responseBlocked = await updateBlocked(idValue as string, {
-      blocked: blockedValue,
-    });
-
-    if (
-      response.status === 200 &&
-      responseRole.status === 200 &&
-      responseBlocked.status === 200
-    ) {
-      // alert("user updated");
-      getUsers();
-      setIsUpdating(false);
+      if (
+        response.status === 200 &&
+        responseRole.status === 200 &&
+        responseBlocked.status === 200
+      ) {
+        getUsers();
+        setIsUpdating(false);
+        setNotify({ color: "green", message: "User updated" });
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        setNotify({ color: "red", message: error.response?.data.message });
+      }
     }
   }
 

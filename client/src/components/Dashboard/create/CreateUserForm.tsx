@@ -1,4 +1,6 @@
-import { registerUser } from "../../../api/auth";
+import axios from "axios";
+import { createUser } from "../../../api/auth";
+import { useToastStore } from "../../../store/toastNotify";
 import ChargeAnimation from "../../Layouts/ChargeAnimation/ChargeAnimation";
 import styles from "./CreateUserForm.module.css";
 import { useRef } from "react";
@@ -7,6 +9,7 @@ export default function CreateUserForm({ setElement }: { setElement: any }) {
   const lastNameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
+  const setNotify = useToastStore((state) => state.setNotify);
 
   async function handleCreateUser(e: React.FormEvent) {
     e.preventDefault();
@@ -22,11 +25,16 @@ export default function CreateUserForm({ setElement }: { setElement: any }) {
       password: passwordValue,
     };
 
-    const response = await registerUser(prepare);
-    if (response.status === 201) {
-      // alert("user created");
-
-      setElement("Users");
+    try {
+      const response = await createUser(prepare);
+      if (response.status === 201) {
+        setElement("Users");
+        setNotify({ color: "green", message: "User created" });
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        setNotify({ color: "red", message: error.response?.data.message });
+      }
     }
   }
 

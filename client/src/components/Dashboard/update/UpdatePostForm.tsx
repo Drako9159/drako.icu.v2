@@ -1,7 +1,9 @@
 import styles from "./UpdatePostForm.module.css";
 import EditorMarked from "../../utils/EditorMarked";
-import {  useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { updateOnePost } from "../../../api/post";
+import axios from "axios";
+import { useToastStore } from "../../../store/toastNotify";
 export default function UpdatePostForm({
   post,
   setIsUpdating,
@@ -25,7 +27,7 @@ export default function UpdatePostForm({
   const readTimeRef = useRef<HTMLInputElement>(null);
   const authorRef = useRef<HTMLInputElement>(null);
   const dateRef = useRef<HTMLInputElement>(null);
-
+  const setNotify = useToastStore((state) => state.setNotify);
   async function handleUpdatePost(e: React.FormEvent) {
     e.preventDefault();
     const titleValue = titleRef.current?.value;
@@ -56,11 +58,17 @@ export default function UpdatePostForm({
       content: content,
     };
 
-    const response = await updateOnePost(post.id, prepare);
-    if (response.status === 200) {
-      alert("post updated");
-      getPosts();
-      setIsUpdating(false);
+    try {
+      const response = await updateOnePost(post.id, prepare);
+      if (response.status === 200) {
+        getPosts();
+        setIsUpdating(false);
+        setNotify({ color: "green", message: "Post updated" });
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        setNotify({ color: "red", message: error.response?.data.message });
+      }
     }
   }
 

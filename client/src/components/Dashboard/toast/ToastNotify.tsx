@@ -2,35 +2,36 @@ import { useEffect, useState } from "react";
 import styles from "./ToastNotify.module.css";
 import { useToastStore } from "../../../store/toastNotify";
 export default function ToastNotify() {
-  const [showNotification, setShowNotification] = useState(false);
-  const toastNotify = useToastStore((state) => state.notify);
   const [colorNotify, setColorNotify] = useState(styles.colorStatic);
+  const notify = useToastStore((state) => state.notify);
+  const active = useToastStore((state) => state.active);
+  const deactivate = useToastStore((state) => state.deactivate);
 
   useEffect(() => {
-    setShowNotification(true);
-
-    if (toastNotify.color === "blue") {
+    timer();
+    if (notify.color === "blue") {
       setColorNotify(styles.colorStatic);
-    } else if (toastNotify.color === "green") {
+    } else if (notify.color === "green") {
       setColorNotify(styles.colorSuccess);
-    } else if (toastNotify.color === "red") {
+    } else if (notify.color === "red") {
       setColorNotify(styles.colorError);
     }
+  }, [active]);
 
-    // const timeoutId = setTimeout(() => {
-    //   setShowNotification(false);
-    // }, 3000);
-
-    // return () => clearTimeout(timeoutId);
-  }, []);
+  function timer() {
+    const timeoutId = setTimeout(() => {
+      deactivate(false);
+    }, 3000);
+    return () => clearTimeout(timeoutId);
+  }
 
   return (
     <div
-      className={`${styles.containerToastNotify} ${
-        showNotification ? styles.containerToastNotifyShow : ""
-      } ${showNotification ? styles.addAnimation : ""} ${colorNotify}`}
+      className={`${styles.containerToastNotify} ${colorNotify} ${
+        active ? styles.addAnimation : ""
+      }`}
     >
-      <span>{toastNotify.message}</span>
+      <span>{notify.message}</span>
     </div>
   );
 }
