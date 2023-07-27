@@ -1,6 +1,6 @@
 import styles from "./UpdatePostForm.module.css";
 import EditorMarked from "../../utils/EditorMarked";
-import { useRef, useState } from "react";
+import { useState, ChangeEvent, useEffect, FormEvent } from "react";
 import { updateOnePost } from "../../../api/post";
 import axios from "axios";
 import { useToastStore } from "../../../store/toastNotify";
@@ -13,53 +13,38 @@ export default function UpdatePostForm({
   setIsUpdating: any;
   getPosts: any;
 }) {
-  const [content, setContent] = useState(post.content);
-
-  const titleRef = useRef<HTMLInputElement>(null);
-  const categoryRef = useRef<HTMLInputElement>(null);
-  const tagRef = useRef<HTMLInputElement>(null);
-  const languageRef = useRef<HTMLSelectElement>(null);
-  const colorRef = useRef<HTMLSelectElement>(null);
-  const imageRef = useRef<HTMLInputElement>(null);
-  const descriptionRef = useRef<HTMLTextAreaElement>(null);
-  const isPublicRef = useRef<HTMLSelectElement>(null);
-
-  const readTimeRef = useRef<HTMLInputElement>(null);
-  const authorRef = useRef<HTMLInputElement>(null);
-  const dateRef = useRef<HTMLInputElement>(null);
   const setNotify = useToastStore((state) => state.setNotify);
-  async function handleUpdatePost(e: React.FormEvent) {
+  const [content, setContent] = useState(post.content);
+  const [formValues, setFormValues] = useState<object>({
+    title: post.title,
+    category: post.category,
+    tag: post.tag,
+    language: post.language,
+    color: post.color,
+    image: post.image,
+    description: post.description,
+    read_time: post.read_time,
+    author: post.author,
+    date: post.date,
+    is_public: post.is_public,
+    content: post.content,
+  });
+
+  useEffect(() => {
+    setFormValues((prev) => ({ ...prev, content: content }));
+  }, [content]);
+
+  function handleChange(
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  ) {
+    const { name, value } = e.target;
+    setFormValues((prev) => ({ ...prev, [name]: value }));
+  }
+
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    const titleValue = titleRef.current?.value;
-    const categoryValue = categoryRef.current?.value;
-    const tagValue = tagRef.current?.value;
-    const languageValue = languageRef.current?.value;
-    const colorValue = colorRef.current?.value;
-    const imageValue = imageRef.current?.value;
-    const descriptionValue = descriptionRef.current?.value;
-    const isPublicValue = isPublicRef.current?.value === "false" ? false : true;
-
-    const readTimeValue = readTimeRef.current?.value;
-    const authorValue = authorRef.current?.value;
-    const dateValue = dateRef.current?.value;
-
-    const prepare = {
-      title: titleValue,
-      category: categoryValue,
-      tag: tagValue,
-      language: languageValue,
-      color: colorValue,
-      image: imageValue,
-      description: descriptionValue,
-      read_time: readTimeValue,
-      author: authorValue,
-      date: dateValue,
-      is_public: isPublicValue,
-      content: content,
-    };
-
     try {
-      const response = await updateOnePost(post.id, prepare);
+      const response = await updateOnePost(post.id, formValues);
       if (response.status === 200) {
         getPosts();
         setIsUpdating(false);
@@ -74,17 +59,17 @@ export default function UpdatePostForm({
 
   return (
     <div className={styles.containerUpdateForm}>
-      <form onSubmit={handleUpdatePost}>
+      <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="title">Title</label>
           <input
             type="text"
             name="title"
             id="title"
-            required={true}
+            required
             placeholder="New Blog"
-            ref={titleRef}
             defaultValue={post.title}
+            onChange={handleChange}
           />
 
           <label htmlFor="category">Category</label>
@@ -92,10 +77,10 @@ export default function UpdatePostForm({
             type="text"
             name="category"
             id="category"
-            required={true}
+            required
             placeholder="Education"
-            ref={categoryRef}
             defaultValue={post.category}
+            onChange={handleChange}
           />
 
           <label htmlFor="tag">Tag</label>
@@ -103,17 +88,18 @@ export default function UpdatePostForm({
             type="text"
             name="tag"
             id="tag"
-            required={true}
+            required
             placeholder="Javascript"
-            ref={tagRef}
             defaultValue={post.tag}
+            onChange={handleChange}
           />
 
           <label htmlFor="language">Language</label>
           <select
             id="language"
-            ref={languageRef}
+            required
             defaultValue={post.language}
+            onChange={handleChange}
             name="language"
           >
             <option value="es">es - spanish</option>
@@ -123,8 +109,9 @@ export default function UpdatePostForm({
           <label htmlFor="color">Color</label>
           <select
             id="color"
-            ref={colorRef}
+            required
             defaultValue={post.color}
+            onChange={handleChange}
             name="color"
           >
             <option value="green">green</option>
@@ -140,18 +127,19 @@ export default function UpdatePostForm({
             type="text"
             name="read_time"
             id="read_time"
-            required={true}
+            required
             placeholder="15 min read"
-            ref={readTimeRef}
             defaultValue={post.read_time}
+            onChange={handleChange}
           />
 
           <label htmlFor="is_public">Public</label>
           <select
+            required
             id="is_public"
-            ref={isPublicRef}
             name="is_public"
             defaultValue={post.is_public}
+            onChange={handleChange}
           >
             <option value="true">active</option>
             <option value="false">inactive</option>
@@ -163,20 +151,20 @@ export default function UpdatePostForm({
             type="text"
             name="image"
             id="image"
-            required={true}
+            required
             placeholder="http://image.webp"
-            ref={imageRef}
             defaultValue={post.image}
+            onChange={handleChange}
           />
 
           <label htmlFor="description">Description</label>
           <textarea
             name="description"
             id="description"
-            required={true}
+            required
             placeholder="About the blog"
-            ref={descriptionRef}
             defaultValue={post.description}
+            onChange={handleChange}
           />
 
           <label htmlFor="author">Author</label>
@@ -184,10 +172,10 @@ export default function UpdatePostForm({
             type="text"
             name="author"
             id="author"
-            required={true}
+            required
             placeholder="Frederic Hobbs"
-            ref={authorRef}
             defaultValue={post.author}
+            onChange={handleChange}
           />
 
           <label htmlFor="date">Date</label>
@@ -195,9 +183,9 @@ export default function UpdatePostForm({
             type="date"
             name="date"
             id="date"
-            required={true}
-            ref={dateRef}
+            required
             defaultValue={post.date}
+            onChange={handleChange}
           />
 
           <div className={styles.actions}>

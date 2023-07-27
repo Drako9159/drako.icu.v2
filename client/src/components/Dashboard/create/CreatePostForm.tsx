@@ -1,61 +1,44 @@
 import styles from "./CreatePostForm.module.css";
 import axios from "axios";
-import { useRef, useState } from "react";
+import { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import { createOnePost } from "../../../api/post";
 import ChargeAnimation from "../../Layouts/ChargeAnimation/ChargeAnimation";
 import EditorMarked from "../../utils/EditorMarked";
 import { useToastStore } from "../../../store/toastNotify";
 export default function CreatePostForm({ setElement }: { setElement: any }) {
   const setNotify = useToastStore((state) => state.setNotify);
-  const [content, setContent] = useState("");
+  const [content, setContent] = useState<string>("");
+  const [formValues, setFormValues] = useState<object>({
+    title: "",
+    category: "",
+    tag: "",
+    language: "en",
+    color: "blue",
+    image: "",
+    description: "",
+    read_time: "",
+    author: "",
+    date: "",
+    is_public: "false",
+    content: "",
+  });
 
-  const titleRef = useRef<HTMLInputElement>(null);
-  const categoryRef = useRef<HTMLInputElement>(null);
-  const tagRef = useRef<HTMLInputElement>(null);
-  const languageRef = useRef<HTMLSelectElement>(null);
-  const colorRef = useRef<HTMLSelectElement>(null);
-  const descriptionRef = useRef<HTMLTextAreaElement>(null);
-  const imageRef = useRef<HTMLInputElement>(null);
-  const isPublicRef = useRef<HTMLSelectElement>(null);
+  useEffect(() => {
+    setFormValues((prev) => ({ ...prev, content: content }));
+  }, [content]);
 
-  const readTimeRef = useRef<HTMLInputElement>(null);
-  const authorRef = useRef<HTMLInputElement>(null);
-  const dateRef = useRef<HTMLInputElement>(null);
+  function handleChange(
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  ) {
+    const { name, value } = e.target;
+    setFormValues((prev) => ({ ...prev, [name]: value }));
+  }
 
-  async function handleCreatePost(e: React.FormEvent) {
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault();
 
-    const titleValue = titleRef.current?.value;
-    const categoryValue = categoryRef.current?.value;
-    const tagValue = tagRef.current?.value;
-    const languageValue = languageRef.current?.value;
-    const colorValue = colorRef.current?.value;
-    const descriptionValue = descriptionRef.current?.value;
-    const imageValue = imageRef.current?.value;
-
-    const isPublicValue = isPublicRef.current?.value === "false" ? false : true;
-
-    const readTimeValue = readTimeRef.current?.value;
-    const authorValue = authorRef.current?.value;
-    const dateValue = dateRef.current?.value;
-
-    const prepare = {
-      title: titleValue,
-      category: categoryValue,
-      tag: tagValue,
-      language: languageValue,
-      color: colorValue,
-      image: imageValue,
-      description: descriptionValue,
-      read_time: readTimeValue,
-      author: authorValue,
-      date: dateValue,
-      is_public: isPublicValue,
-      content: content,
-    };
-
     try {
-      const response = await createOnePost(prepare);
+      const response = await createOnePost(formValues);
       if (response.status === 201) {
         alert("post created");
         setElement("Posts");
@@ -71,16 +54,16 @@ export default function CreatePostForm({ setElement }: { setElement: any }) {
   return (
     <div className={styles.containerPostForm}>
       <ChargeAnimation />
-      <form onSubmit={handleCreatePost}>
+      <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="title">Title</label>
           <input
             type="text"
             name="title"
             id="title"
-            required={true}
+            required
             placeholder="New Blog"
-            ref={titleRef}
+            onChange={handleChange}
           />
 
           <label htmlFor="category">Category</label>
@@ -88,9 +71,9 @@ export default function CreatePostForm({ setElement }: { setElement: any }) {
             type="text"
             name="category"
             id="category"
-            required={true}
+            required
             placeholder="Education"
-            ref={categoryRef}
+            onChange={handleChange}
           />
 
           <label htmlFor="tag">Tag</label>
@@ -98,19 +81,31 @@ export default function CreatePostForm({ setElement }: { setElement: any }) {
             type="text"
             name="tag"
             id="tag"
-            required={true}
+            required
             placeholder="Javascript"
-            ref={tagRef}
+            onChange={handleChange}
           />
 
           <label htmlFor="language">Language</label>
-          <select id="language" ref={languageRef} name="language">
+          <select
+            id="language"
+            name="language"
+            onChange={handleChange}
+            defaultValue="en"
+            required
+          >
             <option value="es">es - spanish</option>
             <option value="en">en - english</option>
           </select>
 
           <label htmlFor="color">Color</label>
-          <select id="color" ref={colorRef} name="color">
+          <select
+            id="color"
+            name="color"
+            onChange={handleChange}
+            defaultValue="blue"
+            required
+          >
             <option value="green">green</option>
             <option value="blue">blue</option>
             <option value="purple">purple</option>
@@ -124,13 +119,19 @@ export default function CreatePostForm({ setElement }: { setElement: any }) {
             type="text"
             name="read_time"
             id="read_time"
-            required={true}
+            required
             placeholder="15 min read"
-            ref={readTimeRef}
+            onChange={handleChange}
           />
 
-          <label htmlFor="is_public" >Public</label>
-          <select id="is_public" ref={isPublicRef} name="is_public" defaultValue={"false"}>
+          <label htmlFor="is_public">Public</label>
+          <select
+            id="is_public"
+            name="is_public"
+            defaultValue="false"
+            required
+            onChange={handleChange}
+          >
             <option value="true">active</option>
             <option value="false">inactive</option>
           </select>
@@ -141,18 +142,18 @@ export default function CreatePostForm({ setElement }: { setElement: any }) {
             type="text"
             name="image"
             id="image"
-            required={true}
+            required
             placeholder="http://image.webp"
-            ref={imageRef}
+            onChange={handleChange}
           />
 
           <label htmlFor="description">Description</label>
           <textarea
             name="description"
             id="description"
-            required={true}
+            required
             placeholder="About the blog"
-            ref={descriptionRef}
+            onChange={handleChange}
           />
 
           <label htmlFor="author">Author</label>
@@ -160,9 +161,9 @@ export default function CreatePostForm({ setElement }: { setElement: any }) {
             type="text"
             name="author"
             id="author"
-            required={true}
+            required
             placeholder="Frederic Hobbs"
-            ref={authorRef}
+            onChange={handleChange}
           />
 
           <label htmlFor="date">Date</label>
@@ -170,8 +171,8 @@ export default function CreatePostForm({ setElement }: { setElement: any }) {
             type="date"
             name="date"
             id="date"
-            required={true}
-            ref={dateRef}
+            required
+            onChange={handleChange}
           />
 
           <button disabled={content === "" ? true : false}>Create</button>

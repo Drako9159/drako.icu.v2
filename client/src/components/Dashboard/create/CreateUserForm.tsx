@@ -3,30 +3,26 @@ import { createUser } from "../../../api/auth";
 import { useToastStore } from "../../../store/toastNotify";
 import ChargeAnimation from "../../Layouts/ChargeAnimation/ChargeAnimation";
 import styles from "./CreateUserForm.module.css";
-import { useRef } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
 export default function CreateUserForm({ setElement }: { setElement: any }) {
-  const firstNameRef = useRef<HTMLInputElement>(null);
-  const lastNameRef = useRef<HTMLInputElement>(null);
-  const emailRef = useRef<HTMLInputElement>(null);
-  const passwordRef = useRef<HTMLInputElement>(null);
   const setNotify = useToastStore((state) => state.setNotify);
 
-  async function handleCreateUser(e: React.FormEvent) {
+  const [formValues, setFormValues] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  });
+
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
+    const { name, value } = e.target;
+    setFormValues((prev) => ({ ...prev, [name]: value }));
+  }
+
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    const firsNameValue = firstNameRef.current?.value;
-    const lastNameValue = lastNameRef.current?.value;
-    const emailValue = emailRef.current?.value;
-    const passwordValue = passwordRef.current?.value;
-
-    const prepare = {
-      firstName: firsNameValue,
-      lastName: lastNameValue,
-      email: emailValue,
-      password: passwordValue,
-    };
-
     try {
-      const response = await createUser(prepare);
+      const response = await createUser(formValues);
       if (response.status === 201) {
         setElement("Users");
         setNotify({ color: "green", message: "User created" });
@@ -41,7 +37,7 @@ export default function CreateUserForm({ setElement }: { setElement: any }) {
   return (
     <div className={styles.containerCreateUserForm}>
       <ChargeAnimation />
-      <form onSubmit={handleCreateUser}>
+      <form onSubmit={handleSubmit}>
         <label htmlFor="firstName">Name</label>
         <input
           type="text"
@@ -49,7 +45,7 @@ export default function CreateUserForm({ setElement }: { setElement: any }) {
           id="firstName"
           required={true}
           placeholder="Anthony"
-          ref={firstNameRef}
+          onChange={handleChange}
         />
 
         <label htmlFor="lastName">LastName</label>
@@ -58,8 +54,8 @@ export default function CreateUserForm({ setElement }: { setElement: any }) {
           name="lastName"
           id="lastName"
           required={true}
-          placeholder="Jaramillo"
-          ref={lastNameRef}
+          placeholder="Maldonado"
+          onChange={handleChange}
         />
 
         <label htmlFor="email">Email</label>
@@ -69,7 +65,7 @@ export default function CreateUserForm({ setElement }: { setElement: any }) {
           id="email"
           required={true}
           placeholder="anthony@mail.com"
-          ref={emailRef}
+          onChange={handleChange}
         />
 
         <label htmlFor="password">Password</label>
@@ -78,7 +74,7 @@ export default function CreateUserForm({ setElement }: { setElement: any }) {
           name="password"
           id="password"
           placeholder="******"
-          ref={passwordRef}
+          onChange={handleChange}
         />
 
         <button>Create</button>

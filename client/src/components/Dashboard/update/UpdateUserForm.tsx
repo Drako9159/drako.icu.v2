@@ -1,7 +1,7 @@
 import axios from "axios";
 import { updateBlocked, updateOneUser, updateRole } from "../../../api/user";
 import styles from "./UpdateUserForm.module.css";
-import { useRef } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
 import { useToastStore } from "../../../store/toastNotify";
 export default function UpdateUserForm({
   user,
@@ -12,34 +12,32 @@ export default function UpdateUserForm({
   setIsUpdating: any;
   getUsers: any;
 }) {
-  const idRef = useRef<HTMLInputElement>(null);
-  const firstNameRef = useRef<HTMLInputElement>(null);
-  const lastNameRef = useRef<HTMLInputElement>(null);
-  const roleRef = useRef<HTMLSelectElement>(null);
-  const blockedRef = useRef<HTMLSelectElement>(null);
   const setNotify = useToastStore((state) => state.setNotify);
+  const [formValues, setFormValues] = useState({
+    id: user.id,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    role: user.role,
+    blocked: user.blocked,
+  });
 
-  async function handleUpdateUser(e: React.FormEvent) {
+  function handleChange(e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
+    const { name, value } = e.target;
+    setFormValues((prev) => ({ ...prev, [name]: value }));
+  }
+
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault();
-
-    const idValue = idRef.current?.value;
-    const firstNameValue = firstNameRef.current?.value;
-    const lastNameValue = lastNameRef.current?.value;
-    const roleValue = roleRef.current?.value;
-    const blockedValue = blockedRef.current?.value === "false" ? false : true;
-
-    const prepare = {
-      firstName: firstNameValue,
-      lastName: lastNameValue,
-    };
-
     try {
-      const response = await updateOneUser(idValue as string, prepare);
-      const responseRole = await updateRole(idValue as string, {
-        role: roleValue as string,
+      const response = await updateOneUser(user.id, {
+        firstName: formValues.firstName,
+        lastName: formValues.lastName,
       });
-      const responseBlocked = await updateBlocked(idValue as string, {
-        blocked: blockedValue,
+      const responseRole = await updateRole(user.id, {
+        role: formValues.role,
+      });
+      const responseBlocked = await updateBlocked(user.id, {
+        blocked: formValues.blocked === "false" ? false : true,
       });
 
       if (
@@ -60,13 +58,12 @@ export default function UpdateUserForm({
 
   return (
     <div className={styles.containerUpdateUserForm}>
-      <form onSubmit={handleUpdateUser}>
+      <form onSubmit={handleSubmit}>
         <input
           type="text"
           name="id"
           id="id"
           disabled={true}
-          ref={idRef}
           defaultValue={user.id}
         />
 
@@ -75,10 +72,10 @@ export default function UpdateUserForm({
           type="text"
           name="firstName"
           id="firstName"
-          required={true}
+          required
           placeholder="Anthony"
-          ref={firstNameRef}
           defaultValue={user.firstName}
+          onChange={handleChange}
         />
 
         <label htmlFor="lastName">LastName</label>
@@ -86,20 +83,32 @@ export default function UpdateUserForm({
           type="text"
           name="lastName"
           id="lastName"
-          required={true}
-          placeholder="Jaramillo"
-          ref={lastNameRef}
+          required
+          placeholder="Maldonado"
           defaultValue={user.lastName}
+          onChange={handleChange}
         />
 
         <label htmlFor="role">Role</label>
-        <select id="role" ref={roleRef} defaultValue={user.role}>
+        <select
+          id="role"
+          name="role"
+          required
+          defaultValue={user.role}
+          onChange={handleChange}
+        >
           <option value="public">public</option>
           <option value="admin">admin</option>
         </select>
 
         <label htmlFor="blocked">Blocked</label>
-        <select id="blocked" ref={blockedRef} defaultValue={user.blocked}>
+        <select
+          id="blocked"
+          name="blocked"
+          required
+          defaultValue={user.blocked}
+          onChange={handleChange}
+        >
           <option value="false">unlocked</option>
           <option value="true">blocked</option>
         </select>
