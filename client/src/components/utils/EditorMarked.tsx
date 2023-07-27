@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { marked } from "marked";
 import TurndownService from "turndown";
 import styles from "./EditorMarked.module.css";
@@ -13,6 +13,10 @@ export default function EditorMarked({
   const [markdownContent, setMarkdownContent] = useState<string>(
     content ? htmlToMarkdown(content) : ""
   );
+
+  useEffect(() => {
+    setMarkdownContent(content ? htmlToMarkdown(content) : ""); 
+  }, [content]);
   // const [markdownConverted, setMarkdownConverted] = useState<string>("");
 
   function htmlToMarkdown(html: any) {
@@ -23,10 +27,8 @@ export default function EditorMarked({
         return "`" + content + "`";
       },
     });
-
     return turndownService.turndown(html);
-
-   // return new TurndownService().turndown(html);
+    // return new TurndownService().turndown(html);
   }
 
   function handleMarkdownChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
@@ -42,7 +44,6 @@ export default function EditorMarked({
     // setMarkdownConverted(htmlToMarkdown);
     setContent(htmlContent);
   }
-  ///
 
   return (
     <div className={styles.containerEditorMarked}>

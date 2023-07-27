@@ -16,7 +16,7 @@ export default function UpdatePostForm({
 }) {
   const setNotify = useToastStore((state) => state.setNotify);
   const [content, setContent] = useState(post.content);
-  const [formValues, setFormValues] = useState<object>({
+  const [formValues, setFormValues] = useState({
     title: post.title,
     category: post.category,
     tag: post.tag,
@@ -30,6 +30,12 @@ export default function UpdatePostForm({
     is_public: post.is_public,
     content: post.content,
   });
+
+
+  useEffect(() => {
+    setFormValues(post)
+    setContent(post.content)
+  }, [post])
 
   useEffect(() => {
     setFormValues((prev) => ({ ...prev, content: content }));
@@ -70,7 +76,7 @@ export default function UpdatePostForm({
             id="title"
             required
             placeholder="New Blog"
-            defaultValue={post.title}
+            value={formValues.title}
             onChange={handleChange}
           />
 
@@ -81,7 +87,7 @@ export default function UpdatePostForm({
             id="category"
             required
             placeholder="Education"
-            defaultValue={post.category}
+            value={formValues.category}
             onChange={handleChange}
           />
 
@@ -92,7 +98,7 @@ export default function UpdatePostForm({
             id="tag"
             required
             placeholder="Javascript"
-            defaultValue={post.tag}
+            value={formValues.tag}
             onChange={handleChange}
           />
 
@@ -100,7 +106,7 @@ export default function UpdatePostForm({
           <select
             id="language"
             required
-            defaultValue={post.language}
+            value={formValues.language}
             onChange={handleChange}
             name="language"
           >
@@ -112,7 +118,7 @@ export default function UpdatePostForm({
           <select
             id="color"
             required
-            defaultValue={post.color}
+            value={formValues.color}
             onChange={handleChange}
             name="color"
           >
@@ -131,7 +137,7 @@ export default function UpdatePostForm({
             id="read_time"
             required
             placeholder="15 min read"
-            defaultValue={post.read_time}
+            value={formValues.read_time}
             onChange={handleChange}
           />
 
@@ -140,7 +146,7 @@ export default function UpdatePostForm({
             required
             id="is_public"
             name="is_public"
-            defaultValue={post.is_public}
+            value={formValues.is_public}
             onChange={handleChange}
           >
             <option value="true">active</option>
@@ -155,7 +161,7 @@ export default function UpdatePostForm({
             id="image"
             required
             placeholder="http://image.webp"
-            defaultValue={post.image}
+            value={formValues.image}
             onChange={handleChange}
           />
 
@@ -165,7 +171,7 @@ export default function UpdatePostForm({
             id="description"
             required
             placeholder="About the blog"
-            defaultValue={post.description}
+            value={formValues.description}
             onChange={handleChange}
           />
 
@@ -176,7 +182,7 @@ export default function UpdatePostForm({
             id="author"
             required
             placeholder="Frederic Hobbs"
-            defaultValue={post.author}
+            value={formValues.author}
             onChange={handleChange}
           />
 
@@ -186,7 +192,7 @@ export default function UpdatePostForm({
             name="date"
             id="date"
             required
-            defaultValue={post.date}
+            value={formValues.date}
             onChange={handleChange}
           />
 

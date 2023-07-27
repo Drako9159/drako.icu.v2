@@ -1,7 +1,7 @@
 import axios from "axios";
 import { updateBlocked, updateOneUser, updateRole } from "../../../api/user";
 import styles from "./UpdateUserForm.module.css";
-import { useState, ChangeEvent, FormEvent } from "react";
+import { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import { useToastStore } from "../../../store/toastNotify";
 import Logout from "../logout/Logout";
 export default function UpdateUserForm({
@@ -21,6 +21,10 @@ export default function UpdateUserForm({
     role: user.role,
     blocked: user.blocked,
   });
+
+  useEffect(() => {
+    setFormValues(user);
+  }, [user]);
 
   function handleChange(e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
     const { name, value } = e.target;
@@ -53,7 +57,7 @@ export default function UpdateUserForm({
     } catch (error) {
       if (axios.isAxiosError(error)) {
         setNotify({ color: "red", message: error.response?.data.message });
-        if(error.response?.status === 401) return Logout()
+        if (error.response?.status === 401) return Logout();
       }
     }
   }
@@ -66,7 +70,7 @@ export default function UpdateUserForm({
           name="id"
           id="id"
           disabled={true}
-          defaultValue={user.id}
+          value={formValues.id}
         />
 
         <label htmlFor="firstName">Name</label>
@@ -76,7 +80,7 @@ export default function UpdateUserForm({
           id="firstName"
           required
           placeholder="Anthony"
-          defaultValue={user.firstName}
+          value={formValues.firstName}
           onChange={handleChange}
         />
 
@@ -87,7 +91,7 @@ export default function UpdateUserForm({
           id="lastName"
           required
           placeholder="Maldonado"
-          defaultValue={user.lastName}
+          value={formValues.lastName}
           onChange={handleChange}
         />
 
@@ -96,7 +100,7 @@ export default function UpdateUserForm({
           id="role"
           name="role"
           required
-          defaultValue={user.role}
+          value={formValues.role}
           onChange={handleChange}
         >
           <option value="public">public</option>
@@ -108,7 +112,7 @@ export default function UpdateUserForm({
           id="blocked"
           name="blocked"
           required
-          defaultValue={user.blocked}
+          value={formValues.blocked}
           onChange={handleChange}
         >
           <option value="false">unlocked</option>

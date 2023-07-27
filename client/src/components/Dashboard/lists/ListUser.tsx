@@ -8,8 +8,8 @@ import { useToastStore } from "../../../store/toastNotify";
 import axios from "axios";
 import Logout from "../logout/Logout";
 export default function ListUser() {
-  const [users, setUsers] = useState([]);
-  const [user, setUser] = useState({});
+  const [users, setUsers] = useState<object[]>([]);
+  const [user, setUser] = useState<object>({});
   const [isUpdating, setIsUpdating] = useState<boolean>(false);
   const setIsLoading = useLoadingStore((state) => state.setIsLoading);
   const setNotify = useToastStore((state) => state.setNotify);
