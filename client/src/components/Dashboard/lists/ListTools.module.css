@@ -25,10 +25,12 @@
 }
 
 .containerListTools .pagination {
+  background-color: rgb(59, 59, 59);
   color: #ffffff;
-  padding: 5px;
+  padding: 10px;
   display: flex;
   align-items: center;
+  height: 20px;
   gap: 5px;
 }
 

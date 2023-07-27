@@ -1,8 +1,13 @@
 import axios from "./axios";
 import { AxiosResponse } from "axios";
 
-export async function getPostsList(page: number = 0): Promise<AxiosResponse> {
-  return await axios.get(`/posts?page=${page}`);
+
+
+export async function getPostsList(
+  page: number = 0,
+  is_public: boolean = false
+): Promise<AxiosResponse> {
+  return await axios.get(`/posts?page=${page}&is_public=${is_public}`);
 }
 
 export async function getPostsListByLanguage(

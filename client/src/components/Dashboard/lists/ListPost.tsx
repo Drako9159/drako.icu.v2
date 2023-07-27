@@ -1,5 +1,10 @@
 import { useEffect, useState } from "react";
-import { deleteOnePost, getOnePost, getPostsList } from "../../../api/post";
+import {
+  deleteOnePost,
+  getOnePost,
+  getPostsList,
+  searchOnePost,
+} from "../../../api/post";
 import styles from "./ListPost.module.css";
 import UpdatePostForm from "../update/UpdatePostForm";
 import ChargeAnimation from "../../Layouts/ChargeAnimation/ChargeAnimation";
@@ -8,56 +13,80 @@ import { useLoadingStore } from "../../../store/loading";
 import { useToastStore } from "../../../store/toastNotify";
 import axios from "axios";
 export default function ListPost() {
-  const [posts, setPosts] = useState([]);
-  const [post, setPost] = useState({});
+  const [posts, setPosts] = useState<object[]>([]);
+  const [post, setPost] = useState<object>({});
+  const [page, setPage] = useState<number>(0);
+  const [active, setActive] = useState<boolean>(false);
+
   const [isUpdating, setIsUpdating] = useState<boolean>(false);
   const setNotify = useToastStore((state) => state.setNotify);
   const setIsLoading = useLoadingStore((state) => state.setIsLoading);
 
   useEffect(() => {
     getPosts();
-  }, []);
+  }, [page, active]);
+
+  // GET POSTS
   async function getPosts() {
+    setIsLoading(true);
     try {
-      setIsLoading(true);
-      const response = await getPostsList(0);
-      if (response.status === 200) {
-        setPosts(response.data.posts);
-      }
-      setIsLoading(false);
+      const response = await getPostsList(page, active);
+      setPosts(response.data.posts);
     } catch (error) {
       console.log(error);
-      setIsLoading(false);
+      if (axios.isAxiosError(error)) {
+        setNotify({ color: "red", message: error.response?.data.message });
+      }
     }
+    setIsLoading(false);
   }
 
+  // DELETE POST
   async function deletePost(id: string) {
     if (!confirm("Do you want delete this post?")) {
       return;
     }
     setIsLoading(true);
     try {
-      const response = await deleteOnePost(id);
-      if (response.status === 204) {
-        getPosts();
-        setNotify({ color: "green", message: "Post updated" });
-      }
+      await deleteOnePost(id);
+      getPosts();
+      setNotify({ color: "green", message: "Post updated" });
     } catch (error) {
+      console.log(error);
       if (axios.isAxiosError(error)) {
         setNotify({ color: "red", message: error.response?.data.message });
       }
     }
+    setIsLoading(false);
+  }
 
+  // SEARCH POST
+  async function searchPost(title: string) {
+    if (title === "") return getPosts();
+    setIsLoading(true);
+    try {
+      const response = await searchOnePost(title);
+      setPosts(response.data.results);
+    } catch (error) {
+      console.log(error);
+      if (axios.isAxiosError(error)) {
+        setNotify({ color: "red", message: error.response?.data.message });
+      }
+    }
     setIsLoading(false);
   }
 
   async function handleUpdate(id: string) {
     setIsLoading(true);
-
-    const response = await getOnePost(id);
-    if (response.status === 200) {
+    try {
+      const response = await getOnePost(id);
       setPost(response.data.post);
       setIsUpdating(true);
+    } catch (error) {
+      console.log(error);
+      if (axios.isAxiosError(error)) {
+        setNotify({ color: "red", message: error.response?.data.message });
+      }
     }
     setIsLoading(false);
   }
@@ -90,7 +119,15 @@ export default function ListPost() {
           );
         })}
       </div>
-      <ListTools setPosts={setPosts} />
+
+      <ListTools
+        setPosts={setPosts}
+        page={page}
+        setPage={setPage}
+        active={active}
+        setActive={setActive}
+        searchPost={searchPost}
+      />
 
       {isUpdating ? (
         <UpdatePostForm
