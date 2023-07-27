@@ -14,9 +14,7 @@
   opacity: 0;
   font-size: 16px;
   font-weight: bold;
-  /* animation: hidden 3s ease-in-out; */
 }
-
 
 @keyframes hidden {
   0% {
@@ -37,7 +35,6 @@
     opacity: 0;
   }
 }
-
 
 .addAnimation {
   animation: hidden 3s ease-in-out;
@@ -76,4 +73,3 @@
 /* .notification.show {
   opacity: 1;
 } */
-

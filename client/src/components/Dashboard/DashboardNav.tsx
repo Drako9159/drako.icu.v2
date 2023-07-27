@@ -4,7 +4,7 @@ import iconMenu from "../../assets/icons/dashboard/menu.svg";
 import { logoutUser } from "../../api/auth";
 import { useAuthStore } from "../../store/auth";
 import { useToastStore } from "../../store/toastNotify";
-
+import axios from "axios";
 export default function DashboardNav({
   setElement,
   element,
@@ -13,9 +13,10 @@ export default function DashboardNav({
   element: any;
 }) {
   const [activeButton, setActiveButton] = useState<boolean>(false);
+  const [navIn, setNavIn] = useState<any>(null);
   const logout = useAuthStore((state) => state.logout);
   const setNotify = useToastStore((state) => state.setNotify);
-  const [navIn, setNavIn] = useState<any>(null);
+  
   function handleClick() {
     setActiveButton(!activeButton);
     if (activeButton) {
@@ -24,15 +25,17 @@ export default function DashboardNav({
       setNavIn(styles.navOut);
     }
   }
+
   async function handleLogout() {
     try {
-      const response = await logoutUser();
-      if (response.status === 200) {
-        logout();
-        setNotify({ color: "green", message: "Logout successfully" });
-      }
+      await logoutUser();
+      logout();
+      setNotify({ color: "green", message: "Logout successfully" });
     } catch (error) {
       console.log(error);
+      if (axios.isAxiosError(error)) {
+        setNotify({ color: "red", message: error.response?.data.message });
+      }
     }
   }
 

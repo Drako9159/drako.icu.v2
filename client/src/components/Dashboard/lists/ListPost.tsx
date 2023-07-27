@@ -12,6 +12,7 @@ import ListTools from "./ListTools";
 import { useLoadingStore } from "../../../store/loading";
 import { useToastStore } from "../../../store/toastNotify";
 import axios from "axios";
+import Logout from "../logout/Logout";
 export default function ListPost() {
   const [posts, setPosts] = useState<object[]>([]);
   const [post, setPost] = useState<object>({});
@@ -36,6 +37,7 @@ export default function ListPost() {
       console.log(error);
       if (axios.isAxiosError(error)) {
         setNotify({ color: "red", message: error.response?.data.message });
+        if(error.response?.status === 401) return Logout()
       }
     }
     setIsLoading(false);
@@ -55,6 +57,7 @@ export default function ListPost() {
       console.log(error);
       if (axios.isAxiosError(error)) {
         setNotify({ color: "red", message: error.response?.data.message });
+        if(error.response?.status === 401) return Logout()
       }
     }
     setIsLoading(false);
@@ -71,6 +74,7 @@ export default function ListPost() {
       console.log(error);
       if (axios.isAxiosError(error)) {
         setNotify({ color: "red", message: error.response?.data.message });
+        if(error.response?.status === 401) return Logout()
       }
     }
     setIsLoading(false);
@@ -86,6 +90,7 @@ export default function ListPost() {
       console.log(error);
       if (axios.isAxiosError(error)) {
         setNotify({ color: "red", message: error.response?.data.message });
+        if(error.response?.status === 401) return Logout()
       }
     }
     setIsLoading(false);

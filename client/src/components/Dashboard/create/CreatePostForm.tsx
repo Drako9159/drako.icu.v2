@@ -36,7 +36,6 @@ export default function CreatePostForm({ setElement }: { setElement: any }) {
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
-
     try {
       const response = await createOnePost(formValues);
       if (response.status === 201) {
@@ -47,6 +46,7 @@ export default function CreatePostForm({ setElement }: { setElement: any }) {
     } catch (error) {
       if (axios.isAxiosError(error)) {
         setNotify({ color: "red", message: error.response?.data.message });
+        if(error.response?.status === 401) return Logout()
       }
     }
   }

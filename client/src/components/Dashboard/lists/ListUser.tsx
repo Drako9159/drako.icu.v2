@@ -6,11 +6,11 @@ import ChargeAnimation from "../../Layouts/ChargeAnimation/ChargeAnimation";
 import { useLoadingStore } from "../../../store/loading";
 import { useToastStore } from "../../../store/toastNotify";
 import axios from "axios";
+import Logout from "../logout/Logout";
 export default function ListUser() {
   const [users, setUsers] = useState([]);
   const [user, setUser] = useState({});
   const [isUpdating, setIsUpdating] = useState<boolean>(false);
-  //const [isCharge, setIsCharge] = useState<boolean>(true);
   const setIsLoading = useLoadingStore((state) => state.setIsLoading);
   const setNotify = useToastStore((state) => state.setNotify);
 
@@ -20,9 +20,14 @@ export default function ListUser() {
 
   async function getUsers() {
     setIsLoading(true);
-    const response = await getUsersList();
-    if (response.status === 200) {
+    try {
+      const response = await getUsersList();
       setUsers(response.data.users);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        setNotify({ color: "red", message: error.response?.data.message });
+        if(error.response?.status === 401) return Logout()
+      }
     }
     setIsLoading(false);
   }

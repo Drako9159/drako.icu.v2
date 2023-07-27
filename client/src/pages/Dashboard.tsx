@@ -9,7 +9,6 @@ import { useToastStore } from "../store/toastNotify";
 export default function Dashboard() {
   const auth = useAuthStore((state) => state.profile);
   const setNotify = useToastStore((state) => state.setNotify);
-
   const [element, setElement] = useState("Posts");
   const [role, setRole] = useState(auth.role);
 

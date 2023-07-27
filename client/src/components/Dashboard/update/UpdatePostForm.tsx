@@ -4,6 +4,7 @@ import { useState, ChangeEvent, useEffect, FormEvent } from "react";
 import { updateOnePost } from "../../../api/post";
 import axios from "axios";
 import { useToastStore } from "../../../store/toastNotify";
+import Logout from "../logout/Logout";
 export default function UpdatePostForm({
   post,
   setIsUpdating,
@@ -53,6 +54,7 @@ export default function UpdatePostForm({
     } catch (error) {
       if (axios.isAxiosError(error)) {
         setNotify({ color: "red", message: error.response?.data.message });
+        if(error.response?.status === 401) return Logout()
       }
     }
   }

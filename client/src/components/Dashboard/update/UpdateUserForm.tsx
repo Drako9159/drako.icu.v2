@@ -3,6 +3,7 @@ import { updateBlocked, updateOneUser, updateRole } from "../../../api/user";
 import styles from "./UpdateUserForm.module.css";
 import { useState, ChangeEvent, FormEvent } from "react";
 import { useToastStore } from "../../../store/toastNotify";
+import Logout from "../logout/Logout";
 export default function UpdateUserForm({
   user,
   setIsUpdating,
@@ -52,6 +53,7 @@ export default function UpdateUserForm({
     } catch (error) {
       if (axios.isAxiosError(error)) {
         setNotify({ color: "red", message: error.response?.data.message });
+        if(error.response?.status === 401) return Logout()
       }
     }
   }

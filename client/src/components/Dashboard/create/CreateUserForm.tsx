@@ -4,6 +4,7 @@ import { useToastStore } from "../../../store/toastNotify";
 import ChargeAnimation from "../../Layouts/ChargeAnimation/ChargeAnimation";
 import styles from "./CreateUserForm.module.css";
 import { useState, ChangeEvent, FormEvent } from "react";
+import Logout from "../logout/Logout";
 export default function CreateUserForm({ setElement }: { setElement: any }) {
   const setNotify = useToastStore((state) => state.setNotify);
 
@@ -30,6 +31,7 @@ export default function CreateUserForm({ setElement }: { setElement: any }) {
     } catch (error) {
       if (axios.isAxiosError(error)) {
         setNotify({ color: "red", message: error.response?.data.message });
+        if(error.response?.status === 401) return Logout()
       }
     }
   }
