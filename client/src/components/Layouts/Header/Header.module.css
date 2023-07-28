@@ -313,6 +313,7 @@
   /*box-shadow: 0 0 0 2px rgba(131, 131, 134, 0.404);
          */
   border-radius: 100%;
+  z-index: 110;
 }
 
 @keyframes iconSvg {
@@ -370,6 +371,7 @@
   background-color: #e2e3f167;
   transition: all 0.3s;
   position: relative;
+ 
 }
 .containerHeader span + span {
   margin-top: 5px;
@@ -523,6 +525,9 @@
   text-align: center;
   animation: logo 10s ease infinite;
 }
+
+
+
 .containerHeader .logoNight {
   color: #ececec;
 }
@@ -548,4 +553,17 @@
   100% {
     background-color: #0aa8cfbd;
   }
+}
+
+
+.pickLogo{
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  background-color: rgb(105, 103, 103);
+  border-radius: 100%;
+  padding: 10px;
+  z-index: 100;
+  animation: logo 10s ease infinite;
+
 }

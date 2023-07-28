@@ -40,6 +40,7 @@ export default function BlogMain() {
                   className={styles.pick}
                   src={e.image}
                   onLoad={() => setLoaded(true)}
+                  draggable={false}
                 />
               </div>
               <div className={styles.body}>

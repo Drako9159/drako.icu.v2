@@ -6,6 +6,7 @@ import { useConfigsStore } from "../../../store/configs";
 import styles from "./Header.module.css";
 import languageLibrary from "../../../languages/language";
 import themeLibrary from "../../../theme/theme";
+import pickLogo from "../../../assets/Header/logo.png"
 
 export default function Header({ activeLink }: { activeLink: string }) {
   const language = useConfigsStore((state) => state.configs.language);
@@ -201,13 +202,14 @@ export default function Header({ activeLink }: { activeLink: string }) {
               strokeDasharray={"2.09,16.75,6.3"}
             />
           </svg>
-          <p
+          {/* <p
             className={`${styles.logo} ${
               theme === "night" ? styles.logoNight : styles.logoDay
             }`}
           >
             a
-          </p>
+          </p> */}
+          <img src={pickLogo} className={styles.pickLogo} draggable={false} alt="logo-img"></img>
         </div>
       </div>
 

@@ -5,6 +5,7 @@ import { createOnePost } from "../../../api/post";
 import ChargeAnimation from "../../Layouts/ChargeAnimation/ChargeAnimation";
 import EditorMarked from "../../utils/EditorMarked";
 import { useToastStore } from "../../../store/toastNotify";
+import Logout from "../logout/Logout";
 export default function CreatePostForm({ setElement }: { setElement: any }) {
   const setNotify = useToastStore((state) => state.setNotify);
   const [content, setContent] = useState<string>("");
@@ -46,7 +47,7 @@ export default function CreatePostForm({ setElement }: { setElement: any }) {
     } catch (error) {
       if (axios.isAxiosError(error)) {
         setNotify({ color: "red", message: error.response?.data.message });
-        if(error.response?.status === 401) return Logout()
+        if (error.response?.status === 401) return Logout();
       }
     }
   }
