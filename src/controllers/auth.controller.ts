@@ -15,10 +15,11 @@ export async function register(req: Request, res: Response) {
     if (await auth.findOneUser()) return handleError(res, 400, "USER_EXISTS");
     const user = await auth.register();
     return res
-      .cookie("token", user.jwt, {
+      .cookie("access_token", user.jwt, {
         httpOnly: true,
         secure: true, // for cookies with https
         maxAge: 3600000, // 1h duration
+        //sameSite: "none"
       })
       .status(201)
       .json({ message: "SUCCESSFULLY_REGISTERED", ...user });
@@ -43,11 +44,13 @@ export async function login(req: Request, res: Response) {
     if (user === "USER_BLOCKED") return handleError(res, 401, user);
 
     return res
-      .cookie("token", user.jwt, {
+      .cookie("access_token", user.jwt, {
         httpOnly: true,
         secure: true, // for cookies with https
         maxAge: 3600000, // 1h duration
+        //sameSite: "none"
       })
+
       .status(200)
       .json({ message: "SUCCESSFULLY_LOGIN", ...user });
   } catch (error) {
@@ -58,7 +61,7 @@ export async function login(req: Request, res: Response) {
 export async function logout(req: Request, res: Response) {
   try {
     return res
-      .cookie("token", "", {
+      .cookie("access_token", "", {
         expires: new Date(0),
       })
       .status(200)

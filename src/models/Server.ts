@@ -31,7 +31,7 @@ class Server {
       config.clientSecure,
       config.clientVercel,
     ],
-   exposedHeaders: ["authorization"],
+    exposedHeaders: ["authorization", "token"],
     credentials: true,
   };
 

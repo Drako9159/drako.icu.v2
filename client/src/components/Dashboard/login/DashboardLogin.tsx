@@ -29,6 +29,7 @@ export default function DashboardLogin() {
     setIsLoading(true)
     try {
       const response = await loginUser(formValues.email, formValues.password);
+   
       if(response.data.user.role !== "admin") {
         setIsLoading(false)
         return setNotify({color: "red", message: "Insufficient permits"})

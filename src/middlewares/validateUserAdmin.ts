@@ -9,7 +9,11 @@ export const validateUserAdmin = (
   next: NextFunction
 ) => {
   try {
-    const { token }: any = req.cookies;
+    const { access_token }: any = req.cookies;
+    const tokenHeader: string = req.headers.authorization?.split(
+      " "
+    )[1] as string;
+    let token = access_token ? access_token : tokenHeader;
     if (!token) {
       return handleError(res, 401, "CREDENTIALS_REQUIRED");
     }
