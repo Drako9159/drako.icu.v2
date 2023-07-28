@@ -162,6 +162,10 @@
 
 /* Card1 Mobile*/
 @media screen and (max-width: 900px) {
+  .container{
+    padding: 0;
+    width: 100%;
+  }
   .card1 {
     flex-direction: column-reverse;
     margin-top: 0px;
@@ -178,8 +182,7 @@
     margin: 0;
   }
   .card1Left h2 {
-    width: 100%;
-   
+    width: 90%;
   
   }
 
