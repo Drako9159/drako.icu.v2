@@ -1,4 +1,4 @@
-npm install axios zustand react-router-dom 
+npm install axios zustand react-router-dom marked turndown
 npm install react-quilljs quill
 
 npm install @types/quill
