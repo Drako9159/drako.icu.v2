@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
 import bcryptjs from "bcryptjs";
-import { IUser } from "../interface/IUser";
-import { IUserModel } from "interfaces/IUserMethod";
+import IUser from "../interface/IUser";
+import IUserModel from "../interface/IUserMethods";
 
 const UserSchema = new Schema(
   {
@@ -61,4 +61,6 @@ UserSchema.static(
     return await bcryptjs.compare(password, receivedPassword);
   }
 );
-export const User = model<IUser, IUserModel>("User", UserSchema);
+
+const UserModel = model<IUser, IUserModel>("User", UserSchema);
+export default UserModel;

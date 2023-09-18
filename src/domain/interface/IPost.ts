@@ -1,4 +1,4 @@
-export interface IPost {
+export default interface IPost {
   _id: string;
   title: string;
   slug: string;
@@ -17,5 +17,3 @@ export interface IPost {
   updatedAt: Date;
   save(): string;
 }
-
-
