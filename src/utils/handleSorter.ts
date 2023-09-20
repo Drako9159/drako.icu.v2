@@ -1,24 +1,4 @@
-export interface PostData {
-  id: string;
-  title: string;
-  slug: string;
-  category: string;
-  tag: string;
-  language: string;
-  color: string;
-  image: string;
-  description: string;
-  read_time: string;
-  author: string;
-  date: string;
-  is_public: boolean;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-interface AbsObject {
-  [key: string]: string | undefined;
-}
+import { IListPost } from "../domain/interface/IListPost";
 
 // // convert date DD-MM-YYYY to data unix type 587238470281934
 // function dateToUnix(data: PostData[]): PostData[] {
@@ -36,8 +16,8 @@ interface AbsObject {
 
 export function filterByLanguage(
   language: string,
-  data: PostData[]
-): PostData[] {
+  data: IListPost[]
+): IListPost[] {
   const availableLanguages: string[] = ["es", "en"];
   if (!availableLanguages.includes(language)) return data;
   if (language === "es") {
@@ -51,11 +31,10 @@ export function filterByLanguage(
 
 export function filterByIsPublic(
   isPublic: string,
-  data: PostData[]
-): PostData[] {
+  data: IListPost[]
+): IListPost[] {
   if (isPublic === "true") {
     data = data.filter((e) => e.is_public === true);
-  
   }
   if (isPublic === "false") {
     data = data.filter((e) => e.is_public === false);
@@ -68,7 +47,7 @@ export function filterByIsPublic(
 //   return data;
 // }
 
-export function sortByElement(sort: string, data: PostData[]): PostData[] {
+export function sortByElement(sort: string, data: IListPost[]): IListPost[] {
   const availableSorts: string[] = [
     "date",
     "date,desc",

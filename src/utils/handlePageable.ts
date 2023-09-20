@@ -1,4 +1,4 @@
-import { PostData } from "./handleSorter";
+import { IListPost } from "../domain/interface/IListPost";
 
 export interface Page {
   page: object;
@@ -17,7 +17,7 @@ export interface Page {
 const BACKEND_URL = "https://image.png";
 
 export function pageUtil(
-  data: PostData[],
+  data: IListPost[],
   page: number,
   size: string,
   sort: string
@@ -25,7 +25,7 @@ export function pageUtil(
   const limit: number = size ? +size : 10;
   const offset: number = page ? page * limit : 0;
 
-  let content: PostData[] = data.slice(offset, offset + limit);
+  let content: IListPost[] = data.slice(offset, offset + limit);
 
   const pageDefinition: Page = {
     page: {

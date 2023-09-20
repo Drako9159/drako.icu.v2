@@ -5,11 +5,15 @@ import routerAuth from "../routes/auth.routes";
 //import routerError404 from "../routes/error404.routes";
 import routerUser from "../routes/user.routes";
 import routerPost from "../routes/posts.routes";
+
 import routerAdmin from "../routes/admin/admin.routes";
 import routerClient from "../routes/client.routes";
 import { connectDB } from "../db/config";
 import path from "node:path";
 import cookieParser from "cookie-parser";
+
+import routerPostPublic from "../network/routes/public/posts.routes";
+import routerPostAdmin from "../network/routes/admin/posts.routes";
 
 class Server {
   private app: Application;
@@ -20,6 +24,8 @@ class Server {
     user: "/api/users",
     post: "/api/posts",
     client: "/",
+
+    postV2: "/api/v2/posts",
 
     admin: "/api/admin",
   };
@@ -60,7 +66,11 @@ class Server {
 
     this.app.use(this.path.user, routerUser);
 
-    this.app.use(this.path.post, routerPost);
+    //this.app.use(this.path.post, routerPost);
+
+    this.app.use(this.path.postV2, routerPostPublic);
+
+    this.app.use(this.path.postV2, routerPostAdmin);
 
     this.app.use(this.path.admin, routerAdmin);
 

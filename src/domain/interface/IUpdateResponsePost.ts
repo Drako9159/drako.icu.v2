@@ -1,5 +1,4 @@
-export interface IPost {
-  _id: string;
+export interface IUpdateResponsePost {
   title: string;
   slug: string;
   category: string;
@@ -11,9 +10,8 @@ export interface IPost {
   read_time: string;
   author: string;
   date: string;
-  content: string;
   is_public: boolean;
   createdAt: Date;
   updatedAt: Date;
-  save(): string;
+  content: string;
 }
