@@ -1,6 +1,5 @@
 export interface ICreatePost {
   title: string;
-  slug: string;
   category: string;
   tag: string;
   language: string;
@@ -10,6 +9,6 @@ export interface ICreatePost {
   read_time: string;
   author: string;
   date: string;
-  is_public: boolean;
   content: string;
+  is_public: boolean;
 }

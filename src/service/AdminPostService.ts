@@ -1,9 +1,7 @@
 import IPost from "../domain/interface/IPost";
 import { PostRepositoryAdmin } from "../domain/repository/PostRepository";
 import PostModel from "../domain/model/PostModel";
-import { IListPost } from "../domain/interface/IListPost";
 import mongoose from "mongoose";
-import { IResponsePost } from "../domain/interface/IResponsePost";
 import { IUpdatePost } from "../domain/interface/IUpdatePost";
 import handleSlug from "../utils/handleSlug";
 import { IUpdateResponsePost } from "../domain/interface/IUpdateResponsePost";
@@ -64,12 +62,24 @@ class AdminPostService implements PostRepositoryAdmin {
     return response;
   }
 
-  async saveOnePost(post: ICreatePost): {
-
-    
-
-
-    return "sda";
+  async saveOnePost(post: ICreatePost) {
+    const savedPost = await new PostModel({
+      title: post.title,
+      slug: handleSlug(post.title),
+      category: post.category,
+      tag: post.tag,
+      language: post.language,
+      color: post.color,
+      image: post.image,
+      description: post.description,
+      read_time: post.read_time,
+      author: post.author,
+      date: post.date,
+      is_public: post.is_public,
+      content: post.content,
+    });
+    const result = await savedPost.save();
+    return result;
   }
 }
 

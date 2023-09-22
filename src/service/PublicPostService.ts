@@ -1,4 +1,3 @@
-import IPost from "../domain/interface/IPost";
 import { PostRepository } from "../domain/repository/PostRepository";
 import PostModel from "../domain/model/PostModel";
 import { IListPost } from "../domain/interface/IListPost";
