@@ -23,6 +23,9 @@ class AuthService implements AuthRepository {
   }
 
   async register() {
+    const exists = await UserModel.findOne({ email: this.email });
+    if (exists) return "USER_EXISTS";
+
     const userDB = await new UserModel({
       firstName: this.firstName,
       lastName: this.lastName,

@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import handleError from "../../utils/handleError";
-import AuthService from "../../helpers/user/AuthService";
+import AuthService from "../../service/AuthService";
 
 export async function register(req: Request, res: Response) {
   try {
@@ -12,8 +12,8 @@ export async function register(req: Request, res: Response) {
       return handleError(res, 400, `require: [${fields.join(", ")}]`);
     }
     const auth = new AuthService(email, password, firstName, lastName);
-    if (await auth.findOneUser()) return handleError(res, 400, "USER_EXISTS");
     const user = await auth.register();
+    if (user === "USER_EXISTS") return handleError(res, 400, user);
     return res
       .cookie("access_token", user.jwt, {
         httpOnly: true,
@@ -67,25 +67,6 @@ export async function logout(req: Request, res: Response) {
       .status(200)
       .json({ message: "SUCCESSFULLY_LOGOUT" });
   } catch (error) {
-    return handleError(res);
-  }
-}
-
-export async function createOneUser(req: Request, res: Response) {
-  try {
-    const { email, password, firstName, lastName } = req.body;
-    const fields = ["email", "password", "firstName", "lastName"].filter(
-      (field) => !req.body[field]
-    );
-    if (fields.length > 0) {
-      return handleError(res, 400, `require: [${fields.join(", ")}]`);
-    }
-    const auth = new AuthService(email, password, firstName, lastName);
-    if (await auth.findOneUser()) return handleError(res, 400, "USER_EXISTS");
-    const user = await auth.register();
-    return res.status(201).json({ message: "USER_CREATED", ...user });
-  } catch (error) {
-    console.log(error);
     return handleError(res);
   }
 }

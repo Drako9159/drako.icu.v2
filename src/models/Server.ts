@@ -14,6 +14,8 @@ import cookieParser from "cookie-parser";
 
 import routerPostPublic from "../network/routes/public/posts.routes";
 import routerPostAdmin from "../network/routes/admin/posts.routes";
+import routerAuthV2 from "../network/routes/public/auth.routes"
+import routerUserV2 from "../network/routes/public/user.routes"
 
 class Server {
   private app: Application;
@@ -25,7 +27,10 @@ class Server {
     post: "/api/posts",
     client: "/",
 
+    
+    authV2: "/api/v2/auth",
     postV2: "/api/v2/posts",
+    userV2: "/api/v2/users",
 
     admin: "/api/admin",
   };
@@ -62,17 +67,23 @@ class Server {
   }
 
   routes() {
-    this.app.use(this.path.auth, routerAuth);
 
-    this.app.use(this.path.user, routerUser);
+    this.app.use(this.path.authV2, routerAuthV2)
+    this.app.use(this.path.userV2, routerUserV2)
+    this.app.use(this.path.postV2, routerPostPublic);
+    this.app.use(this.path.postV2, routerPostAdmin);
+    
+
+
+
+
+    //this.app.use(this.path.auth, routerAuth);
+
+    //this.app.use(this.path.user, routerUser);
 
     //this.app.use(this.path.post, routerPost);
 
-    this.app.use(this.path.postV2, routerPostPublic);
-
-    this.app.use(this.path.postV2, routerPostAdmin);
-
-    this.app.use(this.path.admin, routerAdmin);
+    //this.app.use(this.path.admin, routerAdmin);
 
     this.app.use(this.path.client, routerClient);
 

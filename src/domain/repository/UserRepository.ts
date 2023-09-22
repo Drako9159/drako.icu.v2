@@ -1,7 +1,10 @@
-import mongoose from "mongoose";
-import IUser from "../interface/IUser";
-import UserModel from "../model/UserModel";
+import { IUserGet } from "../../domain/interface/IUserGet";
+import { IUserUpdated } from "../../domain/interface/IUserUpdated";
+import { IUserConfirmed } from "../../domain/interface/IUserConfirmed";
 
 export interface UserRepository {
-  findUserById?: (id: string) => IUser;
+  getUser(): Promise<IUserGet | string>;
+  updateUser(): Promise<IUserUpdated | string>;
+  createTokenPasswordReset(email: string): Promise<string>;
+  updateConfirmed(token: string): Promise<IUserConfirmed | string>;
 }
