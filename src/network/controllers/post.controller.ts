@@ -91,39 +91,18 @@ export async function deleteOnePost(req: Request, res: Response) {
 export async function updateOnePost(req: Request, res: Response) {
   try {
     const id = req.params.id;
-    const {
-      title,
-      category,
-      tag,
-      language,
-      color,
-      image,
-      description,
-      read_time,
-      author,
-      date,
-      content,
-      is_public,
-    } = req.body;
-
-    if (language !== "en" && language !== "es")
+    const postBody: IUpdatePost = req.body;
+   
+    if (postBody.language !== "en" && postBody.language !== "es")
       return handleError(res, 400, "enum [es, en]");
+
+      if (postBody.is_public) {
+        if (postBody.is_public !== true && postBody.is_public !== false)
+          return handleError(res, 400, "is_public: boolean [true, false]");
+      }
+
     const adminPostService = new AdminPostService();
-    const postUpdated: IUpdatePost = {
-      title,
-      category,
-      tag,
-      language,
-      color,
-      image,
-      description,
-      read_time,
-      author,
-      date,
-      content,
-      is_public,
-    };
-    const post = await adminPostService.updateOnePost(id, postUpdated);
+    const post = await adminPostService.updateOnePost(id, postBody);
     if (post === "POST_NOT_FOUND") return handleError(res, 404, post);
     return res.status(200).json({
       message: "POST_UPDATED",
@@ -137,21 +116,8 @@ export async function updateOnePost(req: Request, res: Response) {
 
 export async function saveOnePost(req: Request, res: Response) {
   try {
-    const {
-      title,
-      category,
-      tag,
-      language,
-      color,
-      image,
-      description,
-      read_time,
-      author,
-      date,
-      is_public,
-      content,
-    } = req.body;
-
+    const postBody: ICreatePost = req.body;
+  
     const fields = [
       "title",
       "category",
@@ -163,38 +129,23 @@ export async function saveOnePost(req: Request, res: Response) {
       "read_time",
       "author",
       "date",
-      "content",
-      "is_public",
+      "content"
     ].filter((field) => !req.body[field]);
     if (fields.length > 0) {
-      return handleError(res, 400, `require: [${fields.join(", ")}]`);
+      return handleError(res, 400, `require: [${fields.join(", ")}] optional: [is_public]`);
     }
 
-    if (language !== "en" && language !== "es")
+    if (postBody.language !== "en" && postBody.language !== "es")
       return handleError(res, 400, "language: enum [es, en]");
 
-    if (is_public) {
-      if (is_public !== "true" && is_public !== "false")
-        return handleError(res, 400, "is_public: boolean as string [true, false]");
+      
+    if (postBody.is_public) {
+      if (postBody.is_public !== true && postBody.is_public !== false)
+        return handleError(res, 400, "is_public: boolean [true, false]");
     }
 
-    const postCreated: ICreatePost = {
-      title,
-      category,
-      tag,
-      language,
-      color,
-      image,
-      description,
-      read_time,
-      author,
-      date,
-      content,
-      is_public,
-    };
-
     const adminPostService = new AdminPostService();
-    const post = await adminPostService.saveOnePost(postCreated);
+    const post = await adminPostService.saveOnePost(postBody);
 
     return res.status(201).json({
       message: "POST_CREATED",

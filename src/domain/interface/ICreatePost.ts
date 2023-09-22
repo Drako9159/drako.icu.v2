@@ -10,5 +10,5 @@ export interface ICreatePost {
   author: string;
   date: string;
   content: string;
-  is_public: boolean;
+  is_public?: boolean;
 }

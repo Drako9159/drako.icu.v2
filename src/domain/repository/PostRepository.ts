@@ -1,6 +1,3 @@
-import { getAllPosts } from "controllers/post.controller";
-import IPost from "../interface/IPost";
-import PostModel from "../model/PostModel";
 import { IListPost } from "../interface/IListPost";
 import { IResponsePost } from "../../domain/interface/IResponsePost";
 import { IUpdatePost } from "../../domain/interface/IUpdatePost";
