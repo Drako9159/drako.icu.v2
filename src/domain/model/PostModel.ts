@@ -10,7 +10,7 @@ const PostSchema = new Schema(
     },
     slug: {
       type: String,
-      quired: [true, "Slug is required!"],
+      required: [true, "Slug is required!"],
     },
     category: {
       type: String,

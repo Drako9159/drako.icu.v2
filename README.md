@@ -67,4 +67,6 @@ http://localhost:3000/api/
         - email: string
         - password: string
 
+    - GET /logout [clean cookies and token]
+
     
