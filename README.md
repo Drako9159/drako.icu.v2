@@ -42,6 +42,9 @@ http://localhost:3000/api/
         - lastName: string
     - PUT /create-token-password/:email [generate token by email]
     - PUT /user-confirm/:token [update confirm user if validate token]
+
+
+    
     - GET /get-all-users [list of all users]
     - GET /get-full-one-user/:id [get full user info]
     - DELETE /delete-one-user/:id [delete one user]
