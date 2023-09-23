@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { marked } from "marked";
 import TurndownService from "turndown";
 import styles from "./EditorMarked.module.css";
@@ -13,7 +13,6 @@ export default function EditorMarked({
   const [markdownContent, setMarkdownContent] = useState<string>(
     content ? htmlToMarkdown(content) : ""
   );
- 
 
   marked.use({
     mangle: false,
@@ -24,7 +23,7 @@ export default function EditorMarked({
   useEffect(() => {
     setMarkdownContent(content ? htmlToMarkdown(content) : "");
   }, [content]);*/
-  
+
   function htmlToMarkdown(html: any) {
     const turndownService = new TurndownService();
     turndownService.addRule("code", {
