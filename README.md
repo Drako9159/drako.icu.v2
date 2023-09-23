@@ -42,6 +42,16 @@ http://localhost:3000/api/
         - lastName: string
     - PUT /create-token-password/:email [generate token by email]
     - PUT /user-confirm/:token [update confirm user if validate token]
+    - GET /get-all-users [list of all users]
+    - GET /get-full-one-user/:id [get full user info]
+    - DELETE /delete-one-user/:id [delete one user]
+    - PUT /update-user-role/:id [change role for admin or public]
+      - body
+        - role: enum[admin, public]
+    - PUT /update-user-blocked/:id [change blocked for true or false]
+      - body
+        - blocked: boolean
+
 - auth/
     - POST /register [create one user]
       - body
@@ -53,13 +63,5 @@ http://localhost:3000/api/
       - body
         - email: string
         - password: string
-- admin/
-    - GET /get-all-users [list of all users]
-    - GET /get-one-user/:id [get full user info]
-    - DELETE /delete-one-user/:id [delete one user]
-    - PUT /update-user-role/:id [change role for admin or public]
-      - body
-        - role: enum[admin, public]
-    - PUT /update-user-blocked/:id [change blocked for true or false]
-      - body
-        - blocked: boolean
+
+    
