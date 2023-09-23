@@ -1,6 +1,5 @@
-export interface IUpdateResponsePost {
+export interface IPostCreate {
   title: string;
-  slug: string;
   category: string;
   tag: string;
   language: string;
@@ -10,8 +9,6 @@ export interface IUpdateResponsePost {
   read_time: string;
   author: string;
   date: string;
-  is_public: boolean;
-  createdAt: Date;
-  updatedAt: Date;
   content: string;
+  is_public?: boolean;
 }

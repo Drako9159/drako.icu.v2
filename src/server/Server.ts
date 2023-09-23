@@ -1,38 +1,32 @@
 import config from "../config";
 import express, { Application } from "express";
 import cors from "cors";
-import routerAuth from "../routes/auth.routes";
-//import routerError404 from "../routes/error404.routes";
-import routerUser from "../routes/user.routes";
-import routerPost from "../routes/posts.routes";
 
-import routerAdmin from "../routes/admin/admin.routes";
-import routerClient from "../routes/client.routes";
+//import routerError404 from "../routes/error404.routes";
+
 import { connectDB } from "../db/config";
 import path from "node:path";
 import cookieParser from "cookie-parser";
 
-import routerPostPublic from "../network/routes/public/posts.routes";
-import routerPostAdmin from "../network/routes/admin/posts.routes";
-import routerAuthV2 from "../network/routes/public/auth.routes"
-import routerUserV2 from "../network/routes/public/user.routes"
+import routerAuth from "../network/routes/public/auth.routes";
+import routerPublicPost from "../network/routes/public/posts.routes";
+import routerAdminPost from "../network/routes/admin/posts.routes";
+import routerPublicUser from "../network/routes/public/user.routes";
+import routerAdminUser from "../network/routes/admin/user.routes";
+
+import routerClient from "../network/routes/extra/client.routes";
 
 class Server {
   private app: Application;
   private port: string;
   private path = {
     error404: "*",
-    auth: "/api/auth",
-    user: "/api/users",
-    post: "/api/posts",
+
     client: "/",
 
-    
-    authV2: "/api/v2/auth",
-    postV2: "/api/v2/posts",
-    userV2: "/api/v2/users",
-
-    admin: "/api/admin",
+    auth: "/api/auth",
+    post: "/api/posts",
+    user: "/api/users",
   };
   private corsOptions = {
     origin: [
@@ -67,23 +61,11 @@ class Server {
   }
 
   routes() {
-
-    this.app.use(this.path.authV2, routerAuthV2)
-    this.app.use(this.path.userV2, routerUserV2)
-    this.app.use(this.path.postV2, routerPostPublic);
-    this.app.use(this.path.postV2, routerPostAdmin);
-    
-
-
-
-
-    //this.app.use(this.path.auth, routerAuth);
-
-    //this.app.use(this.path.user, routerUser);
-
-    //this.app.use(this.path.post, routerPost);
-
-    //this.app.use(this.path.admin, routerAdmin);
+    this.app.use(this.path.auth, routerAuth);
+    this.app.use(this.path.user, routerPublicUser);
+    this.app.use(this.path.user, routerAdminUser);
+    this.app.use(this.path.post, routerPublicPost);
+    this.app.use(this.path.post, routerAdminPost);
 
     this.app.use(this.path.client, routerClient);
 

@@ -1,5 +1,3 @@
-
-
 interface IUserResponse {
   id: string;
   firstName: string;

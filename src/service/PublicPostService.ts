@@ -2,13 +2,13 @@ import { PostRepository } from "../domain/repository/PostRepository";
 import PostModel from "../domain/model/PostModel";
 import { IListPost } from "../domain/interface/IListPost";
 import mongoose from "mongoose";
-import { IResponsePost } from "../domain/interface/IResponsePost";
+import { IPostResponse } from "../domain/interface/IPostResponse";
 
 class PublicPostService implements PostRepository {
   async getAllPosts() {
     const posts = await PostModel.find({});
     if (!posts) return "POST_NOT_FOUND";
-    const response = posts.map((e) => {
+    const response: IListPost[] = posts.map((e) => {
       const post: IListPost = {
         id: e._id,
         title: e.title,
@@ -34,7 +34,7 @@ class PublicPostService implements PostRepository {
   async getOnePostBySlug(slug: string) {
     const post = await PostModel.findOne({ slug: slug });
     if (!post) return "POST_NOT_FOUND";
-    const postValidate: IResponsePost = {
+    const postValidate: IPostResponse = {
       id: post._id,
       title: post.title,
       slug: post.slug,
@@ -60,7 +60,7 @@ class PublicPostService implements PostRepository {
     if (!isId) return "POST_NOT_FOUND";
     const post = await PostModel.findById({ _id: id });
     if (!post) return "POST_NOT_FOUND";
-    const postValidate: IResponsePost = {
+    const postValidate: IPostResponse = {
       id: post._id,
       title: post.title,
       slug: post.slug,

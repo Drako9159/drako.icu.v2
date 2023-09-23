@@ -1,4 +1,4 @@
-export interface IUpdatePost {
+export interface IPostUpdate {
   title?: string;
   slug?: string;
   category?: string;

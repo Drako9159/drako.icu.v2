@@ -9,8 +9,8 @@ import { pageUtil } from "../../utils/handlePageable";
 import PublicPostService from "../../service/PublicPostService";
 import AdminPostService from "../../service/AdminPostService";
 import { IListPost } from "../../domain/interface/IListPost";
-import { IUpdatePost } from "../../domain/interface/IUpdatePost";
-import { ICreatePost } from "../../domain/interface/ICreatePost";
+import { IPostUpdate } from "../../domain/interface/IPostUpdate";
+import { IPostCreate } from "../../domain/interface/IPostCreate";
 
 // Public
 
@@ -91,7 +91,7 @@ export async function deleteOnePost(req: Request, res: Response) {
 export async function updateOnePost(req: Request, res: Response) {
   try {
     const id = req.params.id;
-    const postBody: IUpdatePost = req.body;
+    const postBody: IPostUpdate = req.body;
    
     if (postBody.language !== "en" && postBody.language !== "es")
       return handleError(res, 400, "enum [es, en]");
@@ -116,7 +116,7 @@ export async function updateOnePost(req: Request, res: Response) {
 
 export async function saveOnePost(req: Request, res: Response) {
   try {
-    const postBody: ICreatePost = req.body;
+    const postBody: IPostCreate = req.body;
   
     const fields = [
       "title",

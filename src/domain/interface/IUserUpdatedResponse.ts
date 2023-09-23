@@ -1,4 +1,4 @@
-export interface IUserUpdated {
+export interface IUserUpdatedResponse {
   firstName: string;
   lastName: string;
   email: string;

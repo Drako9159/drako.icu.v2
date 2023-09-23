@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { validateUserAdmin } from "../../../middlewares/validateUserAdmin";
 import {
   saveOnePost,
   deleteOnePost,
@@ -6,10 +7,10 @@ import {
 } from "../../controllers/post.controller";
 const router: Router = Router();
 
-router.delete("/:id", deleteOnePost);
+router.delete("/:id", validateUserAdmin, deleteOnePost);
 
-router.post("/", saveOnePost);
+router.post("/", validateUserAdmin, saveOnePost);
 
-router.put("/:id", updateOnePost);
+router.put("/:id", validateUserAdmin, updateOnePost);
 
 export default router;

@@ -1,7 +1,10 @@
 import { Request, Response } from "express";
 import handleError from "../../utils/handleError";
 import PublicUserService from "../../service/PublicUserService";
+import AdminUserService from "../../service/AdminUserService";
+import AuthService from "../../service/AuthService";
 
+// Public
 export async function getOneUser(req: Request, res: Response) {
   try {
     const id = req.params.id;
@@ -69,6 +72,112 @@ export async function updateOneConfirmed(req: Request, res: Response) {
     });
   } catch (error) {
     console.error(error);
+    return handleError(res);
+  }
+}
+
+// Admin
+
+export async function getAllUsers(req: Request, res: Response) {
+  try {
+    const adminUserService = new AdminUserService();
+    const users = await adminUserService.getUsers();
+    return res.status(200).json({
+      users,
+    });
+  } catch (error) {
+    console.error(error);
+    return handleError(res);
+  }
+}
+
+export async function deleteOneUser(req: Request, res: Response) {
+  try {
+    const id = req.params.id;
+    const adminUserService = new AdminUserService(id);
+    const user = await adminUserService.deleteUser();
+    if (user === "USER_NOT_FOUND") return handleError(res, 404, user);
+    return res.status(204).json({
+      message: "USER_DELETED",
+      adminUserService,
+    });
+  } catch (error) {
+    console.error(error);
+    return handleError(res);
+  }
+}
+
+export async function updateRole(req: Request, res: Response) {
+  try {
+    const id = req.params.id;
+    const { role } = req.body;
+    if (!role) return handleError(res, 400, "require: string [role]");
+    if (role !== "public" && role !== "admin")
+      return handleError(res, 400, "enum: [public, admin]");
+    const adminUserService = new AdminUserService(id);
+    const user = await adminUserService.updateRole(role);
+    if (user === "USER_NOT_FOUND") return handleError(res, 404, user);
+    return res.status(200).json({
+      message: "ROLE_UPDATED",
+      user,
+    });
+  } catch (error) {
+    console.error(error);
+    return handleError(res);
+  }
+}
+
+export async function updateBlocked(req: Request, res: Response) {
+  try {
+    const id = req.params.id;
+    const { blocked } = req.body;
+    if (blocked === null)
+      return handleError(res, 400, "require: boolean [blocked]");
+    if (blocked !== true && blocked !== false)
+      return handleError(res, 400, "boolean: [true, false]");
+    const adminUserService = new AdminUserService(id);
+    const user = await adminUserService.updateBlocked(blocked);
+    if (user === "USER_NOT_FOUND") return handleError(res, 404, user);
+    return res.status(200).json({
+      message: "BLOCKED_UPDATED",
+      user
+    });
+  } catch (error) {
+    console.error(error);
+    return handleError(res);
+  }
+}
+
+export async function getUserFull(req: Request, res: Response) {
+  try {
+    const id = req.params.id;
+    const adminUserService = new AdminUserService(id);
+    const user = await adminUserService.getUserFull();
+    if (user === "USER_NOT_FOUND") return handleError(res, 404, user);
+    return res.status(200).json({
+      user,
+    });
+  } catch (error) {
+    console.error(error);
+    return handleError(res);
+  }
+}
+
+export async function createOneUser(req: Request, res: Response) {
+  try {
+    const { email, password, firstName, lastName } = req.body;
+    const fields = ["email", "password", "firstName", "lastName"].filter(
+      (field) => !req.body[field]
+    );
+    if (fields.length > 0) {
+      return handleError(res, 400, `require: [${fields.join(", ")}]`);
+    }
+    const authService = new AuthService(email, password, firstName, lastName);
+    const user = await authService.register();
+    if (user === "USER_EXISTS") return handleError(res, 400, user);
+    return res.status(201).json({ message: "USER_CREATED", ...user });
+  } catch (error) {
+    console.log(error);
     return handleError(res);
   }
 }

@@ -1,4 +1,4 @@
-export interface IResponsePost {
+export interface IPostResponse {
     id: string;
     title: string;
     slug: string;

@@ -2,10 +2,10 @@ import IPost from "../domain/interface/IPost";
 import { PostRepositoryAdmin } from "../domain/repository/PostRepository";
 import PostModel from "../domain/model/PostModel";
 import mongoose from "mongoose";
-import { IUpdatePost } from "../domain/interface/IUpdatePost";
+import { IPostUpdate } from "../domain/interface/IPostUpdate";
 import handleSlug from "../utils/handleSlug";
-import { IUpdateResponsePost } from "../domain/interface/IUpdateResponsePost";
-import { ICreatePost } from "domain/interface/ICreatePost";
+import { IPostUpdatedResponse } from "../domain/interface/IPostUpdatedResponse";
+import { IPostCreate } from "../domain/interface/IPostCreate";
 
 class AdminPostService implements PostRepositoryAdmin {
   async deleteOnePost(id: string) {
@@ -16,8 +16,8 @@ class AdminPostService implements PostRepositoryAdmin {
     return "POST_DELETED";
   }
 
-  async updateOnePost(id: string, post: IUpdatePost) {
-    const postUpdated: IUpdatePost = {
+  async updateOnePost(id: string, post: IPostUpdate) {
+    const postUpdated: IPostUpdate = {
       title: post.title,
       slug: post.title ? handleSlug(post.title) : undefined,
       category: post.category,
@@ -42,7 +42,7 @@ class AdminPostService implements PostRepositoryAdmin {
       { new: true }
     )) as IPost;
 
-    const response: IUpdateResponsePost = {
+    const response: IPostUpdatedResponse = {
       title: postResult.title,
       slug: postResult.slug,
       category: postResult.category,
@@ -62,7 +62,7 @@ class AdminPostService implements PostRepositoryAdmin {
     return response;
   }
 
-  async saveOnePost(post: ICreatePost) {
+  async saveOnePost(post: IPostCreate) {
     const savedPost = await new PostModel({
       title: post.title,
       slug: handleSlug(post.title),

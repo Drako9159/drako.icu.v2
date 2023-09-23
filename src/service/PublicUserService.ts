@@ -5,7 +5,7 @@ import mongoose from "mongoose";
 import IUser from "../domain/interface/IUser";
 import { UserRepository } from "../domain/repository/UserRepository";
 import { IUserGet } from "../domain/interface/IUserGet";
-import { IUserUpdated } from "../domain/interface/IUserUpdated";
+import { IUserUpdatedResponse } from "../domain/interface/IUserUpdatedResponse";
 import { IUserConfirmed } from "../domain/interface/IUserConfirmed";
 
 class PublicUserService implements UserRepository {
@@ -45,7 +45,7 @@ class PublicUserService implements UserRepository {
       { new: true }
     )) as IUser;
     if (!user) return "USER_NOT_FOUND";
-    const userUpdated: IUserUpdated = {
+    const userUpdated: IUserUpdatedResponse = {
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
@@ -113,6 +113,8 @@ class PublicUserService implements UserRepository {
       updatedAt: update.updatedAt,
     };
     return userConfirmed;
+
+ 
   }
 }
 
