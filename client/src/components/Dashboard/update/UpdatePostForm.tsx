@@ -45,6 +45,13 @@ export default function UpdatePostForm({
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) {
     const { name, value } = e.target;
+    if (name == "is_public") {
+      setFormValues((prev) => ({
+        ...prev,
+        [name]: value === "true" ? true : false,
+      }));
+      return;
+    }
     setFormValues((prev) => ({ ...prev, [name]: value }));
   }
 

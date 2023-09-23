@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { marked } from "marked";
 import TurndownService from "turndown";
 import styles from "./EditorMarked.module.css";
@@ -13,12 +13,18 @@ export default function EditorMarked({
   const [markdownContent, setMarkdownContent] = useState<string>(
     content ? htmlToMarkdown(content) : ""
   );
+ 
 
+  marked.use({
+    mangle: false,
+    headerIds: false,
+  });
+
+  /*
   useEffect(() => {
-    setMarkdownContent(content ? htmlToMarkdown(content) : ""); 
-  }, [content]);
-  // const [markdownConverted, setMarkdownConverted] = useState<string>("");
-
+    setMarkdownContent(content ? htmlToMarkdown(content) : "");
+  }, [content]);*/
+  
   function htmlToMarkdown(html: any) {
     const turndownService = new TurndownService();
     turndownService.addRule("code", {
@@ -31,13 +37,9 @@ export default function EditorMarked({
     // return new TurndownService().turndown(html);
   }
 
-  function handleMarkdownChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
+  function handleMarkdownChange(e: ChangeEvent<HTMLTextAreaElement>) {
     const markdown = e.target.value;
     setMarkdownContent(markdown);
-    marked.use({
-      mangle: false,
-      headerIds: false,
-    });
     const htmlContent = marked(markdown);
     // const turndownService = new TurndownService();
     // const htmlToMarkdown = turndownService.turndown(htmlContent);

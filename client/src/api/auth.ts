@@ -21,7 +21,7 @@ export async function logoutUser() {
 }
 
 export async function createUser(user: object): Promise<AxiosResponse> {
-  return await axios.post("/admin/create-one-user", user);
+  return await axios.post("/users/create-one-user", user);
 }
 
 // export async function dashboardLoginRequest(

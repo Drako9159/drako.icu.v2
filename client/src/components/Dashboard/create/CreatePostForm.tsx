@@ -20,7 +20,7 @@ export default function CreatePostForm({ setElement }: { setElement: any }) {
     read_time: "",
     author: "",
     date: "",
-    is_public: "false",
+    is_public: false,
     content: "",
   });
 
@@ -32,6 +32,13 @@ export default function CreatePostForm({ setElement }: { setElement: any }) {
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) {
     const { name, value } = e.target;
+    if (name == "is_public") {
+      setFormValues((prev) => ({
+        ...prev,
+        [name]: value === "true" ? true : false,
+      }));
+      return;
+    }
     setFormValues((prev) => ({ ...prev, [name]: value }));
   }
 
@@ -129,7 +136,7 @@ export default function CreatePostForm({ setElement }: { setElement: any }) {
           <select
             id="is_public"
             name="is_public"
-            defaultValue="false"
+            defaultValue={"false"}
             required
             onChange={handleChange}
           >
