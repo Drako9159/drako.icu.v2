@@ -11,7 +11,7 @@ export const es: LanguageStructure = {
     text2: "Encuentra lo último que he escrito aquí.",
   },
   footer: {
-    rights: "Derechos reservados © Antonio J. 2023",
+    rights: "Derechos reservados © Antonio J. 2024",
     name: "Antonio Jaramillo",
     legend: "Desarrollador de software a tiempo completo",
   },
