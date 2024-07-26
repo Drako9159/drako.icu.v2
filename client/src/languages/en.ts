@@ -11,7 +11,7 @@ export const en: LanguageStructure = {
     text2: "Find the latest of my writing here.",
   },
   footer: {
-    rights: "All rights reserved © Antonio J. 2023",
+    rights: "All rights reserved © Antonio J. 2024",
     name: "Antonio Jaramillo",
     legend: "Full-time software developer",
   },
